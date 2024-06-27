@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using MSA_Phase_2.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<BookReviewContext>(options =>
+{
+    options.UseSqlServer("Server=DESKTOP-2VE2VNK;Database=BookReviewDB;Trusted_Connection=True;TrustServerCertificate=True;");
+});
 
 var app = builder.Build();
 
