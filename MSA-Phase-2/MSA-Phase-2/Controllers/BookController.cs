@@ -14,15 +14,12 @@ namespace MSA_Phase_2.Controllers
             _repository = repository;
         }
 
-        // GET: books/Students
+        // GET: /books
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> Index()
         {
             var books = await _repository.GetAllBooksAsync();
-            return View(books);
+            return Ok(books);
         }
-
-
-
     }
 }

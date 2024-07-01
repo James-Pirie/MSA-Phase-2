@@ -15,7 +15,9 @@ namespace MSA_Phase_2.Repositories
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books
+                                 .Include(b => b.Author)
+                                 .ToListAsync();
         }
 
         public async Task<Book> GetBookByIdAsync(long id)
