@@ -5,7 +5,10 @@
         public int BookId { get; set; }
         public int AuthorId { get; set; }
         public string BookName { get; set; }
-        public string CoverImage { get; set; }
+        public string CoverImageS { get; set; }
+        public string CoverImageM { get; set; }
+        public string CoverImageL { get; set; }
+        public int Year { get; set; }
         // Book has a single author
         public Author Author { get; set; }
         // Book has multuiple reviews
