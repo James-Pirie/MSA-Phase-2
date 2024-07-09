@@ -230,17 +230,3 @@ dist-ssr
 *.sln
 *.sw?
 
-# Ignore Vite build output
-/dist/
-
-# Ignore Mantine build output
-/build/
-
-# Ignore Vite cache
-/.vite/
-
-# Ignore Mantine cache
-/.mantine-cache/
-
-# Ignore node_modules directory
-/node_modules/

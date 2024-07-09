@@ -2,14 +2,8 @@ import { useState, useEffect } from 'react';
 import { Book } from '../models/Book';
 import { getBooks } from '../api/BookServices';
 
-interface UseBooksReturnType {
-    books: Book[];
-    loading: boolean;
-    error: string | null;
-}
 
-export const useBooks = (): UseBooksReturnType => {
-    // book states
+export const useBooks = () => {
     const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -17,8 +11,8 @@ export const useBooks = (): UseBooksReturnType => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const books = await getBooks();
-                setBooks(books);
+                const apiBooks = await getBooks();
+                setBooks(apiBooks);
             } catch (err) {
                 setError('Failed to fetch books');
             } finally {
@@ -28,6 +22,7 @@ export const useBooks = (): UseBooksReturnType => {
 
         fetchBooks();
     }, []);
+
 
     return { books, loading, error };
 };
