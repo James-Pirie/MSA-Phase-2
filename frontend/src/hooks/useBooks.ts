@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Book } from '../models/Book';
-import { getBooks } from '../api/BookServices';
+import { getBooks } from '../services/BookServices';
 
 
 export const useBooks = () => {
@@ -10,11 +10,13 @@ export const useBooks = () => {
 
     useEffect(() => {
         const fetchBooks = async () => {
+
             try {
                 const apiBooks = await getBooks();
                 setBooks(apiBooks);
+
             } catch (err) {
-                setError('Failed to fetch books');
+                setError('Failed to fetch students');
             } finally {
                 setLoading(false);
             }
