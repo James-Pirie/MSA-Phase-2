@@ -17,6 +17,16 @@ builder.Services.AddDbContext<BookReviewContext>(options =>
 // Create a new BookRepository instance when IBookRepository is requested
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+            .AllowAnyHeader()
+            .AllowAnyOrigin(); // For localhost only. Allow all
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
