@@ -8,12 +8,17 @@ namespace MSA_Phase_2.Repositories
     {
         private readonly BookReviewContext _context;
 
+        public ReviewRepository(BookReviewContext context)
+        {
+            _context = context;
+        }
+
         public async Task<IEnumerable<Review>> GetAllReviewsAsync()
         {
             return await _context.Reviews.ToListAsync();
         }
 
-        public async Task<Review> GetReviewByIdAsync(long id)
+        public async Task<Review> GetReviewByIdAsync(int id)
         {
             return await _context.Reviews.FindAsync(id);
         }
@@ -30,7 +35,7 @@ namespace MSA_Phase_2.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteReviewAsync(long id)
+        public async Task DeleteReviewAsync(int id)
         {
             var review = await _context.Reviews.FindAsync(id);
             if (review != null)
@@ -39,7 +44,7 @@ namespace MSA_Phase_2.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-        public async Task<bool> ReviewExistsAsync(long id)
+        public async Task<bool> ReviewExistsAsync(int id)
         {
             return await _context.Reviews.AnyAsync(e => e.ReviewId == id);
         }
@@ -48,6 +53,14 @@ namespace MSA_Phase_2.Repositories
         {
             await _context.Reviews.AddRangeAsync(reviews);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Review> GetRandomReview()
+        {
+            int count = await _context.Reviews.CountAsync();
+            int randomIndex = new Random().Next(count);
+
+            return await _context.Reviews.Skip(randomIndex).FirstOrDefaultAsync();
         }
     }
 }

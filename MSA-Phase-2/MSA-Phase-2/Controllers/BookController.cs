@@ -14,12 +14,21 @@ namespace MSA_Phase_2.Controllers
             _repository = repository;
         }
 
-        // GET: /books
+        // GET: /book
         [HttpGet("/book/all")]
         public async Task<ActionResult<IEnumerable<Book>>> Index()
         {
             var books = await _repository.GetAllBooksAsync();
             return Ok(books);
         }
+
+        // GET: /book/bookId
+        [HttpGet("/book/{bookId}")]
+        public async Task<ActionResult<Book>> GetBookByReview(int bookId)
+        {
+            Book book = await _repository.GetBookByIdAsync(bookId);
+            return Ok(book);
+        }
+
     }
 }

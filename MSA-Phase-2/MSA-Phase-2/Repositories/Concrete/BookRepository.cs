@@ -20,7 +20,7 @@ namespace MSA_Phase_2.Repositories
                                  .ToListAsync();
         }
 
-        public async Task<Book> GetBookByIdAsync(long id)
+        public async Task<Book> GetBookByIdAsync(int id)
         {
             return await _context.Books.FindAsync(id);
         }
@@ -37,7 +37,7 @@ namespace MSA_Phase_2.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBookAsync(long id)
+        public async Task DeleteBookAsync(int id)
         {
             var book = await _context.Books.FindAsync(id);
             if (book != null)
@@ -47,7 +47,7 @@ namespace MSA_Phase_2.Repositories
             }
         }
 
-        public async Task<bool> BookExistsAsync(long id)
+        public async Task<bool> BookExistsAsync(int id)
         {
             return await _context.Books.AnyAsync(e => e.BookId == id);
         }

@@ -13,12 +13,20 @@ namespace MSA_Phase_2.Controllers
             _repository = repository;
         }
 
-        // GET: random review
+        // GET: all reviews
         [HttpGet("/review/all")]
-        public async Task<ActionResult<IEnumerable<Book>>> Index()
+        public async Task<ActionResult<IEnumerable<Review>>> Index()
         {
-            var books = await _repository.GetAllReviewsAsync();
-            return Ok(books);
+            var reviews = await _repository.GetAllReviewsAsync();
+            return Ok(reviews);
+        }
+
+        // GET: random review
+        [HttpGet("/review/random")]
+        public async Task<ActionResult<Review>> Random()
+        {
+            var review = await _repository.GetRandomReview();
+            return Ok(review);
         }
     }
 }
