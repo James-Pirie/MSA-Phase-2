@@ -5,6 +5,10 @@ import ReactDOM from 'react-dom/client'
 // components
 import Home from './components/Home.tsx'
 import Header from './components/Header.tsx'
+import Subheader from './components/Subheader.tsx'
+
+// style
+import './styles/index.css'
 
 // dependancies
 import NotFound from './components/NotFound.tsx'
@@ -18,6 +22,7 @@ const router = createBrowserRouter([{
   Component: () => (
     <>
       <Header/>
+      <Subheader/>
       <Home/>
     </>
   ),
