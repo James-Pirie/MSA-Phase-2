@@ -1,10 +1,12 @@
 import './Header.moduel.css';
 import '../styles/colours.css'
 import { Button, Flex } from '@mantine/core';
+import '../styles/colours.css'
 
 
 
-function Subheader() {
+
+function SubHeader() {
     return (
         <header className='white subheader light-grey'>
         <Flex
@@ -15,14 +17,14 @@ function Subheader() {
         direction="row"
         wrap="wrap"
         >
-            <Button variant="subtle" color="#5cd48c" size="xl" radius="xs"   styles={{
+            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
                 label: {fontSize: '2vh'}}}>Books</Button>
-            <Button variant="subtle" color="#5cd48c" size="xl" radius="xs"   styles={{
+            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
                 label: {fontSize: '2vh'}}}>Authors</Button>
-            <Button variant="subtle" color="#5cd48c" size="xl" radius="xs"   styles={{
-                label: {fontSize: '2vh'}}}>Review</Button>
-            <Button variant="subtle" color="#5cd48c" size="xl" radius="xs"   styles={{
-                label: {fontSize: '2vh'}}}>Log In</Button>
+            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
+                label: {fontSize: '2vh'}}}>Reviews</Button>
+            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
+                label: {fontSize: '2vh'}}}>Settings</Button>
         </Flex>
                 
 
@@ -30,4 +32,4 @@ function Subheader() {
     )
 }
 
-export default Subheader;
+export default SubHeader;

@@ -1,24 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MSA_Phase_2.Context;
 using MSA_Phase_2.Models;
 using MSA_Phase_2.Repositories;
 
 namespace MSA_Phase_2.Controllers
 {
-    public class BookController : Controller
+    public class ReviewController : Controller
     {
-        private readonly IBookRepository _repository;
+        private readonly IReviewRepository _repository;
 
-        public BookController(IBookRepository repository)
+        public ReviewController(IReviewRepository repository)
         {
             _repository = repository;
         }
 
-        // GET: /books
-        [HttpGet("/book/all")]
+        // GET: random review
+        [HttpGet("/review/all")]
         public async Task<ActionResult<IEnumerable<Book>>> Index()
         {
-            var books = await _repository.GetAllBooksAsync();
+            var books = await _repository.GetAllReviewsAsync();
             return Ok(books);
         }
     }

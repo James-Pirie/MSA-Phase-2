@@ -30,6 +30,7 @@ namespace MSA_Phase_2.Repositories
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
         }
+
         public async Task UpdateBookAsync(Book book)
         {
             _context.Entry(book).State = EntityState.Modified;

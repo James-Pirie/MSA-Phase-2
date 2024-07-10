@@ -13,3 +13,8 @@
 .brand-colour-fonts {
     color: #5cd48c;
 }
+
+:root {
+    --color-primary: #5cd48c;
+    --color-secondary: #feb47b;
+  }

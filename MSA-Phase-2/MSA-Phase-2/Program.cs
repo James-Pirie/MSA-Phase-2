@@ -13,9 +13,11 @@ builder.Services.AddDbContext<BookReviewContext>(options =>
     options.UseSqlServer("Server=DESKTOP-2VE2VNK;Database=BookReviewDB;Trusted_Connection=True;TrustServerCertificate=True;");
 });
 
-// Register BookRepository as transient service for IBookRepository interface
-// Create a new BookRepository instance when IBookRepository is requested
+// Register Repositories as transient service for Repository interface
+// Create new Repository instances when associated Interface is requested
 builder.Services.AddTransient<IBookRepository, BookRepository>();
+builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
+
 
 var app = builder.Build();
 

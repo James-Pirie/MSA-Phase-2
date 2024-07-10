@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom/client'
 // components
 import Home from './components/Home.tsx'
 import Header from './components/Header.tsx'
-import Subheader from './components/Subheader.tsx'
+import SubHeader from './components/SubHeader.tsx'
+import GradientBackground from './components/GradientBackground.tsx'
 
 // style
 import './styles/index.css'
@@ -22,8 +23,10 @@ const router = createBrowserRouter([{
   Component: () => (
     <>
       <Header/>
-      <Subheader/>
+      <SubHeader/>
+      <GradientBackground/>
       <Home/>
+
     </>
   ),
   errorElement: <NotFound/>
