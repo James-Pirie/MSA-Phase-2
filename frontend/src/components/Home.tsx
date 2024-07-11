@@ -1,21 +1,21 @@
 import { useBooks } from '../hooks/useBooks'
 
 function Home() {
-  const { books, loading, error } = useBooks();
+  const { allBooks, loadingAll, errorAll } = useBooks();
 
-  if (loading) {
+  if (loadingAll) {
       return <div>Loading...</div>;
   }
 
-  if (error) {
-      return <div>Error: {error}</div>;
+  if (errorAll) {
+      return <div>Error: {errorAll}</div>;
   }
 
   return (
       <div>
           <h2>Book List</h2>
           <ul>
-              {books.map(book => (
+              {allBooks.map(book => (
                   <li key={book.bookId}>
                       {book.bookName} 
                   </li>

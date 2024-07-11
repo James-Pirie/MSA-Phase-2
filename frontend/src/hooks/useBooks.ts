@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Book } from '../models/Book';
-import { getBooks } from '../services/BookServices';
+import { getBooks, getBookById } from '../services/BookServices';
 
 
 export const useBooks = () => {
-    const [books, setBooks] = useState<Book[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const [allBooks, setBooks] = useState<Book[]>([]);
+    const [loadingAll, setLoading] = useState<boolean>(true);
+    const [errorAll, setError] = useState<string | null>(null);
+    const [errorId, setErrorId] = useState<string | null>(null);
+    const [bookById, setBook] = useState<Book | null>(null)
+ 
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -16,7 +19,7 @@ export const useBooks = () => {
                 setBooks(apiBooks);
 
             } catch (err) {
-                setError('Failed to fetch students');
+                setError('Failed to fetch books');
             } finally {
                 setLoading(false);
             }
@@ -25,6 +28,17 @@ export const useBooks = () => {
         fetchBooks();
     }, []);
 
+    
+    const fetchBookById = async (id: number) => {
+        try {
+            const book = await getBookById(id); 
+            setBook(book);  
+        } catch (err) {
+            setErrorId('Failed to fetch book');
+        }
+    };
 
-    return { books, loading, error };
+
+
+    return { allBooks, loadingAll, errorAll, fetchBookById, errorId, bookById };
 };
