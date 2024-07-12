@@ -17,6 +17,10 @@ builder.Services.AddDbContext<BookReviewContext>(options =>
 // Create new Repository instances when associated Interface is requested
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
+builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+
 
 
 var app = builder.Build();

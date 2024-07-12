@@ -1,4 +1,6 @@
 import { Book } from './Book'
+import { User } from './User'
+
 
 export interface Review {
     reviewId: number;
@@ -6,6 +8,6 @@ export interface Review {
     userId: number;
     rating: number;
     description: string;
-    user: null;
+    user: User;
     book: Book;
 }

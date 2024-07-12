@@ -1,34 +1,87 @@
-import { Container } from '@mantine/core';
-import { useBooks } from '../hooks/useBooks';
-import { useReviews } from '../hooks/useReviews';
+import { Rating, Image, Flex, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
+import './RandomReview.moduel.css';
+import '../styles/colours.css'
+
+import { useBooks } from '../hooks/useBooks';
+import { useReviews } from '../hooks/useReviews';
+import { useAuthors } from '../hooks/useAuthors';
+import { useUSers } from '../hooks/useUsers';
+
 const RandomReview = () => {
-  const { fetchBookById, bookById, errorId } = useBooks();
-  const { fetchRandomReview, review, error } = useReviews();
-  const [hasFetched, setHasFetched] = useState(false);
+  const { fetchBookById, bookById } = useBooks();
+  const { fetchRandomReview, review } = useReviews();
+  const { fetchAuthorById, author } = useAuthors();
+  const { fetchUserById, user } = useUSers();
 
+
+  const [hasFetchedReview, setHasFetchedReview] = useState(false);
+  const [hasFetchedBook, setHasFetchedBook] = useState(false);
+  const [hasFetchedAuthor, setHasFetchedAuthor] = useState(false);
+  const [hasFetchedUser, setHasFetchedUser] = useState(false);
+
+
+
+  // attempt to fetch a random review from db
   useEffect(() => {
-    if (!hasFetched) {
+    if (!hasFetchedReview) {
       fetchRandomReview();
-      setHasFetched(true);
+      setHasFetchedReview(true);
     }
-  }, [hasFetched, fetchRandomReview]);
+  }, [hasFetchedReview, fetchRandomReview]);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // attempt to fetch book associated with review
+  useEffect(() => {
+    // check the review has already been fetched
+    if (review?.bookId) {
+      fetchBookById(review?.bookId);
+      setHasFetchedBook(true);
+    }
+  }, [hasFetchedBook, fetchBookById]);
 
-  if (errorId) {
-    return <div>Error: {errorId}</div>;
+  // fetch author of book associated with review
+  useEffect(() => {
+    if (!hasFetchedAuthor) {
+      // make sure book has already been fetched
+      if (bookById?.authorId) {
+        fetchAuthorById(bookById?.authorId);
+        setHasFetchedAuthor(true);
+      }
   }
+  }, [hasFetchedReview, fetchAuthorById]);
+  
+  // attempt to fetch the user associated with the review
+  useEffect(() => {
+    if (!hasFetchedUser) {
+      // make sure review has already been fetched
+      if (review?.userId) {
+        fetchUserById(review?.userId);
+        setHasFetchedUser(false);
+        
+      }
+  }
+  }, [hasFetchedUser, fetchUserById]);
 
   return (
-    <Container>
-      <div>
-        <h2>{review?.description}</h2>
-      </div>
-    </Container>
+    <div className="review-container">
+      <Flex align="flex-start">
+        <Image
+          radius="md"
+          fit="contain"
+          src={bookById?.coverImageL}
+          className='book-cover'
+        />
+          <div className="review-details">
+            <Text fw={700} size="2.5vw" className="book-title">{bookById?.bookName}</Text>
+            <Text fw={500} size="1.3vw" className="author-name">By { author?.authorName }</Text>
+            <Rating className="rating" value={review?.rating} readOnly size="xl" />
+            <Text fw={500} size="xl" className='book-description' lineClamp={7}>{review?.description}</Text>
+            <Text>{ user?.userName }</Text>
+       
+          </div>
+      </Flex>
+    </div>
   );
 };
 

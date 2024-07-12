@@ -6,7 +6,7 @@ namespace MSA_Phase_2.Repositories
     {
         Task<IEnumerable<Book>> GetAllBooksAsync();
         Task<Book> GetBookByIdAsync(int id);
-        Task AddBookAsync(Book Bookbook);
+        Task AddBookAsync(Book book);
         Task UpdateBookAsync(Book book);
         Task DeleteBookAsync(int id);
         Task<bool> BookExistsAsync(int id);
