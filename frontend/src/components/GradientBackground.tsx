@@ -8,7 +8,7 @@ const GradientBackground = () => {
     <Container
       style={{
         minWidth: '100vw',
-        background: 'linear-gradient(to right, var(--color-primary), var(--color-secondary))', 
+        background: 'linear-gradient(to right, var(--colour-primary-gradient), var(--colour-secondary-gradient))', 
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

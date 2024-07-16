@@ -16,13 +16,13 @@ function SubHeader() {
         direction="row"
         wrap="wrap"
         >
-            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
+            <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs"   styles={{
                 label: {fontSize: '2vh'}}}>Books</Button>
-            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
+            <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs"   styles={{
                 label: {fontSize: '2vh'}}}>Authors</Button>
-            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
+            <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs"   styles={{
                 label: {fontSize: '2vh'}}}>Reviews</Button>
-            <Button variant="subtle" color="var(--color-primary)" size="xl" radius="xs"   styles={{
+            <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs"   styles={{
                 label: {fontSize: '2vh'}}}>Settings</Button>
         </Flex>
                 

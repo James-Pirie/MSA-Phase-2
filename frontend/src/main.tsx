@@ -7,6 +7,7 @@ import Home from './components/Home.tsx'
 import Header from './components/Header.tsx'
 import SubHeader from './components/SubHeader.tsx'
 import GradientBackground from './components/GradientBackground.tsx'
+import RecommendationCollection from './components/RecommendationCollection.tsx'
 
 // style
 import './styles/index.css'
@@ -25,7 +26,7 @@ const router = createBrowserRouter([{
       <Header/>
       <SubHeader/>
       <GradientBackground/>
-      <Home/>
+      <RecommendationCollection/>
 
     </>
   ),

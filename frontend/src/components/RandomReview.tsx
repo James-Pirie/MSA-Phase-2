@@ -64,7 +64,7 @@ const RandomReview = () => {
   }, [hasFetchedUser, fetchUserById]);
 
   return (
-    <div className="review-container">
+    <div className="review-container light-grey">
       <Flex align="flex-start">
         <Image
           radius="md"
@@ -73,11 +73,11 @@ const RandomReview = () => {
           className='book-cover'
         />
           <div className="review-details">
-            <Text fw={700} size="2.5vw" className="book-title">{bookById?.bookName}</Text>
-            <Text fw={500} size="1.3vw" className="author-name">By { author?.authorName }</Text>
-            <Rating className="rating" value={review?.rating} readOnly size="xl" />
-            <Text fw={500} size="xl" className='book-description' lineClamp={7}>{review?.description}</Text>
-            <Text>{ user?.userName }</Text>
+            <Text fw={700} size="2.5vw" c="var(--colour-secondary)" className="book-title">{bookById?.bookName}</Text>
+            <Text fw={500} size="1.3vw" c="var(--lighter-grey)" className="author-name">By { author?.authorName }</Text>
+            <Rating className="rating" color="var(--colour-primary" value={review?.rating} readOnly size="xl" />
+            <Text fw={400} size="xl" c="var(--lighter-grey)" className='book-description' lineClamp={10}>{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}{review?.description}</Text>
+            <Text c="var(--colour-secondary)" className='review-author'>Review by: { user?.userName }</Text>
        
           </div>
       </Flex>

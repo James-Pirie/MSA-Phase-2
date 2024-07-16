@@ -15,7 +15,7 @@ function Header() {
                 h={isSmallScreen ? 50 : 100} // Example: smaller height for small screens
                 w="auto"
                 fit="contain"
-                src={isSmallScreen ? "src/assets/images/LogoSmall.png" : "src/assets/images/LogoColoured.png"}
+                src="src/assets/images/LogoColoured.png"
                 />
             </Center>
             <Space h={isSmallScreen ? "sm" : "lg"} />

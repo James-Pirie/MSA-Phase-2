@@ -1,5 +1,5 @@
 .white {
-    background-color: white;
+    background-color: #25262B;
 }
 
 .brand-colour {
@@ -7,14 +7,20 @@
 }
 
 .light-grey {
-    background-color: #F5F5F5;
+    background-color: #1A1B1E;
 }
+
 
 .brand-colour-fonts {
     color: #5cd48c;
 }
 
 :root {
-    --color-primary: #5cd48c;
-    --color-secondary: #feb47b;
+    --colour-primary: #5cd48c;
+    --colour-secondary: #91ffb5;
+    --colour-secondary-gradient: #2F7049;
+    --colour-primary-gradient: #25262B;
+
+    --lighter-grey: #C1C2C5;
   }
+
