@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MSA_Phase_2.Context;
 using MSA_Phase_2.Repositories;
+using MSA_Phase_2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,9 @@ builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
 builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+// Add token services
+builder.Services.AddScoped<TokenServices>();
 
 
 

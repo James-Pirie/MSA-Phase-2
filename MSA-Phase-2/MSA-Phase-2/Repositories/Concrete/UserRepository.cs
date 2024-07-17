@@ -55,5 +55,10 @@ namespace MSA_Phase_2.Repositories
             await _context.Users.AddRangeAsync(users);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+        }
     }
 }

@@ -2,13 +2,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// components
-import Home from './components/Home.tsx'
-import Header from './components/Header.tsx'
-import SubHeader from './components/SubHeader.tsx'
-import GradientBackground from './components/GradientBackground.tsx'
-import RecommendationCollection from './components/RecommendationCollection.tsx'
-
 // style
 import './styles/index.css'
 
@@ -18,20 +11,27 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 
+// pages
+import HomePage from './pages/HomePage.tsx'
+import LoginPage from './pages/LoginPage.tsx'
+
+
 
 const router = createBrowserRouter([{
   path: '/',
   Component: () => (
-    <>
-      <Header/>
-      <SubHeader/>
-      <GradientBackground/>
-      <RecommendationCollection/>
-
-    </>
+    <HomePage/>
   ),
   errorElement: <NotFound/>
-}])
+  },
+  {
+    path: '/login',
+    Component: () => (
+      <LoginPage/>
+    ),
+    errorElement: <NotFound/>
+  }
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

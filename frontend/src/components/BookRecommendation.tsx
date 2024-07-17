@@ -16,7 +16,7 @@ function BookRecommendation() {
     // Attempt to fetch book
     useEffect(() => {
         if (!hasFetchedBook) {
-            fetchBookById(7);
+            fetchBookById(209770);
             setHasFetchedBook(true);
         }
     }, [hasFetchedBook, fetchBookById]);
@@ -26,7 +26,7 @@ function BookRecommendation() {
             {bookById && (
                 <>
                     <div className='ratingOverlay'>
-                        <Rating size="1.2vw"/>
+                    <Rating  color="var(--colour-primary" value={4} readOnly size="1.1vw" />
                     </div>
                     <Image src={bookById.coverImageL} width='100%' radius="md"/>
                 </>

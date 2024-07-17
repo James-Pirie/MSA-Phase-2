@@ -11,5 +11,6 @@ namespace MSA_Phase_2.Repositories
         Task DeleteUserAsync(int id);
         Task<bool> UserExistsAsync(int id);
         Task BulkAddUsersAsync(IEnumerable<User> users);
+        Task<User> GetUserByUsernameAsync(string username);
     }
 }
