@@ -14,6 +14,7 @@ import { MantineProvider } from '@mantine/core';
 // pages
 import HomePage from './pages/HomePage.tsx'
 import LoginPage from './pages/LoginPage.tsx'
+import ProfilePage from './pages/ProfilePage.tsx'
 
 
 
@@ -28,6 +29,13 @@ const router = createBrowserRouter([{
     path: '/login',
     Component: () => (
       <LoginPage/>
+    ),
+    errorElement: <NotFound/>
+  },
+  {
+    path: '/profile',
+    Component: () => (
+      <ProfilePage/>
     ),
     errorElement: <NotFound/>
   }

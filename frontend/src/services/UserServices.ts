@@ -35,7 +35,7 @@ export const authenticateUser = async (username: string, password: string): Prom
   }
   
   const data = await response.json();
-  return data; // token returned from api
+  return data.token; // token returned from api
 };
 
 export const verifyUser = async (token: string): Promise<boolean> => {

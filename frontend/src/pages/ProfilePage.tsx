@@ -1,4 +1,4 @@
-import Login from '../components/Login.tsx'
+import Logout from '../components/Logout.tsx'
 import SubHeader from '../components/SubHeader.tsx';
 
 
@@ -6,9 +6,10 @@ function HomePage() {
 
     return (
         <>
-            <SubHeader/>
-            <Login/>
+        <SubHeader/>
+        <Logout/>
         </>
+        
     )
 }
 

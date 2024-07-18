@@ -1,9 +1,10 @@
+// useAuth.ts
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authenticateUser, verifyUser } from '../services/UserServices';
 
 const useAuth = () => {
-    const [authenticated, setAuthenticated] = useState(false);
+    const [authenticated, setAuthenticated] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,11 +17,9 @@ const useAuth = () => {
                         setAuthenticated(true);
                     } else {
                         setAuthenticated(false);
-                        navigate('/login'); // Navigate to login if token is invalid
                     }
                 } else {
                     setAuthenticated(false);
-                    navigate('/login'); // Navigate to login if no token found
                 }
             } catch (error) {
                 console.error('Failed to verify token:', error);
@@ -36,14 +35,20 @@ const useAuth = () => {
             const token = await authenticateUser(username, password);
             localStorage.setItem('token', token);
             setAuthenticated(true);
-            navigate('/'); // Navigate to a protected route after successful login
+            navigate('/'); 
         } catch (error) {
             console.error('Failed to login:', error);
             setAuthenticated(false);
         }
     };
 
-    return { authenticated, login };
+    const logout = () => {
+        localStorage.removeItem('token');
+        setAuthenticated(false);
+        navigate('/'); 
+    };
+
+    return { authenticated, login, logout };
 };
 
 export default useAuth;
