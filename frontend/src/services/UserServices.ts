@@ -40,6 +40,7 @@ export const authenticateUser = async (username: string, password: string): Prom
 
 export const verifyUser = async (token: string): Promise<boolean> => {
   // verify user has a valid token
+  console.log(typeof token, token);
   const response = await fetch(`${apiUrl}/user/authorize`, {
       method: 'POST',
       headers: {

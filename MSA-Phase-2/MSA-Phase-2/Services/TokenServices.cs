@@ -1,73 +1,64 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 
 namespace MSA_Phase_2.Services
 {
     public class TokenServices
     {
-        private readonly IConfiguration _configuration;
-        private readonly SymmetricSecurityKey _symmetricKey;
+        public static string PrivateKey { get; set; } = "MIICWwIBAAKBgHZO8IQouqjDyY47ZDGdw9jPDVHadgfT1kP3igz5xamdVaYPHaN24UZMeSXjW9sWZzwFVbhOAGrjR0MM6APrlvv5mpy67S/K4q4D7Dvf6QySKFzwMZ99Qk10fK8tLoUlHG3qfk9+85LhL/Rnmd9FD7nz8+cYXFmz5LIaLEQATdyNAgMBAAECgYA9ng2Md34IKbiPGIWthcKb5/LC/+nbV8xPp9xBt9Dn7ybNjy/blC3uJCQwxIJxz/BChXDIxe9XvDnARTeN2yTOKrV6mUfI+VmON5gTD5hMGtWmxEsmTfu3JL0LjDe8Rfdu46w5qjX5jyDwU0ygJPqXJPRmHOQW0WN8oLIaDBxIQQJBAN66qMS2GtcgTqECjnZuuP+qrTKL4JzG+yLLNoyWJbMlF0/HatsmrFq/CkYwA806OTmCkUSm9x6mpX1wHKi4jbECQQCH+yVb67gdghmoNhc5vLgnm/efNnhUh7u07OCL3tE9EBbxZFRs17HftfEcfmtOtoyTBpf9jrOvaGjYxmxXWSedAkByZrHVCCxVHxUEAoomLsz7FTGM6ufd3x6TSomkQGLw1zZYFfe+xOh2W/XtAzCQsz09WuE+v/viVHpgKbuutcyhAkB8o8hXnBVz/rdTxti9FG1b6QstBXmASbXVHbaonkD+DoxpEMSNy5t/6b4qlvn2+T6a2VVhlXbAFhzcbewKmG7FAkEAs8z4Y1uI0Bf6ge4foXZ/2B9/pJpODnp2cbQjHomnXM861B/C+jPW3TJJN2cfbAxhCQT2NhzewaqoYzy7dpYsIQ==";
 
-        public TokenServices(IConfiguration configuration)
+        public string GenerateToken(string userName, string Password)
         {
-            _configuration = configuration;
-            var key = "SADKJBASDHQWEDGHWQHJRFGWQHJFWEHFWEFFBQWJLHFBEWQFYUEWRGWROWEQTEWYRUWQTURWQTROWEQRYTWERYUWETRYUQWER";
-            _symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-        }
+            var handler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(PrivateKey);
 
-        public string GenerateToken(string userId, string userName)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
+            var credentials = new SigningCredentials(
+                new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, userId),
-                    new Claim(ClaimTypes.Name, userName)
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(_symmetricKey, SecurityAlgorithms.HmacSha256Signature)
+                Subject = GenerateClaims(userName, Password),
+                Expires = DateTime.UtcNow.AddMinutes(30),
+                SigningCredentials = credentials,
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = handler.CreateToken(tokenDescriptor);
+            return handler.WriteToken(token);
 
-            return tokenHandler.WriteToken(token);
+        }
+        private static ClaimsIdentity GenerateClaims(string userName, string Password)
+        {
+            var claims = new ClaimsIdentity();
+            claims.AddClaim(new Claim(ClaimTypes.Name, userName));
+
+            return claims;
         }
 
-        public ClaimsPrincipal VerifyToken(string token)
+        public bool VerifyToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(PrivateKey);
 
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = _symmetricKey,
-                    ValidateIssuer = false, // You may set these to true if needed
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
                     ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero // Remove delay of token when expire
+                    ClockSkew = TimeSpan.Zero 
                 }, out SecurityToken validatedToken);
 
-                if (validatedToken is JwtSecurityToken jwtToken && jwtToken.Claims != null)
-                {
-                    return new ClaimsPrincipal(new ClaimsIdentity(jwtToken.Claims, "jwt"));
-                }
-                else
-                {
-                    throw new SecurityTokenException("Invalid token");
-                }
+                return true;
             }
-            catch (Exception ex)
+            catch
             {
-                // Token validation failed
-                Console.WriteLine(ex.Message); // Handle exception appropriately
-                return null;
+                return false;
             }
         }
     }

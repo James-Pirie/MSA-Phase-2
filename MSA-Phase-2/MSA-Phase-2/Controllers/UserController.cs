@@ -94,13 +94,13 @@ namespace MSA_Phase_2.Controllers
 
             if (string.IsNullOrEmpty(token))
             {
-                return BadRequest("Invalid Token");
+                return BadRequest("No Token Found");
             }
 
             try
             {
-                var principal = _tokenService.VerifyToken(token);
-                if (principal != null)
+                bool isValid = _tokenService.VerifyToken(token);
+                if (isValid)
                 {
                     return Ok(new { Valid = true });
                 }
