@@ -5,7 +5,6 @@ import '../styles/colours.css';
 
 function SubHeader() {
     const { authenticated } = useAuth();
-
     return (
         <header className='white subheader light-grey'>
             <Flex
@@ -16,12 +15,16 @@ function SubHeader() {
                 direction="row"
                 wrap="wrap"
             >
-                <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vh' } }}>
-                    Books
-                </Button>
+                <Link to="/books">
+                    <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vh' } }}>
+                        Books
+                    </Button>
+                </Link>
+
                 <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vh' } }}>
                     Authors
                 </Button>
+
                 <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vh' } }}>
                     Reviews
                 </Button>

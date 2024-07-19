@@ -28,5 +28,18 @@ namespace MSA_Phase_2.Controllers
             var review = await _repository.GetRandomReview();
             return Ok(review);
         }
+
+        // POST: add a new review
+        [HttpPost("post")]
+        public async Task<ActionResult> Post([FromBody] Review review)
+        {
+            if (review == null)
+            {
+                return BadRequest("Review object is null");
+            }
+            // post the review to db
+            await _repository.AddReviewAsync(review);
+            return CreatedAtAction(nameof(Random), new { id = review.ReviewId }, review);
+        }
     }
 }

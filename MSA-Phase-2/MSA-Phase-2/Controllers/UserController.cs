@@ -73,12 +73,11 @@ namespace MSA_Phase_2.Controllers
         [HttpPost("/user/authenticate")]
         public async Task<ActionResult<string>> AuthenticateUserAsync([FromBody] UserLogin loginUser)
         {
-           
             var user = await _repository.GetUserByUsernameAsync(loginUser.UserName);
             if (user != null){ 
                 if (loginUser.UserName == user.UserName && loginUser.Password == user.Password)
                 {
-                    var token = _tokenService.GenerateToken(user.UserName, user.Password);
+                    var token = _tokenService.GenerateToken(user.UserName);
                     return Ok(new { Token = token });
                 }
             }
@@ -109,10 +108,31 @@ namespace MSA_Phase_2.Controllers
                     return Unauthorized("Invalid Token");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Unauthorized("Invalid token format");
             }
+        }
+
+        // POST: /user/authorize/username
+        [HttpPost("/user/authorize/username")]
+        public ActionResult<string> GetAuthorizedUsername()
+        {
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("No Token Found");
+            }
+
+            // username always equals null why?!?!?!
+            var username = _tokenService.GetUsernameFromToken(token);
+
+            if (username == null)
+            {
+                return Unauthorized("No Username Found");
+            }
+            return Ok(username);
         }
     }
 }

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { PasswordInput, Input, Button, Text } from '@mantine/core';
+import { PasswordInput, Input, Button } from '@mantine/core';
 import useAuth from '../hooks/useAuth'; 
 
 function Login() {
-    const { login, authenticated } = useAuth();
+    const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,7 +14,6 @@ function Login() {
 
     return (
         <>
-            <Text>{authenticated ? 'Authenticated' : 'Not Authenticated'}</Text>
             <Input 
                 placeholder="Username" 
                 value={username} 
