@@ -30,7 +30,7 @@ namespace MSA_Phase_2.Controllers
         }
 
         // POST: add a new review
-        [HttpPost("post")]
+        [HttpPost("/review/post")]
         public async Task<ActionResult> Post([FromBody] Review review)
         {
             if (review == null)

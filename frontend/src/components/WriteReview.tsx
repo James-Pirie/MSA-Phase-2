@@ -28,13 +28,10 @@ function WriteReview() {
         console.log(currentUser)
         if (rating != null && description !== '' && bookById != null && currentUser != null) {
             const newReview: Review = {
-                reviewId: 0,
                 bookId: 209770,
                 userId: 2,
                 rating: 4,
-                description: description,
-                user: currentUser,
-                book: bookById
+                description: description
             };
             await postReview(newReview);
         }else{
