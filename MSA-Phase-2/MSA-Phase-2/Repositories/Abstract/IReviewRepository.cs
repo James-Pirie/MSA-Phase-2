@@ -12,5 +12,7 @@ namespace MSA_Phase_2.Repositories
         Task<bool> ReviewExistsAsync(int id);
         Task BulkAddReviewsAsync(IEnumerable<Review> Review);
         Task<Review> GetRandomReview();
+        Task<IEnumerable<Review>> GetAllReviewsForBookAsync(int bookId);
+
     }
 }

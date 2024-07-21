@@ -17,6 +17,7 @@ import LoginPage from './pages/LoginPage.tsx'
 import ProfilePage from './pages/ProfilePage.tsx'
 import AllBooksPage from './pages/AllBooksPage.tsx'
 import WriteReviewPage from './pages/WriteReviewPage.tsx'
+import BookPage from './pages/BookPage.tsx'
 
 
 
@@ -50,9 +51,16 @@ const router = createBrowserRouter([{
     errorElement: <NotFound/>
   },
   {
-    path: '/newreview',
+    path: '/newreview/:bookid',
     Component: () => (
       <WriteReviewPage/>
+    ),
+    errorElement: <NotFound/>
+  },
+  {
+    path: '/books/:bookid',
+    Component: () => (
+      <BookPage/>
     ),
     errorElement: <NotFound/>
   }

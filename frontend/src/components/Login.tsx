@@ -31,6 +31,13 @@ function Login() {
             >
                 Login
             </Button>
+            <Button 
+                variant="filled" 
+                color="green" 
+                onClick={handleLogin}
+            >
+                Sign Up
+            </Button>
         </>
     );
 }

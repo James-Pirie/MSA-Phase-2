@@ -29,6 +29,22 @@ namespace MSA_Phase_2.Controllers
             return Ok(review);
         }
 
+        // GET: /review/reviewId
+        [HttpGet("/review/{reviewId}")]
+        public async Task<ActionResult<Review>> GetReviewById(int reviewId)
+        {
+            Review review = await _repository.GetReviewByIdAsync(reviewId);
+            return Ok(review);
+        }
+
+                // GET: /review/reviewId
+        [HttpGet("/review/bybook/{bookId}")]
+        public async Task<ActionResult<Review>> GetReviewByBook(int bookId)
+        {
+            IEnumerable<Review> reviews = await _repository.GetAllReviewsForBookAsync(bookId);
+            return Ok(reviews);
+        }
+
         // POST: add a new review
         [HttpPost("/review/post")]
         public async Task<ActionResult> Post([FromBody] Review review)

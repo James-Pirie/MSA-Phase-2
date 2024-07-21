@@ -10,6 +10,19 @@ export const getRandomReview = async (): Promise<Review> => {
     return data;
 };
 
+export const getReviewById = async (reviewId: number): Promise<Review> => {
+    // get a review from book table by its id
+    const response = await fetch(`${apiUrl}/review/${reviewId}`); // use the /reviews controller of the api to access the book
+    const data = await response.json();
+    return data;
+  };
+
+export const getReviewsForBook = async (bookId: number): Promise<Review[]> => {
+    const response = await fetch(`${apiUrl}/review/bybook/${bookId}`); 
+    const data = await response.json();
+    return data;
+  };
+
 
 export const pushReview = async (review: Review): Promise<void> => {
     try {

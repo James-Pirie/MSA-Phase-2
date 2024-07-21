@@ -62,5 +62,12 @@ namespace MSA_Phase_2.Repositories
 
             return await _context.Reviews.Skip(randomIndex).FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<Review>> GetAllReviewsForBookAsync(int bookId)
+        {
+            return await _context.Reviews
+                                .Where(review => review.BookId == bookId)
+                                .ToListAsync();        
+        }
     }
 }

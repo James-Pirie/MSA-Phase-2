@@ -1,5 +1,6 @@
 import { Rating, Image, Flex, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import './RandomReview.moduel.css';
 import '../styles/colours.css';
@@ -55,16 +56,24 @@ const RandomReview = () => {
   return (
     <div className="review-container light-grey">
       <Flex align="flex-start">
-        <Image
-          radius="md"
-          fit="contain"
-          src={bookById?.coverImageL}
-          className="book-cover"
-        />
+        <Link to={`books/${bookById?.bookId}`}>
+          <Image
+            radius="md"
+            fit="contain"
+            src={bookById?.coverImageL}
+            className="book-cover"
+          />
+        </Link>
+
         <div className="review-details">
-          <Text fw={700} size="2.5vw" c="var(--colour-secondary)" className="book-title">
-            {bookById?.bookName}
-          </Text>
+          <Link 
+          to={`books/${bookById?.bookId}`}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <Text fw={700} size="2.5vw" c="var(--colour-secondary)" className="book-title">
+              {bookById?.bookName}
+            </Text>
+          </Link>
           <Text fw={500} size="1.3vw" c="var(--lighter-grey)" className="author-name">
             By {author?.authorName &&
               author.authorName
