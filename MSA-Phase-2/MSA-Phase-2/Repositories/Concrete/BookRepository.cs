@@ -20,6 +20,15 @@ namespace MSA_Phase_2.Repositories
                                  .ToListAsync();
         }
 
+        public async Task<IEnumerable<Book>> GetBooksFromSearchAsync(string search){
+            return await _context.Books
+                                 .Where(b => b.BookName
+                                 .ToLower()
+                                 .Contains(search))
+                                 .Take(10)
+                                 .ToListAsync();
+        }
+
         public async Task<Book> GetBookByIdAsync(int id)
         {
             return await _context.Books.FindAsync(id);

@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Book } from '../models/Book';
-import { getBookById } from '../services/BookServices';
-
+import { getBookById, searchForBooks } from '../services/BookServices';
 
 export const useBooks = () => {
     const [errorId, setErrorId] = useState<string | null>(null);
-    const [bookById, setBook] = useState<Book | null>(null)
- 
+    const [bookById, setBook] = useState<Book | null>(null);
+    const [booksBySearch, setBooksBySearch] = useState<Book[] | null>(null);
+    const [searchError, setSearchError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
     const fetchBookById = async (id: number) => {
         try {
             const book = await getBookById(id); 
@@ -16,7 +18,18 @@ export const useBooks = () => {
         }
     };
 
+    const fetchBookBySearch = async (searchTerm: string) => {
+        setLoading(true);
+        setBooksBySearch([]);
+        try {
+            const books = await searchForBooks(searchTerm);
+            setBooksBySearch(books);
+        } catch(err){
+            setSearchError('Failed to search for book');
+        } finally {
+            setLoading(false);
+        }
+    }
 
-
-    return { fetchBookById, errorId, bookById };
+    return { fetchBookById, errorId, bookById, fetchBookBySearch, searchError, booksBySearch, loading };
 };

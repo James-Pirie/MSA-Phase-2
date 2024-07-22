@@ -11,5 +11,7 @@ namespace MSA_Phase_2.Repositories
         Task DeleteBookAsync(int id);
         Task<bool> BookExistsAsync(int id);
         Task BulkAddBooksAsync(IEnumerable<Book> books);
+        Task<IEnumerable<Book>> GetBooksFromSearchAsync(string search);
+
     }
 }

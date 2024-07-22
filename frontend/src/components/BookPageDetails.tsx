@@ -13,7 +13,6 @@ import ReviewLink from './ReviewLink';
 
 function BookPageDetails() {
     // book id parsed in through url
-    // test with example 209770
     const { bookid } = useParams();
     const numericId = Number(bookid);
     const { fetchAuthorById, author } = useAuthors();

@@ -4,11 +4,11 @@ import config from '../config';
 const { apiUrl } = config;
 
 export const getBooks = async (): Promise<Book[]> => {
-    // get all books from book table
-    const response = await fetch(`${apiUrl}/book/all`); // use the /books controller of the api to access books
-    const data = await response.json();
-    return data;
-  };
+  // get all books from book table
+  const response = await fetch(`${apiUrl}/book/all`); // use the /books controller of the api to access books
+  const data = await response.json();
+  return data;
+};
 
 export const getBookById = async (bookId: number): Promise<Book> => {
   // get a book from book table by its id
@@ -16,3 +16,10 @@ export const getBookById = async (bookId: number): Promise<Book> => {
   const data = await response.json();
   return data;
 };
+
+export const searchForBooks = async (seachTerm: string): Promise<Book[]> => {
+  // use a search term to find a book with the search term in the title
+  const response = await fetch(`${apiUrl}/book/search/${seachTerm}`);
+  const data = await response.json();
+  return data;
+}

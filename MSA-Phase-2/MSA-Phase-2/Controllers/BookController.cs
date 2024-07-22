@@ -30,5 +30,14 @@ namespace MSA_Phase_2.Controllers
             return Ok(book);
         }
 
+        // GET: /book/search/searchterm
+        [HttpGet("/book/search/{searchTerm}")]
+        public async Task<ActionResult<Book>> SearchForBook(string searchTerm)
+        {
+            var books = await _repository.GetBooksFromSearchAsync(searchTerm);
+            return Ok(books);
+        }
+
+
     }
 }

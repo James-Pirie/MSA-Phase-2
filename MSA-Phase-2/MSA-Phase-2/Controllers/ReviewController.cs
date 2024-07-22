@@ -37,7 +37,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(review);
         }
 
-                // GET: /review/reviewId
+        // GET: /review/boodId
         [HttpGet("/review/bybook/{bookId}")]
         public async Task<ActionResult<Review>> GetReviewByBook(int bookId)
         {
