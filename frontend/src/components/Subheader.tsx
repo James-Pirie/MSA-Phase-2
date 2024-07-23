@@ -14,7 +14,13 @@ function SubHeader() {
                 align="center"
                 direction="row"
                 wrap="wrap"
-            >
+            >   
+                <Link to="/">
+                    <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>
+                        Home
+                    </Button>
+                </Link>
+                
                 <Link to="/books">
                     <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>
                         Books
@@ -25,10 +31,6 @@ function SubHeader() {
                     Authors
                 </Button>
 
-                <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>
-                    Reviews
-                </Button>
-                
                 {authenticated ? (
                     <Link to="/profile">
                         <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>

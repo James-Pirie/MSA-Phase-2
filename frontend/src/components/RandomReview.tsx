@@ -70,7 +70,7 @@ const RandomReview = () => {
           to={`books/${bookById?.bookId}`}
           style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            <Text fw={700} size="2.5vw" c="var(--colour-secondary)" className="book-title">
+            <Text fw={700} size="2.5vw" c="var(--colour-secondary)" className="book-title truncate">
               {bookById?.bookName}
             </Text>
           </Link>

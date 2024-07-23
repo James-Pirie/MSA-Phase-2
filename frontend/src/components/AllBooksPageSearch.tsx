@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { Autocomplete, Container, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
-
 // Define the type for autocomplete items
 interface AutocompleteItem {
     bookName: string;
@@ -21,13 +20,13 @@ function AllBooksPageSearch() {
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
     const navigate = useNavigate();
 
-    // fetch books based on search term
+    // Fetch books based on search term
     useEffect(() => {
         if (searchTerm !== prevSearchTerm && !loading) {
             fetchBookBySearch(searchTerm);
             setPrevSearchTerm(searchTerm);
         }
-    }, [searchTerm, fetchBookBySearch, prevSearchTerm]);
+    }, [searchTerm, fetchBookBySearch, prevSearchTerm, loading]);
 
     // update search results when booksBySearch changes and loading is false
     useEffect(() => {
@@ -52,55 +51,60 @@ function AllBooksPageSearch() {
         }
     }, [booksBySearch, loading]);
 
-    // handle search term change
+    // Handle search term change
     const handleSearchChange = (value: string) => {
         setSearchTerm(value);
     };
 
-    // handle book selection
+    // Handle book selection
     const handleSubmit = (bookItem: AutocompleteItem) => {
         console.log(bookItem)
         navigate(`/books/${bookItem.bookId}`)
     };
 
     return (
-        <Container
-            style={{
-                minWidth: '100vw',
-                background: 'linear-gradient(to right, var(--colour-primary-gradient), var(--colour-secondary-gradient))',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '2%',
-                flexDirection: 'column',
-            }}
-        >
-            <Text 
-                className='lighter-grey-font'
-                fw={600} size='2.5vw'
-                mb='1%'
-            >
-                Search for a Book
-            </Text>
-
-            <Autocomplete
-                className="search-bar"
-                placeholder="Books Title"
-                data={searchResults.map(item => ({
-                    value: item.bookName,
-                    label: item.bookName
-                }))}
-                size="xl"
-                style={{ marginTop: '1%' }}
-                value={searchTerm}
-                onChange={handleSearchChange}
-                onOptionSubmit={(item: string) => {
-                    const selectedItem = searchResults.find(result => result.bookName === item);
-                    if (selectedItem) handleSubmit(selectedItem);
+        <>
+            <Container
+                style={{
+                    minWidth: '100vw',
+                    background: 'linear-gradient(to right, var(--colour-primary-gradient), var(--colour-secondary-gradient))',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '2%',
+                    flexDirection: 'column',
                 }}
-            />
-        </Container>
+            >
+                <Text 
+                    className='lighter-grey-font'
+                    fw={600} size='2.5vw'
+                    mb='1%'
+                >
+                    Search for a Book
+                </Text>
+
+                <Autocomplete
+                    className="search-bar"
+                    placeholder="Books Title"
+                    data={searchResults.map(item => ({
+                        value: item.bookName,
+                        label: item.bookName
+                    }))}
+                    size="xl"
+                    style={{ marginTop: '1%' }}
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    onOptionSubmit={(item: string) => {
+                        const selectedItem = searchResults.find(result => result.bookName === item);
+                        if (selectedItem) handleSubmit(selectedItem);
+                    }}
+                />
+            </Container>
+
+
+        </>
     );
 }
+
 
 export default AllBooksPageSearch;

@@ -34,10 +34,20 @@
 }
 
 .book-description{
-    max-width: 25vw;
+    max-width: 30vw;
+
 }
 
 .book-cover{
     height: 100%;
+    min-width: 21vw;
 }
+
+.truncate {
+    display: inline-block;
+    max-width: 16ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 

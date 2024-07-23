@@ -50,7 +50,7 @@ function WriteReview() {
         if (rating != null && description !== '' && bookById != null && currentUser != null) {
             // define review
             const newReview: Review = {
-                bookId: 209770,
+                bookId: bookById.bookId,
                 userId: currentUser.userId,
                 rating: rating,
                 description: description
@@ -81,13 +81,16 @@ function WriteReview() {
             )}
             <div className='write-review-container light-grey'>
                 <Flex>
-                    <Image src={bookById?.coverImageL} />
+                    <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
+                        <Image src={bookById?.coverImageL} />
+                    </Link>
                     <div className='write-review-form'>
                         <Flex justify='space-between' align='center'>
                             <Text className='brand-colour-fonts' fw={700} size='2.5vw'>
                                 {bookById?.bookName}
                             </Text>
-                            <Link to='/' state={{ fromBackButton: true }}>
+                            
+                            <Link to={`/books/${bookById?.bookId}`} state={{ fromBackButton: true }}>
                                 <CloseButton size='xl' />
                             </Link>
                         </Flex>

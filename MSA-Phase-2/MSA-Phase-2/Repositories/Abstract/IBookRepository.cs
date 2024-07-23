@@ -12,6 +12,7 @@ namespace MSA_Phase_2.Repositories
         Task<bool> BookExistsAsync(int id);
         Task BulkAddBooksAsync(IEnumerable<Book> books);
         Task<IEnumerable<Book>> GetBooksFromSearchAsync(string search);
-
+        Task<IEnumerable<Book>> GetEightBooksWithMostReviewsAsync();
+        Task<IEnumerable<Book>> GetEightBooksWithHighestAverageRatingAsync();
     }
 }

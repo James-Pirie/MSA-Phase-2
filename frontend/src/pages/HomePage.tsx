@@ -4,14 +4,17 @@ import SubHeader from '../components/SubHeader.tsx'
 import GradientBackground from '../components/GradientBackground.tsx'
 import RecommendationCollection from '../components/RecommendationCollection.tsx'
 
+import { useBooks } from '../hooks/useBooks.ts'
+
 function HomePage() {
+    const { mostReviewedBooks } = useBooks();
 
     return (
         <>
             <Header/>
             <SubHeader/>
             <GradientBackground/>
-            <RecommendationCollection/>
+            <RecommendationCollection books={mostReviewedBooks}/>
         </>
     )
 }

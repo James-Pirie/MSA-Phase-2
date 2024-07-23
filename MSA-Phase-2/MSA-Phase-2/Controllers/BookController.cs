@@ -8,10 +8,13 @@ namespace MSA_Phase_2.Controllers
     public class BookController : Controller
     {
         private readonly IBookRepository _repository;
+        private readonly IReviewRepository _reviewRepository;
 
-        public BookController(IBookRepository repository)
+        public BookController(IBookRepository repository, IReviewRepository reviewRepository)
         {
             _repository = repository;
+            _reviewRepository = reviewRepository;
+
         }
 
         // GET: /book
@@ -38,6 +41,44 @@ namespace MSA_Phase_2.Controllers
             return Ok(books);
         }
 
+        // GET: /book/rating/{bookId}
+        [HttpGet("/book/rating/{bookId}")]
+        public async Task<ActionResult<BookRating>> GetBookRating(int bookId)
+        {
+            var reviews = await _reviewRepository.GetAllReviewsForBookAsync(bookId);
+            // check if any reviews were retrieved
+            if (reviews == null || !reviews.Any())
+            {
+                return NotFound();
+            }
 
+            // calcualte the average rating from all the reviews
+            var averageRating = reviews.Average(r => r.Rating);
+
+            var bookRating = new BookRating
+            {
+                BookId = bookId,
+                Rating = (int)averageRating
+            };
+
+            return Ok(bookRating);
+        }
+
+        // GET: /book/reccomendation/mostreviewed
+        [HttpGet("/book/reccomendation/mostreviewed")]
+        public async Task<ActionResult<Book[]>> GetMostReviewedBooks()
+        {
+            var books = await _repository.GetEightBooksWithMostReviewsAsync();
+            return Ok(books);
+
+        }
+
+        // GET: /book/reccomendation/highestrated
+        [HttpGet("/book/reccomendation/highestrated")]
+        public async Task<ActionResult<Book[]>> GetHighestRatedBooks()
+        {
+            var books = await _repository.GetEightBooksWithHighestAverageRatingAsync();
+            return Ok(books);
+        }
     }
 }
