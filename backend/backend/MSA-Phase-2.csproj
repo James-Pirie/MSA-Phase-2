@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>MSA_Phase_2</RootNamespace>
+    <RootNamespace>backend</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

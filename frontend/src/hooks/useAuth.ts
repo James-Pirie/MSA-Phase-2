@@ -49,6 +49,8 @@ const useAuth = () => {
         try{
             if(password === confirmPassword){
                 await registerUser(username, password)
+            }else{
+                setRegisterError(`Failed to register`)
             }
         } catch (err){
             setRegisterError(`Failed to register ${err}`)

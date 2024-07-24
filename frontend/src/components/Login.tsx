@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PasswordInput, Input, Button, Container, Text } from '@mantine/core';
+import { PasswordInput, Input, Button, Container, Notification } from '@mantine/core';
 import useAuth from '../hooks/useAuth'; 
 
 import './Login.moduel.css'
@@ -10,14 +10,18 @@ function Login() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [signingUp, setSigningUp] = useState(false);
-    const [succesfullyRegistered, setSuccesfullyRegistered] = useState(false);
+    const [showFailedNotification, setShowFailedNotification] = useState(false);
 
     const handleLogin = async () => {
         await login(username, password);
+        setShowFailedNotification(true);
     };
 
     const handleSignUp = async () => {
         await signUp(username, password, confirmPassword)
+        if(registerError){
+            setShowFailedNotification(true)
+        }
     };
 
     const handleSigningUp = async () => {
@@ -29,7 +33,9 @@ function Login() {
     };
 
     return (
+
         <Container
+        
             h='91vh'
             style={{
                 minWidth: '100%',
@@ -39,6 +45,25 @@ function Login() {
                 alignItems: 'center',
             }}
         >
+            {showFailedNotification && (
+                <Notification
+                    ml='1%'
+                    color='var(--colour-primary-gradient)'
+                    mr='1%'
+                    style={{
+                        backgroundColor: 'var(--colour-primary)',
+                        fontWeight: 'bold',
+                        position: 'absolute',
+                        top: '14%',
+                        width: '29%'
+                    }}
+                    onClose={() => setShowFailedNotification(false)}
+                >
+                    Invalid Username or Password
+                </Notification>
+            )}
+
+
             <div className='login-form light-grey'>
                 <Input 
                     placeholder="Username" 
@@ -55,8 +80,6 @@ function Login() {
                     size='xl'
                     disabled={currentUser != null}
                 />
-
-                {registerError ? (<Text>Error</Text>):(<></>)}
 
                 {signingUp ? (
                     <>

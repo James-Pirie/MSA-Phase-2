@@ -17,7 +17,7 @@ const RecommendationCollection: React.FC<RecommendationCollectionProps> = ({ boo
                 {books.map(book => (
                     <BookRecommendation 
                         key={book.bookId}
-                        book={book} 
+                        book={book}
                     />
                 ))}
             </Flex>

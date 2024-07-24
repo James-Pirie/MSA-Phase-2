@@ -90,6 +90,7 @@ namespace MSA_Phase_2.Controllers
         public async Task<ActionResult<string>> RegisterUser([FromBody] UserLogin loginUser)
         {
             User getUser = await _repository.GetUserByUsernameAsync(loginUser.UserName);
+            
 
             if(getUser != null){
                 return BadRequest("Username Already Taken");
@@ -98,6 +99,7 @@ namespace MSA_Phase_2.Controllers
 
             User newUser = new()
             {
+                UserId = 0,
                 UserName = loginUser.UserName,
                 Password = loginUser.Password
             };
