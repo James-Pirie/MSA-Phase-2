@@ -4,9 +4,7 @@ import './BookRecommendation.moduel.css';
 
 import { Book } from '../models/Book';
 
-import { Container, Image, Rating } from '@mantine/core';
-import { useEffect, useState } from 'react';
-import { useBooks } from '../hooks/useBooks';
+import { Container, Image } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 interface BookRecommendationProp {

@@ -14,7 +14,7 @@ interface AutocompleteItem {
 }
 
 function AllBooksPageSearch() {
-    const { fetchBookBySearch, booksBySearch, loading } = useBooks();
+    const { fetchBookBySearch, booksBySearch, searchLoading } = useBooks();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [searchResults, setSearchResults] = useState<AutocompleteItem[]>([]);
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
@@ -22,15 +22,15 @@ function AllBooksPageSearch() {
 
     // Fetch books based on search term
     useEffect(() => {
-        if (searchTerm !== prevSearchTerm && !loading) {
+        if (searchTerm !== prevSearchTerm && !searchLoading) {
             fetchBookBySearch(searchTerm);
             setPrevSearchTerm(searchTerm);
         }
-    }, [searchTerm, fetchBookBySearch, prevSearchTerm, loading]);
+    }, [searchTerm, fetchBookBySearch, prevSearchTerm, searchLoading]);
 
     // update search results when booksBySearch changes and loading is false
     useEffect(() => {
-        if (!loading && booksBySearch != null) {
+        if (!searchLoading && booksBySearch != null) {
             if (booksBySearch.length > 0) {
                 // Use a map to keep unique books by name
                 const uniqueBooksMap = new Map<string, AutocompleteItem>();
@@ -49,7 +49,7 @@ function AllBooksPageSearch() {
                 setSearchResults([]);
             }
         }
-    }, [booksBySearch, loading]);
+    }, [booksBySearch, searchLoading]);
 
     // Handle search term change
     const handleSearchChange = (value: string) => {

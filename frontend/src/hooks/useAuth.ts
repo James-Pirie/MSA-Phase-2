@@ -1,12 +1,13 @@
 // useAuth.ts
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authenticateUser, getUserByUsername, verifyUser, getCurrentUsername } from '../services/UserServices';
+import { authenticateUser, getUserByUsername, verifyUser, getCurrentUsername, registerUser } from '../services/UserServices';
 import { User } from '../models/User';
 
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null)
     const [authenticated, setAuthenticated] = useState<boolean>(false);
+    const [registerError, setRegisterError] = useState<string | null>(null);
 
     const navigate = useNavigate();
 
@@ -39,22 +40,29 @@ const useAuth = () => {
                 localStorage.removeItem('token');
                 setAuthenticated(false);
             }
-            console.log(currentUser);
         };
 
         checkAuthentication();
     }, [navigate]);
 
+    const signUp = async (username: string, password: string, confirmPassword: string) => {
+        try{
+            if(password === confirmPassword){
+                await registerUser(username, password)
+            }
+        } catch (err){
+            setRegisterError(`Failed to register ${err}`)
+        }
+    }
+
     const login = async (username: string, password: string) => {
         try {
             // check the user is in the database
             const token = await authenticateUser(username, password);
-            console.log(token)
             localStorage.setItem('token', token);
             // get the details of the user logging in
             var user: User;
             user = await getUserByUsername(username);
-            console.log(user)
             setCurrentUser(user);
             setAuthenticated(true);
             navigate('/'); 
@@ -72,7 +80,7 @@ const useAuth = () => {
         navigate('/'); 
     };
 
-    return { authenticated, currentUser, login, logout };
+    return { authenticated, currentUser, login, logout, signUp, registerError };
 };
 
 export default useAuth;

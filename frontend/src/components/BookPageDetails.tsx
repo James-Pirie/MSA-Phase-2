@@ -65,7 +65,7 @@ function BookPageDetails() {
                         {bookById?.bookName} ({bookById?.year})
                     </Text>
 
-                    <Link className='close-button' to='/' state={{ fromBackButton: true }}>
+                    <Link className='close-button' to='/books' state={{ fromBackButton: true }}>
                         <CloseButton size='xl' />
                     </Link>
                 </Flex>

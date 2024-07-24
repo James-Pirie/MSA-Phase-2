@@ -1,5 +1,5 @@
 import { Rating, Image, Flex, Text } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import './RandomReview.moduel.css';
@@ -11,8 +11,8 @@ import { useAuthors } from '../hooks/useAuthors';
 import { useUSers } from '../hooks/useUsers';
 
 const RandomReview = () => {
-  const { fetchBookById, bookById } = useBooks();
-  const { fetchRandomReview, review } = useReviews();
+  const { fetchBookById, bookById, bookByIdLoading } = useBooks();
+  const { fetchRandomReview, review, randomReviewLoading } = useReviews();
   const { fetchAuthorById, author } = useAuthors();
   const { fetchUserById, user } = useUSers();
 
@@ -20,38 +20,44 @@ const RandomReview = () => {
   const [hasFetchedBook, setHasFetchedBook] = useState(false);
   const [hasFetchedAuthor, setHasFetchedAuthor] = useState(false);
   const [hasFetchedUser, setHasFetchedUser] = useState(false);
+  const hasFetchedReviewRef = useRef(false);
 
-  // Fetch a random review from the database
+  // get a random review from the database
   useEffect(() => {
-    if (!hasFetchedReview) {
+    if (!hasFetchedReviewRef.current) {
+      console.log("getting review");
       fetchRandomReview();
+      hasFetchedReviewRef.current = true;
       setHasFetchedReview(true);
     }
-  }, [hasFetchedReview, fetchRandomReview]);
+  }, []);
 
-  // Fetch the book associated with the review
+  // get the book associated with the review
   useEffect(() => {
-    if (review?.bookId && !hasFetchedBook) {
+    if (review?.bookId && !hasFetchedBook && !randomReviewLoading && hasFetchedReview) {
+      console.log("getting book");
       fetchBookById(review.bookId);
       setHasFetchedBook(true);
     }
-  }, [review?.bookId, hasFetchedBook, fetchBookById]);
+  }, [hasFetchedReview, randomReviewLoading]);
 
-  // Fetch the author of the book associated with the review
+  // get the author of the book associated with the review
   useEffect(() => {
-    if (bookById?.authorId && !hasFetchedAuthor) {
+    if (bookById?.authorId && !hasFetchedAuthor && !bookByIdLoading && hasFetchedBook) {
+      console.log("getting author");
       fetchAuthorById(bookById.authorId);
       setHasFetchedAuthor(true);
     }
-  }, [bookById?.authorId, hasFetchedAuthor, fetchAuthorById]);
+  }, [hasFetchedBook, bookByIdLoading]);
 
-  // Fetch the user associated with the review
+  // get the user associated with the review
   useEffect(() => {
-    if (review?.userId && !hasFetchedUser) {
+    if (review?.userId && !hasFetchedUser && hasFetchedReview && !randomReviewLoading) {
+      console.log("getting user");
       fetchUserById(review.userId);
       setHasFetchedUser(true);
     }
-  }, [review?.userId, hasFetchedUser, fetchUserById]);
+  }, [hasFetchedReview, randomReviewLoading]);
 
   return (
     <div className="review-container light-grey">
@@ -67,8 +73,8 @@ const RandomReview = () => {
 
         <div className="review-details">
           <Link 
-          to={`books/${bookById?.bookId}`}
-          style={{ textDecoration: 'none', color: 'inherit' }}
+            to={`books/${bookById?.bookId}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
           >
             <Text fw={700} size="2.5vw" c="var(--colour-secondary)" className="book-title truncate">
               {bookById?.bookName}

@@ -27,10 +27,6 @@ function SubHeader() {
                     </Button>
                 </Link>
 
-                <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>
-                    Authors
-                </Button>
-
                 {authenticated ? (
                     <Link to="/profile">
                         <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>
@@ -44,6 +40,11 @@ function SubHeader() {
                         </Button>
                     </Link>
                 )}
+
+                <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>
+                    Settings
+                </Button>
+
             </Flex>
         </header>
     );

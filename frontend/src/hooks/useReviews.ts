@@ -10,15 +10,20 @@ export const useReviews = () => {
     const [reviewPosted, setPosted] = useState<Boolean | Boolean>(false)
     const [reviewById, setReviewById] = useState<Review | null>(null)
     const [reviewsForBook, setReviewsForBook] = useState<Review[]>([])
+    const [randomReviewLoading, setRandomReviewLoading] = useState<boolean>(false);
+
 
 
     
     const fetchRandomReview = async () => {
+        setRandomReviewLoading(true)
         try {
             const review = await getRandomReview(); 
             setReview(review);  
+            setRandomReviewLoading(false)
         } catch (err) {
             setErrorId('Failed to fetch review');
+            setRandomReviewLoading(false)
         }
     };
 
@@ -50,6 +55,7 @@ export const useReviews = () => {
         }
     };
 
-    return { review, error, fetchRandomReview, reviewPosted, errorPost, postReview, fetchReviewById, reviewById, fetchReviewsForBook, reviewsForBook};
+    return { review, error, fetchRandomReview, reviewPosted, errorPost, postReview, 
+        fetchReviewById, reviewById, fetchReviewsForBook, reviewsForBook, randomReviewLoading};
 };
 

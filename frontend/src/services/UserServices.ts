@@ -25,10 +25,25 @@ export const getUserByUsername = async (username: String): Promise<User> => {
   return data;
 };
 
+export const registerUser = async (username :string, password: string): Promise<void> => {
+  const newUser: UserLogin = { userName: username, password: password };
+  
+  const response = await fetch(`${apiUrl}/user/register`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newUser)
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to register');
+  }
+}
+
 export const authenticateUser = async (username: string, password: string): Promise<string> => {
   // attempt to authenticate with username and password
   const user: UserLogin = { userName: username, password: password };
-  console.log(JSON.stringify(user))
 
   const response = await fetch(`${apiUrl}/user/authenticate`, {
       method: 'POST',

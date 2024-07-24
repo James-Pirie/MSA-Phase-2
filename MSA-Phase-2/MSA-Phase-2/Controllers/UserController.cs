@@ -85,6 +85,27 @@ namespace MSA_Phase_2.Controllers
             return Unauthorized("Invalid Login Details");
         }
 
+        // POST: /user/register
+        [HttpPost("/user/register")]
+        public async Task<ActionResult<string>> RegisterUser([FromBody] UserLogin loginUser)
+        {
+            User getUser = await _repository.GetUserByUsernameAsync(loginUser.UserName);
+
+            if(getUser != null){
+                return BadRequest("Username Already Taken");
+
+            }
+
+            User newUser = new()
+            {
+                UserName = loginUser.UserName,
+                Password = loginUser.Password
+            };
+            await _repository.AddUserAsync(newUser);
+            return Ok();
+            
+        }
+
         // POST: /user/authorize
         [HttpPost("/user/authorize")]
         public ActionResult VerifyToken()

@@ -5,13 +5,18 @@ import { getBookById, searchForBooks, getMostReviewedBooks, getHighestRatedBooks
 export const useBooks = () => {
     const [errorId, setErrorId] = useState<string | null>(null);
     const [bookById, setBook] = useState<Book | null>(null);
+    const [bookByIdLoading, setBookByIdLoading] = useState<boolean>(false);
+
     const [booksBySearch, setBooksBySearch] = useState<Book[] | null>(null);
     const [searchError, setSearchError] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [searchLoading, setSearchLoading] = useState<boolean>(false);
+
     const [mostReviewedBooks, setMostReviewedBooks] = useState<Book[]>([]);
     const [mostReviewedError, setMostReviewedError] = useState<string | null>(null);
+
     const [highestRatedBooks, setHighestRatedBooks] = useState<Book[]>([]);
     const [highestRatedError, setHighestRatedError] = useState<string | null>(null);
+
     const [bookRatingById, setBookRatingById] = useState<number>(0);
     const [errorBookRatingById, setErrorBookRatingById] = useState<String | null>(null);
 
@@ -21,7 +26,7 @@ export const useBooks = () => {
                 const books = await getMostReviewedBooks();
                 setMostReviewedBooks(books)
             } catch(err){
-                setMostReviewedError('Failed to fetch most reviewed books')
+                setMostReviewedError('Failed to fetch most reviewed books');
             }
         };
         fetchMostReviewedBooks();
@@ -33,23 +38,26 @@ export const useBooks = () => {
                 const books = await getHighestRatedBooks();
                 setHighestRatedBooks(books)
             } catch(err){
-                setHighestRatedError('Failed to fetch highest rated books')
+                setHighestRatedError('Failed to fetch highest rated books');
             }
         };
         fetchHighestRatedBooks();
     }, []);
 
     const fetchBookById = async (id: number) => {
+        setBookByIdLoading(true);
         try {
             const book = await getBookById(id); 
             setBook(book);  
+            setBookByIdLoading(false);
         } catch (err) {
             setErrorId('Failed to fetch book');
+            setBookByIdLoading(false);
         }
     };
 
     const fetchBookBySearch = async (searchTerm: string) => {
-        setLoading(true);
+        setSearchLoading(true);
         setBooksBySearch([]);
         try {
             const books = await searchForBooks(searchTerm);
@@ -57,7 +65,7 @@ export const useBooks = () => {
         } catch(err){
             setSearchError('Failed to search for book');
         } finally {
-            setLoading(false);
+            setSearchLoading(false);
         }
     }
 
@@ -70,7 +78,7 @@ export const useBooks = () => {
         }
     }
 
-    return { fetchBookById, errorId, bookById, fetchBookBySearch, searchError, booksBySearch, loading, 
+    return { fetchBookById, errorId, bookById, fetchBookBySearch, searchError, booksBySearch, searchLoading, 
              mostReviewedBooks, mostReviewedError, highestRatedBooks, highestRatedError, fetchBookAverageRating,
-             bookRatingById, errorBookRatingById };
+             bookRatingById, errorBookRatingById, bookByIdLoading };
 };

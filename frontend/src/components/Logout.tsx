@@ -3,7 +3,7 @@ import { Button } from '@mantine/core';
 import useAuth from '../hooks/useAuth';
 
 function Logout() {
-    const { logout } = useAuth();
+    const { logout, currentUser } = useAuth();
 
     const handleLogout = () => {
         logout();
@@ -11,7 +11,7 @@ function Logout() {
 
     return (
         <>
-            <Button onClick={handleLogout}>Log Out</Button>
+            <Button onClick={handleLogout} disabled={currentUser === null}>Log Out</Button>
         </>
     );
 }

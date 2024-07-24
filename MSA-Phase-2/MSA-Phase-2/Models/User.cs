@@ -8,5 +8,9 @@
         // User can have multiple reviews
         public ICollection<Review> Reviews { get; set; }
 
+        public static implicit operator User(bool v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
