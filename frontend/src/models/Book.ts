@@ -1,4 +1,6 @@
 import { Author } from './Author';
+import { Review } from './Review';
+
 
 export interface Book {
     bookId: number;
@@ -9,5 +11,5 @@ export interface Book {
     coverImageL: string;
     year: number;
     author: Author;
-    reviews: null;
+    reviews: Review[];
 }

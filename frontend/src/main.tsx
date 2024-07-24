@@ -2,12 +2,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// components
-import Home from './components/Home.tsx'
-import Header from './components/Header.tsx'
-import SubHeader from './components/SubHeader.tsx'
-import GradientBackground from './components/GradientBackground.tsx'
-
 // style
 import './styles/index.css'
 
@@ -17,20 +11,60 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 
+// pages
+import HomePage from './pages/HomePage.tsx'
+import LoginPage from './pages/LoginPage.tsx'
+import ProfilePage from './pages/ProfilePage.tsx'
+import AllBooksPage from './pages/AllBooksPage.tsx'
+import WriteReviewPage from './pages/WriteReviewPage.tsx'
+import BookPage from './pages/BookPage.tsx'
+
+
+
 
 const router = createBrowserRouter([{
   path: '/',
   Component: () => (
-    <>
-      <Header/>
-      <SubHeader/>
-      <GradientBackground/>
-      <Home/>
-
-    </>
+    <HomePage/>
   ),
   errorElement: <NotFound/>
-}])
+  },
+  {
+    path: '/login',
+    Component: () => (
+      <LoginPage/>
+    ),
+    errorElement: <NotFound/>
+  },
+  {
+    path: '/profile',
+    Component: () => (
+      <ProfilePage/>
+    ),
+    errorElement: <NotFound/>
+  },
+  {
+    path: '/books',
+    Component: () => (
+      <AllBooksPage/>
+    ),
+    errorElement: <NotFound/>
+  },
+  {
+    path: '/newreview/:bookid',
+    Component: () => (
+      <WriteReviewPage/>
+    ),
+    errorElement: <NotFound/>
+  },
+  {
+    path: '/books/:bookid',
+    Component: () => (
+      <BookPage/>
+    ),
+    errorElement: <NotFound/>
+  }
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
