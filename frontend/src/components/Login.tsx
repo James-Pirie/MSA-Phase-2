@@ -94,6 +94,7 @@ function Login() {
                     
                         <Button 
                             c='var(--colour-primary)'
+                            styles={{ label: { color: 'var(--colour-primary-gradient)' } }}
                             mt='5%'
                             size='xl'
                             fullWidth
@@ -101,7 +102,6 @@ function Login() {
                             color="green" 
                             onClick={handleSignUp}
                             disabled={currentUser != null}
-                            styles={{ label: { color: 'var(--colour-primary-gradient)' } }}
                         >
                             Sign Up
                         </Button>

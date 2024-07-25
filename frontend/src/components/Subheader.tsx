@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/colours.css';
 
 function SubHeader() {
-    const { authenticated } = useAuth();
+    const { authenticated, currentUser } = useAuth();
     return (
         <header className='white subheader light-grey'>
             <Flex
@@ -27,8 +27,8 @@ function SubHeader() {
                     </Button>
                 </Link>
 
-                {authenticated ? (
-                    <Link to="/profile">
+                {authenticated && currentUser != null ? (
+                    <Link to={`/profile/${currentUser?.userId}`}>
                         <Button variant="subtle" color="var(--colour-primary)" size="xl" radius="xs" styles={{ label: { fontSize: '2vw' } }}>
                             My Profile
                         </Button>

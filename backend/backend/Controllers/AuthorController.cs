@@ -29,6 +29,5 @@ namespace MSA_Phase_2.Controllers
             Author author = await _repository.GetAuthorByIdAsync(authorId);
             return Ok(author);
         }
-
     }
 }

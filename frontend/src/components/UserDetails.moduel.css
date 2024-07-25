@@ -1,0 +1,14 @@
+.user-details {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.small-green-line{
+    height: 1px;
+}

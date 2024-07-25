@@ -13,7 +13,7 @@ namespace MSA_Phase_2.Controllers
             _repository = repository;
         }
 
-        // GET: all reviews
+        // GET: get all reviews
         [HttpGet("/review/all")]
         public async Task<ActionResult<IEnumerable<Review>>> Index()
         {
@@ -21,7 +21,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(reviews);
         }
 
-        // GET: random review
+        // GET: get a random review
         [HttpGet("/review/random")]
         public async Task<ActionResult<Review>> Random()
         {
@@ -29,7 +29,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(review);
         }
 
-        // GET: /review/reviewId
+        // GET: get a specific review
         [HttpGet("/review/{reviewId}")]
         public async Task<ActionResult<Review>> GetReviewById(int reviewId)
         {
@@ -37,13 +37,22 @@ namespace MSA_Phase_2.Controllers
             return Ok(review);
         }
 
-        // GET: /review/boodId
+        // GET: get all reviews for a book
         [HttpGet("/review/bybook/{bookId}")]
         public async Task<ActionResult<Review>> GetReviewByBook(int bookId)
         {
             IEnumerable<Review> reviews = await _repository.GetAllReviewsForBookAsync(bookId);
             return Ok(reviews);
         }
+
+        // GET: get all review for a user
+        [HttpGet("/review/byuser/{userId}")]
+        public async Task<ActionResult<Review>> GetReviewByUser(int userId)
+        {
+            IEnumerable<Review> reviews = await _repository.GetAllReviewsForUserAsync(userId);
+            return Ok(reviews);
+        }
+
 
         // POST: add a new review
         [HttpPost("/review/post")]
@@ -56,6 +65,15 @@ namespace MSA_Phase_2.Controllers
             // post the review to db
             await _repository.AddReviewAsync(review);
             return CreatedAtAction(nameof(Random), new { id = review.ReviewId }, review);
+        }
+
+        // DELETE: delete a review
+        [HttpDelete("/review/delete")]
+        public async Task<ActionResult<Review>> DeleteReview([FromBody] Review review)
+        {
+            int id = review.ReviewId;
+            await _repository.DeleteReviewAsync(id);
+            return Ok();
         }
     }
 }

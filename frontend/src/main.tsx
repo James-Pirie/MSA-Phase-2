@@ -37,7 +37,7 @@ const router = createBrowserRouter([{
     errorElement: <NotFound/>
   },
   {
-    path: '/profile',
+    path: '/profile/:userId',
     Component: () => (
       <ProfilePage/>
     ),

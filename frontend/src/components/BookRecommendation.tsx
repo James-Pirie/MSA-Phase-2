@@ -20,7 +20,6 @@ function BookRecommendation({book}: BookRecommendationProp) {
                 <Link to={`/books/${book?.bookId}`} aria-label={`Link to recommended book: ${book?.bookName}`}>
 
                     <div className='ratingOverlay'>
-                    {/* <Rating  color="var(--colour-primary" value={bookRatingById} readOnly size="1.5vw" /> */}
                     </div>
                     <Image src={book.coverImageL} width='100%' radius="md" height='250vw'/>
                 </Link>

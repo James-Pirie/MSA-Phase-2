@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import { Review } from '../models/Review';
-import { getRandomReview, getReviewById, getReviewsForBook, pushReview } from '../services/ReviewServices';
+import { getRandomReview, getReviewById, getReviewsForBook, pushReview, getReviewsForUser } from '../services/ReviewServices';
 
 
 export const useReviews = () => {
     const [review, setReview] = useState<Review | null>(null)
     const [error, setErrorId] = useState<String | null>(null)
     const [errorPost, setErrorPost] = useState<String | null>(null)
+    const [errorDelete, setErrorDelete] = useState<String | null>(null)
+
     const [reviewPosted, setPosted] = useState<Boolean | Boolean>(false)
     const [reviewById, setReviewById] = useState<Review | null>(null)
     const [reviewsForBook, setReviewsForBook] = useState<Review[]>([])
+    const [reviewsForUser, setReviewsForUser] = useState<Review[]>([])
+
     const [randomReviewLoading, setRandomReviewLoading] = useState<boolean>(false);
-
-
-
     
     const fetchRandomReview = async () => {
         setRandomReviewLoading(true)
@@ -36,6 +37,15 @@ export const useReviews = () => {
             setErrorPost('Failed to post review');
         }
     };
+
+    const deleteReview = async (newReview: Review) => {
+        try {
+            console.log('Succesfully Deleted Reivew')
+            await deleteReview(newReview);
+        } catch (err) {
+            setErrorDelete('Failed to delete review');
+        }
+    };
  
     const fetchReviewById = async (id: number) => {
         try {
@@ -55,7 +65,17 @@ export const useReviews = () => {
         }
     };
 
+    const fetchReviewsForUser = async (userId: number) => {
+        try {
+            const reviews = await getReviewsForUser(userId); 
+            setReviewsForUser(reviews);  
+        } catch (err) {
+            setErrorId('Failed to fetch reviews');
+        }
+    };
+
     return { review, error, fetchRandomReview, reviewPosted, errorPost, postReview, 
-        fetchReviewById, reviewById, fetchReviewsForBook, reviewsForBook, randomReviewLoading};
+        fetchReviewById, reviewById, fetchReviewsForBook, reviewsForBook, randomReviewLoading, 
+        fetchReviewsForUser, reviewsForUser, errorDelete };
 };
 
