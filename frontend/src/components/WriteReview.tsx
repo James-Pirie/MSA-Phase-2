@@ -22,10 +22,13 @@ function WriteReview() {
     const [description, setDescription] = useState('');
     const [rating, setRating] = useState<number | null>(null);
     const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+    const [alreadyReviewed, setAlreadyReviewed] = useState(false);
+    const [hasFetchedReviewsForUser, setHasFetchedReviewsForUser] = useState(false);
+
 
     // get constants from hooks
     const { fetchBookById, bookById } = useBooks();
-    const { reviewPosted, postReview } = useReviews();
+    const { reviewPosted, postReview, reviewsForUser, fetchReviewsForUser } = useReviews();
     const { currentUser, authenticated } = useAuth();
 
     // get the book being reviewed
@@ -35,6 +38,26 @@ function WriteReview() {
             setHasFetchedBook(true);
         }
     }, [hasFetchedBook, fetchBookById]);
+
+    // get the current users reviews
+    useEffect(() => {
+        if (!hasFetchedReviewsForUser && currentUser != null) {
+            fetchReviewsForUser(currentUser?.userId);
+            reviewsForUser
+            setHasFetchedReviewsForUser(true);
+        }
+    }, [hasFetchedBook, bookById, currentUser]);
+
+    useEffect(() => {
+        if (hasFetchedReviewsForUser && reviewsForUser.length > 0) {
+            reviewsForUser.forEach(review => 
+            {
+                if (review.bookId === numericId){
+                    setAlreadyReviewed(true);
+                }
+            });
+        }
+    }, [hasFetchedReviewsForUser, reviewsForUser]);
 
     // notify user when review posted succesfully 
     useEffect(() => {
@@ -79,6 +102,22 @@ function WriteReview() {
                     Succesfully Posted Review
                 </Notification>
             )}
+
+            {alreadyReviewed && (
+                <Notification
+                    ml='1%'
+                    color = 'var(--colour-primary-gradient)'
+                    mr='1%'
+                    style={{
+                        backgroundColor: 'var(--colour-primary)',
+                        fontWeight: 'bold',
+                    }}           
+
+                    onClose={() => setShowSuccessNotification(false)}
+                >
+                    Already reviewed {bookById?.bookName}, delete your old review in your profile first
+                </Notification>
+            )}
             <div className='write-review-container light-grey'>
                 <Flex>
                     <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
@@ -100,7 +139,7 @@ function WriteReview() {
                             size='xl'    
                             mb='1%'
                             onChange={(value) => setRating(value)} 
-                            readOnly={!authenticated} 
+                            readOnly={!authenticated || alreadyReviewed} 
                         />
                         <Textarea
                             onChange={(e) => setDescription(e.target.value)} 
@@ -108,7 +147,7 @@ function WriteReview() {
                             placeholder='Write Review'
                             withAsterisk
                             rows={15}
-                            disabled={!authenticated}
+                            disabled={!authenticated || alreadyReviewed}
                             styles={() => ({
                                 input: {
                                     backgroundColor: 'var(--colour-primary-gradient)',
@@ -127,7 +166,7 @@ function WriteReview() {
                                 size='md' 
                                 variant="outline"
                                 color='var(--colour-primary)'
-                                disabled={!authenticated}
+                                disabled={!authenticated || alreadyReviewed}
                             >
                                 Post Review
                             </Button>

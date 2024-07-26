@@ -1,9 +1,8 @@
 import '../styles/colours.css';
-import './ReviewLink.moduel.css';
-
+import './ReviewLink.moduel.css'; 
 
 import { useReviews } from '../hooks/useReviews';
-import { useUsers } from '../hooks/useUsers'
+import { useUsers } from '../hooks/useUsers';
 import { useEffect, useState } from 'react';
 import { Text, Rating, Flex, Button } from '@mantine/core';
 
@@ -20,10 +19,9 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
     const { fetchUserById, user } = useUsers();
     const { currentUser } = useAuth();
 
-
     const [hasFetchedReview, setHasFetchedReview] = useState<boolean>(false);
     const [hasFetchedUser, setHasFetchedUser] = useState(false);
-
+    const [isDeleted, setIsDeleted] = useState<boolean>(false); 
 
     useEffect(() => {
         if (reviewId && !hasFetchedReview) {
@@ -32,32 +30,32 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
         }
     }, [reviewId, hasFetchedReview, fetchReviewById]);
 
-    // Fetch the user associated with the review
     useEffect(() => {
         if (reviewById?.userId && !hasFetchedUser) {
-        fetchUserById(reviewById.userId);
-        setHasFetchedUser(true);
+            fetchUserById(reviewById.userId);
+            setHasFetchedUser(true);
         }
     }, [reviewById?.userId, hasFetchedUser, fetchUserById]);
 
-    // post review when button clicked
     const handleDelete = async () => {
-        if (reviewById != null && reviewById.userId == currentUser?.userId) {
+        if (reviewById != null && reviewById.userId === currentUser?.userId) {
             await deleteReview(reviewById);
+            setIsDeleted(true); 
         }
     };
+
+    if (isDeleted) return null;
 
     return (
         <div className='review-link-container light-grey'>
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
-                <Rating className="rating" color="var(--colour-primary)" value={reviewById?.rating} readOnly size="xl"/>
+                <Rating className="rating" color="var(--colour-primary)" value={reviewById?.rating} readOnly size="xl" />
 
-                {currentUser?.userId == reviewById?.userId ? (
+                {currentUser?.userId === reviewById?.userId ? (
                     <Button
-
                         variant='outline'
                         color='var(--colour-primary)'
-                        onClick={handleDelete} 
+                        onClick={handleDelete}
                         disabled={currentUser === null}
                     >
                         Delete Your Review
@@ -72,8 +70,6 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                         </Text>
                     </Link>
                 )}
-
-
             </Flex>
             <Text className='lighter-grey-font'>{reviewById?.description}</Text>
         </div>
