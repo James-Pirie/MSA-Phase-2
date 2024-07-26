@@ -51,7 +51,7 @@ const router = createBrowserRouter([{
     errorElement: <NotFound/>
   },
   {
-    path: '/newreview/:bookid',
+    path: '/newreview/:bookid/:reviewId?',
     Component: () => (
       <WriteReviewPage/>
     ),

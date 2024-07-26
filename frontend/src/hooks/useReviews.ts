@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Review } from '../models/Review';
-import { getRandomReview, getReviewById, getReviewsForBook, pushReview, getReviewsForUser } from '../services/ReviewServices';
+import { getRandomReview, getReviewById, getReviewsForBook, pushReview, popReview, getReviewsForUser } from '../services/ReviewServices';
 
 
 export const useReviews = () => {
@@ -38,10 +38,10 @@ export const useReviews = () => {
         }
     };
 
-    const deleteReview = async (newReview: Review) => {
+    const deleteReview = async (review: Review) => {
         try {
+            await popReview(review);
             console.log('Succesfully Deleted Reivew')
-            await deleteReview(newReview);
         } catch (err) {
             setErrorDelete('Failed to delete review');
         }
@@ -50,6 +50,7 @@ export const useReviews = () => {
     const fetchReviewById = async (id: number) => {
         try {
             const review = await getReviewById(id); 
+            console.log(review)
             setReviewById(review);  
         } catch (err) {
             setErrorId('Failed to fetch review');
@@ -76,6 +77,6 @@ export const useReviews = () => {
 
     return { review, error, fetchRandomReview, reviewPosted, errorPost, postReview, 
         fetchReviewById, reviewById, fetchReviewsForBook, reviewsForBook, randomReviewLoading, 
-        fetchReviewsForUser, reviewsForUser, errorDelete };
+        fetchReviewsForUser, reviewsForUser, errorDelete, deleteReview };
 };
 

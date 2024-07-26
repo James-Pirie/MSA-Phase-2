@@ -48,7 +48,7 @@ export const pushReview = async (review: Review): Promise<void> => {
     }
 };
 
-export const deleteReview = async (review: Review): Promise<void> => {
+export const popReview = async (review: Review): Promise<void> => {
     try {
         const response = await fetch(`${apiUrl}/review/delete`, {
             method: 'DELETE',

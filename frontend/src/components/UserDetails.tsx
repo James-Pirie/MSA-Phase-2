@@ -15,7 +15,7 @@ function UserDetails() {
     const { userId } = useParams();
     const { fetchUserById, user } = useUsers();
     const { fetchReviewsForUser, reviewsForUser } = useReviews();
-
+    
     const [hasFetchedUser, setHasFetchedUser] = useState(false);
     const [hasFetchedReviewsForUser, setHasFetchedReviewsForUser] = useState(false);
     const numericId = Number(userId);
@@ -25,7 +25,7 @@ function UserDetails() {
           fetchUserById(numericId);
           setHasFetchedUser(true);
         }
-      }, []);
+    }, []);
 
     useEffect(() => {
         if (!hasFetchedReviewsForUser) {

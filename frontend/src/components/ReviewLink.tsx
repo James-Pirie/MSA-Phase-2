@@ -9,7 +9,6 @@ import { Text, Rating, Flex, Button } from '@mantine/core';
 
 import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
-import { deleteReview } from '../services/ReviewServices';
 
 interface ReviewLinkProp {
     reviewId: number;
@@ -40,28 +39,21 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
         }
     }, [reviewById?.userId, hasFetchedUser, fetchUserById]);
 
-    // post review when button clicked
-    const handleDelete = async () => {
-        if (reviewById != null && reviewById.userId == currentUser?.userId) {
-            await deleteReview(reviewById);
-        }
-    };
-
     return (
         <div className='review-link-container light-grey'>
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
                 <Rating className="rating" color="var(--colour-primary)" value={reviewById?.rating} readOnly size="xl"/>
 
                 {currentUser?.userId == reviewById?.userId ? (
-                    <Button
-
-                        variant='outline'
-                        color='var(--colour-primary)'
-                        onClick={handleDelete} 
-                        disabled={currentUser === null}
-                    >
-                        Delete Your Review
-                    </Button>
+                    <Link to={`/newreview/${reviewById?.bookId}/${reviewById?.reviewId}`}>
+                        <Button
+                            variant='outline'
+                            color='var(--colour-primary)'
+                            disabled={currentUser === null}
+                        >
+                            Edit Your Review
+                        </Button>
+                    </Link>
                 ) : (
                     <Link 
                         to={`/profile/${user?.userId}`}  
