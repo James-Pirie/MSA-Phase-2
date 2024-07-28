@@ -9,6 +9,8 @@ import { Text, Rating, Flex, Button } from '@mantine/core';
 import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import { deleteReview } from '../services/ReviewServices';
+import { useResponsive } from '../hooks/useResponsive';
+
 
 interface ReviewLinkProp {
     reviewId: number;
@@ -18,6 +20,7 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
     const { fetchReviewById, reviewById } = useReviews();
     const { fetchUserById, user } = useUsers();
     const { currentUser } = useAuth();
+    const { isSmallScreen } = useResponsive();
 
     const [hasFetchedReview, setHasFetchedReview] = useState<boolean>(false);
     const [hasFetchedUser, setHasFetchedUser] = useState(false);
@@ -47,7 +50,8 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
     if (isDeleted) return null;
 
     return (
-        <div className='review-link-container light-grey'>
+        <div className={isSmallScreen ? ('review-link-container-mobile light-grey'):('review-link-container light-grey')}                  
+>
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
                 <Rating className="rating" color="var(--colour-primary)" value={reviewById?.rating} readOnly size="xl" />
 
@@ -58,7 +62,8 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                         onClick={handleDelete}
                         disabled={currentUser === null}
                     >
-                        Delete Your Review
+                        {isSmallScreen ? ('Delete'):('Delete Your Review')}
+                        
                     </Button>
                 ) : (
                     <Link 

@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUsers } from '../hooks/useUsers';
 import { useReviews } from '../hooks/useReviews';
+import { useResponsive } from '../hooks/useResponsive';
 
 import ReviewScroll from './ReviewsScroll';
 import Logout from './Logout';
 
-
 function UserDetails() {
+    const { isSmallScreen } = useResponsive();
     const { userId } = useParams();
     const { fetchUserById, user } = useUsers();
     const { fetchReviewsForUser, reviewsForUser } = useReviews();
@@ -41,8 +42,12 @@ function UserDetails() {
             <div className='light-grey user-details'>
                 <Text 
                     fw={700} 
-                    size='2.5vw'
+                    size={isSmallScreen? ('6vw'):('2.5vw')}
                     c='var(--colour-primary)'
+                    mt={isSmallScreen? ('2%'):(undefined)}
+                    mb={isSmallScreen? ('2%'):(undefined)}
+                    ml={isSmallScreen? ('3%'):(undefined)}
+
                 >
                     {user?.userName}'s Reviews
                 </Text>

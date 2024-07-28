@@ -1,10 +1,14 @@
 import '../styles/colours.css'
 import { Image, Center, Space  } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { useResponsive } from '../hooks/useResponsive';
 
 
 function Header() {
-    const isSmallScreen = useMediaQuery('(max-width: 768px)');
+    const { isSmallScreen } = useResponsive();
+
+    if(isSmallScreen){
+        return null
+    }
 
     return (
         <header className='header white'>
