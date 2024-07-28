@@ -1,4 +1,3 @@
-import '../styles/colours.css'
 import RecommendationCollection from './RecommendationCollection';
 
 import { Container, Text } from '@mantine/core';

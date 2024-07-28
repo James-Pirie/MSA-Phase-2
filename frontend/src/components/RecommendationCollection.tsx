@@ -1,10 +1,10 @@
-import '../styles/colours.css';
 import './RecommendationCollection.moduel.css';
 import BookRecommendation from './BookRecommendation';
 
 import { Flex, ScrollArea } from '@mantine/core';
 import { Book } from '../models/Book';
 import { useResponsive } from '../hooks/useResponsive';
+
 
 interface RecommendationCollectionProps {
     books: Book[];

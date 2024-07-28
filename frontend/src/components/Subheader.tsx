@@ -1,7 +1,6 @@
 import { Button, Flex } from '@mantine/core';
 import useAuth from '../hooks/useAuth'; 
 import { Link } from 'react-router-dom';
-import '../styles/colours.css';
 import { useResponsive } from '../hooks/useResponsive';
 
 

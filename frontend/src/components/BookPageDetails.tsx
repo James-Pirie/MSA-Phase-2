@@ -1,4 +1,3 @@
-import '../styles/colours.css';
 import './BookPageDetails.moduel.css';
 
 import ReviewScroll from './ReviewsScroll';

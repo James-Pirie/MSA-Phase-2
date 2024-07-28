@@ -1,4 +1,3 @@
-import '../styles/colours.css';
 import './ReviewLink.moduel.css'; 
 
 import { useReviews } from '../hooks/useReviews';

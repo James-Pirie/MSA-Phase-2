@@ -1,4 +1,3 @@
-import '../styles/colours.css'
 import './UserDetails.moduel.css'
 
 import { Text, Container } from '@mantine/core';

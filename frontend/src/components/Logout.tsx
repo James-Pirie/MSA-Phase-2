@@ -5,6 +5,8 @@ import { useResponsive } from '../hooks/useResponsive';
 import '../styles/colours.css'
 
 
+
+
 function Logout() {
     const { logout, authenticated, currentUser } = useAuth();
     const { isSmallScreen } = useResponsive();

@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import './RandomReview.moduel.css';
-import '../styles/colours.css';
 
 import { useBooks } from '../hooks/useBooks';
 import { useReviews } from '../hooks/useReviews';

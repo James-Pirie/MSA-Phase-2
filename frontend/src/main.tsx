@@ -2,9 +2,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// style
-import './styles/index.css'
-
 // dependancies
 import NotFound from './components/NotFound.tsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
@@ -18,8 +15,6 @@ import ProfilePage from './pages/ProfilePage.tsx'
 import AllBooksPage from './pages/AllBooksPage.tsx'
 import WriteReviewPage from './pages/WriteReviewPage.tsx'
 import BookPage from './pages/BookPage.tsx'
-
-
 
 
 const router = createBrowserRouter([{

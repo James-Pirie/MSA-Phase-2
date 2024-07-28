@@ -1,6 +1,5 @@
 import { Container  } from '@mantine/core';
 import RandomReview from './RandomReview'
-import '../styles/colours.css'
 
 const GradientBackground = () => {
 

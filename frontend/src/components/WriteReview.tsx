@@ -1,4 +1,3 @@
-import '../styles/colours.css';
 import './WriteReview.moduel.css';
 
 import { Flex, Text, Image, Textarea, Rating, CloseButton, Button, Notification } from '@mantine/core';

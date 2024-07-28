@@ -1,4 +1,3 @@
-import '../styles/colours.css';
 import './AllBooksPageSearch.moduel.css';
 
 import { useBooks } from '../hooks/useBooks';

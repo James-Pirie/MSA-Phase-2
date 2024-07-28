@@ -1,4 +1,3 @@
-import '../styles/colours.css'
 import { Image, Center, Space  } from '@mantine/core';
 import { useResponsive } from '../hooks/useResponsive';
 

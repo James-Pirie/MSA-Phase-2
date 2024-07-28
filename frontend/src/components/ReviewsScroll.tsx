@@ -1,5 +1,3 @@
-import '../styles/colours.css'
-
 import ReviewLink from './ReviewLink';
 
 import { ScrollArea  } from '@mantine/core';

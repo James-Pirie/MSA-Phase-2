@@ -1,5 +1,4 @@
 // BookRecommendation
-import '../styles/colours.css';
 import './BookRecommendation.moduel.css';
 
 import { Book } from '../models/Book';
