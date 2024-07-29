@@ -23,6 +23,12 @@ export const getReviewsForBook = async (bookId: number): Promise<Review[]> => {
     return data;
   };
 
+export const getReviewsForUser = async (userId: number): Promise<Review[]> => {
+    const response = await fetch(`${apiUrl}/review/byuser/${userId}`); 
+    const data = await response.json();
+    return data;
+  };
+
 
 export const pushReview = async (review: Review): Promise<void> => {
     try {
@@ -39,5 +45,23 @@ export const pushReview = async (review: Review): Promise<void> => {
         }
     } catch (error) {
         console.error('Error posting review:', error);
+    }
+};
+
+export const deleteReview = async (review: Review): Promise<void> => {
+    try {
+        const response = await fetch(`${apiUrl}/review/delete`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(review),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Not allowed to delete review: ${response.statusText}`);
+        }
+    } catch (error) {
+        console.error('Error deleting review:', error);
     }
 };

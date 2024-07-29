@@ -1,4 +1,3 @@
-import '../styles/colours.css';
 import './AllBooksPageSearch.moduel.css';
 
 import { useBooks } from '../hooks/useBooks';
@@ -6,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { Autocomplete, Container, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { useResponsive } from '../hooks/useResponsive';
 
 // Define the type for autocomplete items
 interface AutocompleteItem {
@@ -15,10 +15,12 @@ interface AutocompleteItem {
 
 function AllBooksPageSearch() {
     const { fetchBookBySearch, booksBySearch, searchLoading } = useBooks();
+    const { isSmallScreen } = useResponsive();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [searchResults, setSearchResults] = useState<AutocompleteItem[]>([]);
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
     const navigate = useNavigate();
+    
 
     // Fetch books based on search term
     useEffect(() => {
@@ -77,8 +79,11 @@ function AllBooksPageSearch() {
             >
                 <Text 
                     className='lighter-grey-font'
-                    fw={600} size='2.5vw'
+                    fw={600} 
+                    size={isSmallScreen ? ('5vw'): ('2.5vw')}
                     mb='1%'
+                    mt={isSmallScreen ? ('2%'): (undefined)}
+
                 >
                     Search for a Book
                 </Text>
@@ -90,7 +95,12 @@ function AllBooksPageSearch() {
                         value: item.bookName,
                         label: item.bookName
                     }))}
-                    size="xl"
+                    ml={isSmallScreen ? ('4%'): (undefined)}
+                    mr={isSmallScreen ? ('4%'): (undefined)}
+                    mb={isSmallScreen ? ('2%'): (undefined)}
+                    size={isSmallScreen ? (undefined): ('xl')}
+
+
                     style={{ marginTop: '1%' }}
                     value={searchTerm}
                     onChange={handleSearchChange}

@@ -1,13 +1,12 @@
-import Logout from '../components/Logout.tsx'
 import SubHeader from '../components/SubHeader.tsx';
-
+import UserDetails from '../components/UserDetails.tsx';
 
 function HomePage() {
 
     return (
         <>
         <SubHeader/>
-        <Logout/>
+        <UserDetails/>
         </>
         
     )

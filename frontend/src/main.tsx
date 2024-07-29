@@ -2,14 +2,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// style
-import './styles/index.css'
-
 // dependancies
 import NotFound from './components/NotFound.tsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
+
 
 // pages
 import HomePage from './pages/HomePage.tsx'
@@ -18,8 +16,6 @@ import ProfilePage from './pages/ProfilePage.tsx'
 import AllBooksPage from './pages/AllBooksPage.tsx'
 import WriteReviewPage from './pages/WriteReviewPage.tsx'
 import BookPage from './pages/BookPage.tsx'
-
-
 
 
 const router = createBrowserRouter([{
@@ -37,7 +33,7 @@ const router = createBrowserRouter([{
     errorElement: <NotFound/>
   },
   {
-    path: '/profile',
+    path: '/profile/:userId',
     Component: () => (
       <ProfilePage/>
     ),

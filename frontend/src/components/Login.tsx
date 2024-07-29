@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { PasswordInput, Input, Button, Container, Notification } from '@mantine/core';
+import { useResponsive } from '../hooks/useResponsive';
 import useAuth from '../hooks/useAuth'; 
 
 import './Login.moduel.css'
 
 function Login() {
+    const { isSmallScreen } = useResponsive();
     const { login, signUp, currentUser, registerError } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -64,7 +66,8 @@ function Login() {
             )}
 
 
-            <div className='login-form light-grey'>
+            <div 
+                className={isSmallScreen ? ('login-form-mobile light-grey'):('login-form light-grey')}>
                 <Input 
                     placeholder="Username" 
                     value={username} 
@@ -94,6 +97,7 @@ function Login() {
                     
                         <Button 
                             c='var(--colour-primary)'
+                            styles={{ label: { color: 'var(--colour-primary-gradient)' } }}
                             mt='5%'
                             size='xl'
                             fullWidth
@@ -101,7 +105,6 @@ function Login() {
                             color="green" 
                             onClick={handleSignUp}
                             disabled={currentUser != null}
-                            styles={{ label: { color: 'var(--colour-primary-gradient)' } }}
                         >
                             Sign Up
                         </Button>
