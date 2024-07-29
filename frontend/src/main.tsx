@@ -8,6 +8,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 
+
 // pages
 import HomePage from './pages/HomePage.tsx'
 import LoginPage from './pages/LoginPage.tsx'
