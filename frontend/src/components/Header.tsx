@@ -1,8 +1,9 @@
-import { Image, Center, Space  } from '@mantine/core';
+import { Image, Center, Space, useMantineTheme  } from '@mantine/core';
 import { useResponsive } from '../hooks/useResponsive';
 
 
 function Header() {
+    const theme = useMantineTheme();
     const { isSmallScreen } = useResponsive();
 
     if(isSmallScreen){
@@ -10,16 +11,16 @@ function Header() {
     }
 
     return (
-        <header className='header white'>
+        <header className='header' style={{backgroundColor: theme.colors.mediumGrey[0]}}>
             <Space h={isSmallScreen ? "xs" : "lg"} />
             <Center>
 
                 <Image
-                radius="md"
-                h={isSmallScreen ? 50 : 100} // Example: smaller height for small screens
-                w="auto"
-                fit="contain"
-                src="src/assets/images/LogoColouredDarkTheme.png"
+                    radius="md"
+                    h={isSmallScreen ? 50 : 100} // Example: smaller height for small screens
+                    w="auto"
+                    fit="contain"
+                    src="src/assets/images/LogoColouredDarkTheme.png"
                 />
             </Center>
 

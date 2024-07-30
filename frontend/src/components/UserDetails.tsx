@@ -1,6 +1,6 @@
 import './UserDetails.moduel.css'
 
-import { Text, Container } from '@mantine/core';
+import { Text, Container, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUsers } from '../hooks/useUsers';
@@ -18,7 +18,10 @@ function UserDetails() {
 
     const [hasFetchedUser, setHasFetchedUser] = useState(false);
     const [hasFetchedReviewsForUser, setHasFetchedReviewsForUser] = useState(false);
+
     const numericId = Number(userId);
+    const theme = useMantineTheme();
+
 
     useEffect(() => {
         if (!hasFetchedUser ) {
@@ -36,13 +39,13 @@ function UserDetails() {
     
     return (
         <>
-            <div className='small-green-line brand-colour'></div>
+            <div className='small-green-line' style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
 
-            <div className='light-grey user-details'>
+            <div className='user-details' style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Text 
                     fw={700} 
                     size={isSmallScreen? ('6vw'):('2.5vw')}
-                    c='var(--colour-primary)'
+                    c={theme.colors.brandGreen[0]}
                     mt={isSmallScreen? ('2%'):(undefined)}
                     mb={isSmallScreen? ('2%'):(undefined)}
                     ml={isSmallScreen? ('3%'):(undefined)}
@@ -59,7 +62,7 @@ function UserDetails() {
                 style={{
                     minWidth: '100vw',
                     minHeight: '82vh',
-                    background: 'linear-gradient(to right, var(--colour-primary-gradient), var(--colour-secondary-gradient))',
+                    background: theme.other.primaryGradient,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -69,7 +72,6 @@ function UserDetails() {
             >
                 <ReviewScroll reviews={reviewsForUser}/>
             </Container>
-
         </>   
     )
 }

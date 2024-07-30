@@ -1,4 +1,4 @@
-import { Rating, Image, Flex, Text, Center } from '@mantine/core';
+import { Rating, Image, Flex, Text, Center, useMantineTheme } from '@mantine/core';
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -17,17 +17,17 @@ const RandomReview = () => {
   const { fetchUserById, user } = useUsers();
   const { isSmallScreen } = useResponsive();
 
-
   const [hasFetchedReview, setHasFetchedReview] = useState(false);
   const [hasFetchedBook, setHasFetchedBook] = useState(false);
   const [hasFetchedAuthor, setHasFetchedAuthor] = useState(false);
   const [hasFetchedUser, setHasFetchedUser] = useState(false);
   const hasFetchedReviewRef = useRef(false);
 
+  const theme = useMantineTheme();
+
   // get a random review from the database
   useEffect(() => {
     if (!hasFetchedReviewRef.current) {
-      console.log("getting review");
       fetchRandomReview();
       hasFetchedReviewRef.current = true;
       setHasFetchedReview(true);
@@ -37,7 +37,6 @@ const RandomReview = () => {
   // get the book associated with the review
   useEffect(() => {
     if (review?.bookId && !hasFetchedBook && !randomReviewLoading && hasFetchedReview) {
-      console.log("getting book");
       fetchBookById(review.bookId);
       setHasFetchedBook(true);
     }
@@ -46,7 +45,6 @@ const RandomReview = () => {
   // get the author of the book associated with the review
   useEffect(() => {
     if (bookById?.authorId && !hasFetchedAuthor && !bookByIdLoading && hasFetchedBook) {
-      console.log("getting author");
       fetchAuthorById(bookById.authorId);
       setHasFetchedAuthor(true);
     }
@@ -55,7 +53,6 @@ const RandomReview = () => {
   // get the user associated with the review
   useEffect(() => {
     if (review?.userId && !hasFetchedUser && hasFetchedReview && !randomReviewLoading) {
-      console.log("getting user");
       fetchUserById(review.userId);
       setHasFetchedUser(true);
     }
@@ -63,7 +60,7 @@ const RandomReview = () => {
 
   if(!isSmallScreen){
     return (
-      <div className="review-container light-grey">
+      <div className="review-container" style={{backgroundColor: theme.colors.darkGrey[0]}}>
         <Flex align="flex-start">
           <Link to={`books/${bookById?.bookId}`}>
             <Image
@@ -79,11 +76,11 @@ const RandomReview = () => {
               to={`books/${bookById?.bookId}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              <Text fw={700} size="2.5vw" c="var(--colour-secondary)" className="book-title truncate">
+              <Text fw={700} size="2.5vw" c={theme.colors.brandGreen[0]} className="book-title truncate">
                 {bookById?.bookName}
               </Text>
             </Link>
-            <Text fw={500} mt='0' size="1.3vw" c="var(--lighter-grey)" className="author-name">
+            <Text fw={500} mt='0' size="1.3vw" c={theme.colors.lightGrey[0]} className="author-name">
               By {author?.authorName &&
                 author.authorName
                   .toLowerCase()
@@ -91,15 +88,15 @@ const RandomReview = () => {
                   .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                   .join(' ')}
             </Text>
-            <Rating className="rating" color="var(--colour-primary)" value={review?.rating} readOnly size="xl" />
-            <Text fw={400} size="xl" c="var(--lighter-grey)" className="book-description" lineClamp={10}>
+            <Rating className="rating" color={theme.colors.brandGreen[0]} value={review?.rating} readOnly size="xl" />
+            <Text fw={400} size="xl" c={theme.colors.lightGrey[0]} className="book-description" lineClamp={10}>
               {review?.description}
             </Text>
             <Link 
                 to={`/profile/${user?.userId}`}  
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              <Text c="var(--colour-secondary)" className="review-author">
+              <Text c={theme.colors.brandGreen[0]} className="review-author">
                 Review by: {user?.userName}
               </Text>
             </Link>
@@ -110,7 +107,7 @@ const RandomReview = () => {
   };
 
   return(
-    <div className='review-container-mobile light-grey'>
+    <div className='review-container-mobile' style={{backgroundColor: theme.colors.darkGrey[0]}}>
           <Link to={`books/${bookById?.bookId}`}>
             <Image
               radius="30px"
@@ -119,17 +116,17 @@ const RandomReview = () => {
             />
           </Link>
           <Center>
-            <Rating className="rating" color="var(--colour-primary)" value={review?.rating} readOnly size="16vw" />
+            <Rating className="rating" color={theme.colors.brandGreen[0]} value={review?.rating} readOnly size="16vw" />
           </Center>
 
           <Center>
-            <Text fw={500} size="xl" c="var(--lighter-grey)" lineClamp={6}>
+            <Text fw={500} size="xl" c={theme.colors.lightGrey[0]} lineClamp={6}>
                 {review?.description}
             </Text>
           </Center>
 
           <Text 
-            c="var(--colour-secondary)" 
+            c={theme.colors.brandGreen[0]} 
             className="review-author"
             mt='2%'>
                 Review by: {user?.userName}

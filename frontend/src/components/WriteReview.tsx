@@ -1,6 +1,6 @@
 import './WriteReview.moduel.css';
 
-import { Flex, Text, Image, Textarea, Rating, CloseButton, Button, Notification } from '@mantine/core';
+import { Flex, Text, Image, Textarea, Rating, CloseButton, Button, Notification, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useBooks } from '../hooks/useBooks';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,8 @@ import { useParams } from 'react-router-dom';
 
 
 function WriteReview() {
+    const theme = useMantineTheme();
+
     // book id parsed in through url
     // test with example 209770
     const { bookid } = useParams();
@@ -89,10 +91,10 @@ function WriteReview() {
             {showSuccessNotification && (
                 <Notification
                     ml='1%'
-                    color = 'var(--colour-primary-gradient)'
+                    color = {theme.colors.mediumGrey[0]}
                     mr='1%'
                     style={{
-                        backgroundColor: 'var(--colour-primary)',
+                        backgroundColor: theme.colors.brandGreen[0],
                         fontWeight: 'bold',
                     }}           
 
@@ -103,28 +105,27 @@ function WriteReview() {
             )}
 
             {alreadyReviewed && (
-                <Notification
-                    ml='1%'
-                    color = 'var(--colour-primary-gradient)'
-                    mr='1%'
-                    style={{
-                        backgroundColor: 'var(--colour-primary)',
-                        fontWeight: 'bold',
-                    }}           
-
-                    onClose={() => setShowSuccessNotification(false)}
-                >
-                    Already reviewed {bookById?.bookName}, delete your old review in your profile first
-                </Notification>
+            <Notification
+                ml='1%'
+                color={theme.colors.mediumGrey[0]}
+                mr='1%'
+                style={{
+                    backgroundColor: theme.colors.brandGreen[0],
+                    fontWeight: 'bold',
+                }}
+                className="custom-notification" // Add custom class
+            >
+                Already reviewed {bookById?.bookName}, delete your old review in your profile first
+            </Notification>
             )}
-            <div className='write-review-container light-grey'>
+            <div className='write-review-container' style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex>
                     <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
                         <Image src={bookById?.coverImageL} />
                     </Link>
                     <div className='write-review-form'>
                         <Flex justify='space-between' align='center'>
-                            <Text className='brand-colour-fonts' fw={700} size='2.5vw'>
+                            <Text c={theme.colors.brandGreen[0]} fw={700} size='2.5vw'>
                                 {bookById?.bookName}
                             </Text>
                             
@@ -134,7 +135,7 @@ function WriteReview() {
                         </Flex>
                         <Rating 
                             className='rating-input' 
-                            color='var(--colour-primary)' 
+                            color={theme.colors.brandGreen[0]}
                             size='xl'    
                             mb='1%'
                             onChange={(value) => setRating(value)} 
@@ -149,11 +150,11 @@ function WriteReview() {
                             disabled={!authenticated || alreadyReviewed}
                             styles={() => ({
                                 input: {
-                                    backgroundColor: 'var(--colour-primary-gradient)',
-                                    borderColor: 'var(--lighter-grey)',
-                                    color: 'var(--lighter-grey)',
+                                    backgroundColor: theme.colors.mediumGrey[0],
+                                    borderColor: theme.colors.lightGrey[0],
+                                    color: theme.colors.lightGrey[0],
                                     '::placeholder': {
-                                        color: 'var(--lighter-grey)',
+                                        color: theme.colors.lightGrey[0],
                                     },
                                 }
                             })}
@@ -164,7 +165,7 @@ function WriteReview() {
                                 mt='1%' 
                                 size='md' 
                                 variant="outline"
-                                color='var(--colour-primary)'
+                                color={theme.colors.brandGreen[0]}
                                 disabled={!authenticated || alreadyReviewed}
                             >
                                 Post Review

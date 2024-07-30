@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PasswordInput, Input, Button, Container, Notification } from '@mantine/core';
+import { PasswordInput, Input, Button, Container, Notification, useMantineTheme } from '@mantine/core';
 import { useResponsive } from '../hooks/useResponsive';
 import useAuth from '../hooks/useAuth'; 
 
@@ -13,6 +13,7 @@ function Login() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [signingUp, setSigningUp] = useState(false);
     const [showFailedNotification, setShowFailedNotification] = useState(false);
+    const theme = useMantineTheme();
 
     const handleLogin = async () => {
         await login(username, password);
@@ -41,7 +42,8 @@ function Login() {
             h='91vh'
             style={{
                 minWidth: '100%',
-                background: 'linear-gradient(to right, var(--colour-primary-gradient), var(--colour-secondary-gradient))', 
+                minHeight: '92vh',
+                background: theme.other.primaryGradient, 
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -50,10 +52,10 @@ function Login() {
             {showFailedNotification && (
                 <Notification
                     ml='1%'
-                    color='var(--colour-primary-gradient)'
+                    color={theme.colors.mediumGrey[0]}
                     mr='1%'
                     style={{
-                        backgroundColor: 'var(--colour-primary)',
+                        backgroundColor: theme.colors.brandGreen[0],
                         fontWeight: 'bold',
                         position: 'absolute',
                         top: '14%',
@@ -67,7 +69,9 @@ function Login() {
 
 
             <div 
-                className={isSmallScreen ? ('login-form-mobile light-grey'):('login-form light-grey')}>
+                className={isSmallScreen ? ('login-form-mobile'):('login-form')}
+                style={{backgroundColor: theme.colors.darkGrey[0]}}
+                >
                 <Input 
                     placeholder="Username" 
                     value={username} 
@@ -96,8 +100,8 @@ function Login() {
                         />
                     
                         <Button 
-                            c='var(--colour-primary)'
-                            styles={{ label: { color: 'var(--colour-primary-gradient)' } }}
+                            c={theme.colors.brandGreen[0]}
+                            styles={{ label: { color: theme.colors.mediumGrey[0]} }}
                             mt='5%'
                             size='xl'
                             fullWidth
@@ -113,7 +117,7 @@ function Login() {
                             size='xl'
                             variant="light"
                             fullWidth
-                            color="green" 
+                            color="green"
                             disabled={currentUser != null}
                             onClick={handleNotSigningUp}
                         >
@@ -123,7 +127,7 @@ function Login() {
                 ) : (
                     <>
                         <Button 
-                            c='var(--colour-primary)'
+                            c={theme.colors.mediumGrey[0]}
                             mt='5%'
                             size='xl'
                             fullWidth
