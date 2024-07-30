@@ -16,7 +16,7 @@ function Header() {
             <Center>
 
                 <Image
-                    radius="md"
+                    radius="0"
                     h={isSmallScreen ? 50 : 100} // Example: smaller height for small screens
                     w="auto"
                     fit="contain"
