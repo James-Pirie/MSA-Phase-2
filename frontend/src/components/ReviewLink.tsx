@@ -56,7 +56,7 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
             style={{backgroundColor: theme.colors.darkGrey[0]}}               
 >
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
-                <Rating className="rating" color={theme.colors.brandGreen[0]} value={reviewById?.rating} readOnly size="xl" />
+                <Rating className="rating" color={theme.colors.ratingGreen[0]} value={reviewById?.rating} readOnly size="xl" />
 
                 {currentUser?.userId === reviewById?.userId ? (
                     <Button

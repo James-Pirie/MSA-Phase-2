@@ -86,7 +86,7 @@ function BookPageDetails() {
                         <Rating 
                             ml='5%'
                             mt='0%' 
-                            color={theme.colors.brandGreen[0]}
+                            color={theme.colors.ratingGreen[0]}
                             value={bookRatingById} 
                             readOnly 
                             size="5vw" />
@@ -119,7 +119,7 @@ function BookPageDetails() {
                     <div className='book-details-sidebar' style={{backgroundColor: theme.colors.darkGrey[0]}}>
                         <Image src={bookById?.coverImageL} width='100%' />
 
-                        <Rating mt='5%' color={theme.colors.brandGreen[0]} value={bookRatingById} readOnly size="2vw" />
+                        <Rating mt='5%' color={theme.colors.ratingGreen[0]} value={bookRatingById} readOnly size="2vw" />
 
                         <Text className='author-name' fw={600} size='1.5vw' c={theme.colors.brandGreen[0]}>
                             By {author?.authorName && author.authorName

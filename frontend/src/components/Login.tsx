@@ -132,10 +132,10 @@ function Login() {
                             size='xl'
                             fullWidth
                             variant="filled" 
-                            color="green" 
+                            color={theme.colors.brandGreen[0]} 
                             onClick={handleLogin}
                             disabled={currentUser != null}
-                            styles={{ label: { color: 'var(--colour-primary-gradient)' } }}
+                            styles={{ label: { color: theme.colors.darkGrey[0] } }}
                         >
                             Login
                         </Button>
@@ -144,7 +144,7 @@ function Login() {
                             size='xl'
                             variant="light"
                             fullWidth
-                            color="green" 
+                            color={theme.colors.brandGreen[0]} 
                             disabled={currentUser != null}
                             onClick={handleSigningUp}
                         >

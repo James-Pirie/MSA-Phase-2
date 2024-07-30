@@ -88,7 +88,7 @@ const RandomReview = () => {
                   .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                   .join(' ')}
             </Text>
-            <Rating className="rating" color={theme.colors.brandGreen[0]} value={review?.rating} readOnly size="xl" />
+            <Rating className="rating" color={theme.colors.ratingGreen[0]} value={review?.rating} readOnly size="xl" />
             <Text fw={400} size="xl" c={theme.colors.lightGrey[0]} className="book-description" lineClamp={10}>
               {review?.description}
             </Text>
@@ -116,7 +116,7 @@ const RandomReview = () => {
             />
           </Link>
           <Center>
-            <Rating className="rating" color={theme.colors.brandGreen[0]} value={review?.rating} readOnly size="16vw" />
+            <Rating className="rating" color={theme.colors.ratingGreen[0]} value={review?.rating} readOnly size="16vw" />
           </Center>
 
           <Center>
