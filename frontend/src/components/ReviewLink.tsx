@@ -3,7 +3,7 @@ import './ReviewLink.moduel.css';
 import { useReviews } from '../hooks/useReviews';
 import { useUsers } from '../hooks/useUsers';
 import { useEffect, useState } from 'react';
-import { Text, Rating, Flex, Button } from '@mantine/core';
+import { Text, Rating, Flex, Button, useMantineTheme } from '@mantine/core';
 
 import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
@@ -24,6 +24,8 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
     const [hasFetchedReview, setHasFetchedReview] = useState<boolean>(false);
     const [hasFetchedUser, setHasFetchedUser] = useState(false);
     const [isDeleted, setIsDeleted] = useState<boolean>(false); 
+
+    const theme = useMantineTheme();
 
     useEffect(() => {
         if (reviewId && !hasFetchedReview) {
@@ -49,15 +51,17 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
     if (isDeleted) return null;
 
     return (
-        <div className={isSmallScreen ? ('review-link-container-mobile light-grey'):('review-link-container light-grey')}                  
+        <div 
+            className={isSmallScreen ? ('review-link-container-mobile'):('review-link-container')}   
+            style={{backgroundColor: theme.colors.darkGrey[0]}}               
 >
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
-                <Rating className="rating" color="var(--colour-primary)" value={reviewById?.rating} readOnly size="xl" />
+                <Rating className="rating" color={theme.colors.brandGreen[0]} value={reviewById?.rating} readOnly size="xl" />
 
                 {currentUser?.userId === reviewById?.userId ? (
                     <Button
                         variant='outline'
-                        color='var(--colour-primary)'
+                        color={theme.colors.brandGreen[0]}
                         onClick={handleDelete}
                         disabled={currentUser === null}
                     >
@@ -69,13 +73,15 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                         to={`/profile/${user?.userId}`}  
                         style={{ textDecoration: 'none', color: 'inherit' }}
                     >
-                        <Text className='written-by brand-colour-fonts'>
+                        <Text 
+                            className='written-by'
+                            c={theme.colors.brandGreen[0]}>
                             Written By {user?.userName}
                         </Text>
                     </Link>
                 )}
             </Flex>
-            <Text className='lighter-grey-font'>{reviewById?.description}</Text>
+            <Text c={theme.colors.lightGrey[0]}>{reviewById?.description}</Text>
         </div>
     );
 }

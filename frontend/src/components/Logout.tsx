@@ -1,8 +1,7 @@
 // Logout.tsx
-import { Button } from '@mantine/core';
+import { Button, useMantineTheme } from '@mantine/core';
 import useAuth from '../hooks/useAuth';
 import { useResponsive } from '../hooks/useResponsive';
-import '../styles/colours.css'
 
 
 
@@ -10,6 +9,8 @@ import '../styles/colours.css'
 function Logout() {
     const { logout, authenticated, currentUser } = useAuth();
     const { isSmallScreen } = useResponsive();
+
+    const theme = useMantineTheme();
 
     const handleLogout = () => {
         logout();
@@ -19,8 +20,8 @@ function Logout() {
         <> 
             {authenticated && (
             <Button
-                color='var(--colour-primary)'
-                c='var(--colour-primary-gradient)'
+                color={theme.colors.brandGreen[0]}
+                c={theme.colors.mediumGrey[0]}
                 onClick={handleLogout} 
                 disabled={currentUser === null}
                 size={isSmallScreen? ('xs'):(undefined)}

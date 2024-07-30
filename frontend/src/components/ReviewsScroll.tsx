@@ -1,6 +1,6 @@
 import ReviewLink from './ReviewLink';
 
-import { ScrollArea  } from '@mantine/core';
+import { ScrollArea } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Review } from '../models/Review';
 

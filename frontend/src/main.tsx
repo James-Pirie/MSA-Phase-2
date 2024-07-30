@@ -1,71 +1,34 @@
-// react
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-// dependancies
-import NotFound from './components/NotFound.tsx'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import '@mantine/core/styles.css';
+import { RouterProvider } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
 
+import '@mantine/core/styles.css';
+import router from './router.tsx';
+import { ThemeProvider } from './contexts/themeContext.tsx';
+import { useTheme } from './hooks/useTheme.ts'
 
-// pages
-import HomePage from './pages/HomePage.tsx'
-import LoginPage from './pages/LoginPage.tsx'
-import ProfilePage from './pages/ProfilePage.tsx'
-import AllBooksPage from './pages/AllBooksPage.tsx'
-import WriteReviewPage from './pages/WriteReviewPage.tsx'
-import BookPage from './pages/BookPage.tsx'
+const AppContent = () => {
+  const { theme } = useTheme();
 
+  return (
+    <MantineProvider theme={theme}>
+      <RouterProvider router={router} />
+    </MantineProvider>
+  );
+};
 
-const router = createBrowserRouter([{
-  path: '/',
-  Component: () => (
-    <HomePage/>
-  ),
-  errorElement: <NotFound/>
-  },
-  {
-    path: '/login',
-    Component: () => (
-      <LoginPage/>
-    ),
-    errorElement: <NotFound/>
-  },
-  {
-    path: '/profile/:userId',
-    Component: () => (
-      <ProfilePage/>
-    ),
-    errorElement: <NotFound/>
-  },
-  {
-    path: '/books',
-    Component: () => (
-      <AllBooksPage/>
-    ),
-    errorElement: <NotFound/>
-  },
-  {
-    path: '/newreview/:bookid',
-    Component: () => (
-      <WriteReviewPage/>
-    ),
-    errorElement: <NotFound/>
-  },
-  {
-    path: '/books/:bookid',
-    Component: () => (
-      <BookPage/>
-    ),
-    errorElement: <NotFound/>
-  }
-])
+const App = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-      <MantineProvider>
-        <RouterProvider router={router}/>
-      </MantineProvider>
-    </React.StrictMode>
-)
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

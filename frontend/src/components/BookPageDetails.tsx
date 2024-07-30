@@ -5,7 +5,7 @@ import ReviewScroll from './ReviewsScroll';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useBooks } from '../hooks/useBooks';
-import { Image, Text, Container, Flex, CloseButton, Button, Rating, Stack } from '@mantine/core';
+import { Image, Text, Container, Flex, CloseButton, Button, Rating, Stack, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { useAuthors } from '../hooks/useAuthors';
 import { useReviews } from '../hooks/useReviews';
@@ -27,6 +27,8 @@ function BookPageDetails() {
     const [hasFetchedAverageRating, setHasFetchedAverageRating] = useState(false);
     const [hasFetchedAuthor, setHasFetchedAuthor] = useState(false);
     const [hasFetchedReviewsForBook, setHasFetchedReviewsForBook] = useState(false);
+
+    const theme = useMantineTheme();
 
     // get the book from the bookid param
     useEffect(() => {
@@ -64,14 +66,14 @@ function BookPageDetails() {
 
     return (
         <>
-            <div className='small-green-line brand-colour'></div>
-            <div className='title light-grey'>
+            <div className='small-green-line' style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
+            <div className='title' style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex justify='space-between' align='center'>
                     <Stack 
                         gap="0"
                         w='100%'>
                         <Text 
-                            className='brand-colour-fonts' 
+                            c={theme.colors.brandGreen[0]}
                             fw={700} 
                             size={isSmallScreen ? ('6vw'):('2.5vw')} 
                             lineClamp={1}
@@ -84,7 +86,7 @@ function BookPageDetails() {
                         <Rating 
                             ml='5%'
                             mt='0%' 
-                            color="var(--colour-primary" 
+                            color={theme.colors.brandGreen[0]}
                             value={bookRatingById} 
                             readOnly 
                             size="5vw" />
@@ -104,7 +106,7 @@ function BookPageDetails() {
                     style={{
                         minWidth: '80%',
                         minHeight: '80vh',
-                        background: 'linear-gradient(to left, var(--colour-primary-gradient), var(--colour-secondary-gradient))',
+                        background: theme.other.primaryGradient,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -114,12 +116,12 @@ function BookPageDetails() {
                 </Container>
             ):(
                 <Flex>
-                    <div className='book-details-sidebar light-grey'>
+                    <div className='book-details-sidebar' style={{backgroundColor: theme.colors.darkGrey[0]}}>
                         <Image src={bookById?.coverImageL} width='100%' />
 
-                        <Rating mt='5%' color="var(--colour-primary" value={bookRatingById} readOnly size="2vw" />
+                        <Rating mt='5%' color={theme.colors.brandGreen[0]} value={bookRatingById} readOnly size="2vw" />
 
-                        <Text className='brand-colour-fonts author-name' fw={600} size='1.5vw'>
+                        <Text className='author-name' fw={600} size='1.5vw' c={theme.colors.brandGreen[0]}>
                             By {author?.authorName && author.authorName
                                 .toLowerCase()
                                 .split(' ')
@@ -128,7 +130,7 @@ function BookPageDetails() {
                         </Text>
 
 
-                        <Text className='brand-colour-fonts author-name' fw={600} size='1.5vw'>
+                        <Text className='author-name' c={theme.colors.brandGreen[0]} fw={600} size='1.5vw'>
                             Published {bookById?.year}
                         </Text>
                     </div>
@@ -137,7 +139,7 @@ function BookPageDetails() {
                         style={{
                             minWidth: '80%',
                             minHeight: '80vh',
-                            background: 'linear-gradient(to left, var(--colour-primary-gradient), var(--colour-secondary-gradient))',
+                            background: theme.other.primaryGradient,
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -148,10 +150,10 @@ function BookPageDetails() {
                 </Flex>
             )}
 
-            <Link to={authenticated ? (`/books/${bookById?.bookId}`): ('/login')}>
+            <Link to={authenticated ? (`/newreview/${bookById?.bookId}`): ('/login')}>
                 <Button
-                    c="var(--colour-primary-gradient)"
-                    color='var(--colour-primary)'
+                    c={theme.colors.darkGrey[0]}
+                    color={theme.colors.brandGreen[0]}
                     variant="filled"
                     size="lg"
                     radius='lg'
@@ -160,7 +162,7 @@ function BookPageDetails() {
                         bottom: '2%',
                         right: '1%',
                     }}>
-                    {isSmallScreen ? ('Review Book'):('Review {bookById?.bookName}')}
+                    {isSmallScreen ? ('Review Book'):(`Review ${bookById?.bookName}`)}
                    
                 </Button>
             </Link>

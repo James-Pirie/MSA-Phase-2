@@ -3,7 +3,7 @@ import './AllBooksPageSearch.moduel.css';
 import { useBooks } from '../hooks/useBooks';
 import { useEffect, useState } from 'react';
 
-import { Autocomplete, Container, Text } from '@mantine/core';
+import { Autocomplete, Container, Text, useMantineTheme } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { useResponsive } from '../hooks/useResponsive';
 
@@ -20,6 +20,7 @@ function AllBooksPageSearch() {
     const [searchResults, setSearchResults] = useState<AutocompleteItem[]>([]);
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
     const navigate = useNavigate();
+    const theme = useMantineTheme();
     
 
     // Fetch books based on search term
@@ -69,7 +70,7 @@ function AllBooksPageSearch() {
             <Container
                 style={{
                     minWidth: '100vw',
-                    background: 'linear-gradient(to right, var(--colour-primary-gradient), var(--colour-secondary-gradient))',
+                    background: theme.other.primaryGradient,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -78,7 +79,7 @@ function AllBooksPageSearch() {
                 }}
             >
                 <Text 
-                    className='lighter-grey-font'
+                    c={theme.colors.lightGrey[0]}
                     fw={600} 
                     size={isSmallScreen ? ('5vw'): ('2.5vw')}
                     mb='1%'
