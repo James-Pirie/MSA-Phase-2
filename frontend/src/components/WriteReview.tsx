@@ -135,7 +135,7 @@ function WriteReview() {
                         </Flex>
                         <Rating 
                             className='rating-input' 
-                            color={theme.colors.brandGreen[0]}
+                            color={theme.colors.ratingGreen[0]}
                             size='xl'    
                             mb='1%'
                             onChange={(value) => setRating(value)} 

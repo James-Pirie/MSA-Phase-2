@@ -20,8 +20,8 @@ function Logout() {
         <> 
             {authenticated && (
             <Button
+                variant='outline'
                 color={theme.colors.brandGreen[0]}
-                c={theme.colors.mediumGrey[0]}
                 onClick={handleLogout} 
                 disabled={currentUser === null}
                 size={isSmallScreen? ('xs'):(undefined)}
