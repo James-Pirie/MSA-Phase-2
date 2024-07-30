@@ -81,7 +81,12 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                     </Link>
                 )}
             </Flex>
-            <Text c={theme.colors.lightGrey[0]}>{reviewById?.description}</Text>
+            <Link 
+                to={`/books/${reviewById?.bookId}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+                <Text c={theme.colors.lightGrey[0]}>{reviewById?.description}</Text>
+            </Link>
         </div>
     );
 }

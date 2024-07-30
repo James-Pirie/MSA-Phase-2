@@ -22,7 +22,6 @@ function WriteReview() {
     const [hasFetchedBook, setHasFetchedBook] = useState(false);
     const [description, setDescription] = useState('');
     const [rating, setRating] = useState<number | null>(null);
-    const [showSuccessNotification, setShowSuccessNotification] = useState(false);
     const [alreadyReviewed, setAlreadyReviewed] = useState(false);
     const [hasFetchedReviewsForUser, setHasFetchedReviewsForUser] = useState(false);
 
@@ -60,18 +59,10 @@ function WriteReview() {
         }
     }, [hasFetchedReviewsForUser, reviewsForUser]);
 
-    // notify user when review posted succesfully 
-    useEffect(() => {
-        if (reviewPosted) {
-            setShowSuccessNotification(true);
-            setTimeout(() => setShowSuccessNotification(false), 3000);
-        } 
-    }, [reviewPosted]);
-
     // post review when button clicked
     const handlePostReview = async () => {
         console.log(currentUser);
-        if (rating != null && description !== '' && bookById != null && currentUser != null) {
+        if (rating != null && description !== '' && bookById != null && currentUser != null && !reviewPosted) {
             // define review
             const newReview: Review = {
                 bookId: bookById.bookId,
@@ -88,22 +79,6 @@ function WriteReview() {
     // render page
     return (
         <>
-            {showSuccessNotification && (
-                <Notification
-                    ml='1%'
-                    color = {theme.colors.mediumGrey[0]}
-                    mr='1%'
-                    style={{
-                        backgroundColor: theme.colors.brandGreen[0],
-                        fontWeight: 'bold',
-                    }}           
-
-                    onClose={() => setShowSuccessNotification(false)}
-                >
-                    Succesfully Posted Review
-                </Notification>
-            )}
-
             {alreadyReviewed && (
             <Notification
                 ml='1%'
@@ -160,16 +135,18 @@ function WriteReview() {
                             })}
                         />
                         <Flex justify='flex-end'>
-                            <Button 
-                                onClick={handlePostReview} 
-                                mt='1%' 
-                                size='md' 
-                                variant="outline"
-                                color={theme.colors.brandGreen[0]}
-                                disabled={!authenticated || alreadyReviewed}
-                            >
-                                Post Review
-                            </Button>
+                            <Link to={`/books/${bookById?.bookId}`}>
+                                <Button 
+                                    onClick={handlePostReview} 
+                                    mt='1%' 
+                                    size='md' 
+                                    variant="outline"
+                                    color={theme.colors.brandGreen[0]}
+                                    disabled={!authenticated || alreadyReviewed}
+                                >
+                                    Post Review
+                                </Button>
+                            </Link>
                         </Flex>
                     </div>
                 </Flex>

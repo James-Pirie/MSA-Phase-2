@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUsers } from '../hooks/useUsers';
 import { useReviews } from '../hooks/useReviews';
+import useAuth from '../hooks/useAuth'
 import { useResponsive } from '../hooks/useResponsive';
 
 import ReviewScroll from './ReviewsScroll';
@@ -15,6 +16,8 @@ function UserDetails() {
     const { userId } = useParams();
     const { fetchUserById, user } = useUsers();
     const { fetchReviewsForUser, reviewsForUser } = useReviews();
+    const { currentUser } = useAuth();
+
 
     const [hasFetchedUser, setHasFetchedUser] = useState(false);
     const [hasFetchedReviewsForUser, setHasFetchedReviewsForUser] = useState(false);
@@ -53,7 +56,8 @@ function UserDetails() {
                 >
                     {user?.userName}'s Reviews
                 </Text>
-                <Logout/>
+                {user?.userId == currentUser?.userId && (<Logout/>)}
+                
             </div>
 
             <Container
