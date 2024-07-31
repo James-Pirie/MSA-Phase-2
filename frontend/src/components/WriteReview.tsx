@@ -8,10 +8,12 @@ import { useReviews } from '../hooks/useReviews';
 import useAuth from '../hooks/useAuth';
 import { Review } from '../models/Review';
 import { useParams } from 'react-router-dom';
-
+import { useResponsive } from '../hooks/useResponsive';
 
 function WriteReview() {
     const theme = useMantineTheme();
+    const { isSmallScreen } = useResponsive();
+
 
     // book id parsed in through url
     // test with example 209770
@@ -95,27 +97,34 @@ function WriteReview() {
             )}
             <div className='write-review-container' style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex>
-                    <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
-                        <Image src={bookById?.coverImageL} />
-                    </Link>
+                    {!isSmallScreen && (
+                        <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
+                            <Image src={bookById?.coverImageL} />
+                        </Link>
+                    )}
+
                     <div className='write-review-form'>
                         <Flex justify='space-between' align='center'>
-                            <Text c={theme.colors.brandGreen[0]} fw={700} size='2.5vw'>
+                            <Text c={theme.colors.brandGreen[0]} fw={700} size={isSmallScreen ? ('5vw'):('2.5vw')}>
                                 {bookById?.bookName}
                             </Text>
                             
                             <Link to={`/books/${bookById?.bookId}`} state={{ fromBackButton: true }}>
                                 <CloseButton size='xl' />
                             </Link>
+
                         </Flex>
-                        <Rating 
-                            className='rating-input' 
-                            color={theme.colors.ratingGreen[0]}
-                            size='xl'    
-                            mb='1%'
-                            onChange={(value) => setRating(value)} 
-                            readOnly={!authenticated || alreadyReviewed} 
-                        />
+
+                        {!isSmallScreen && (
+                            <Rating 
+                                className='rating-input' 
+                                color={theme.colors.ratingGreen[0]}
+                                size='xl'    
+                                mb='1%'
+                                onChange={(value) => setRating(value)} 
+                                readOnly={!authenticated || alreadyReviewed} 
+                            />
+                        )}
                         <Textarea
                             onChange={(e) => setDescription(e.target.value)} 
                             aria-label='Review Content Input'
@@ -134,7 +143,18 @@ function WriteReview() {
                                 }
                             })}
                         />
-                        <Flex justify='flex-end'>
+                        <Flex justify={isSmallScreen ? ('space-between'):('flex-end')}>
+                            {isSmallScreen && (
+                                <Rating 
+                                    className='rating-input' 
+                                    color={theme.colors.ratingGreen[0]}
+                                    size='xl'    
+                                    mb='1%'
+                                    onChange={(value) => setRating(value)} 
+                                    readOnly={!authenticated || alreadyReviewed} 
+                                />
+                            )}  
+                            
                             <Link to={`/books/${bookById?.bookId}`}>
                                 <Button 
                                     onClick={handlePostReview} 
