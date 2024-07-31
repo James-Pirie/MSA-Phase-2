@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using BCrypt.Net;
 using MSA_Phase_2.Models;
 using MSA_Phase_2.Repositories;
 using MSA_Phase_2.Services;
@@ -69,13 +70,13 @@ namespace MSA_Phase_2.Controllers
             return Ok(user);
         }
 
-        // POST: /user/authenticate
         [HttpPost("/user/authenticate")]
         public async Task<ActionResult<string>> AuthenticateUserAsync([FromBody] UserLogin loginUser)
         {
             var user = await _repository.GetUserByUsernameAsync(loginUser.UserName);
-            if (user != null){ 
-                if (loginUser.UserName == user.UserName && loginUser.Password == user.Password)
+            if (user != null)
+            {
+                if (BCrypt.Net.BCrypt.Verify(loginUser.Password, user.Password))
                 {
                     var token = _tokenService.GenerateToken(user.UserName);
                     return Ok(new { Token = token });
@@ -92,16 +93,16 @@ namespace MSA_Phase_2.Controllers
             User getUser = await _repository.GetUserByUsernameAsync(loginUser.UserName);
             
 
-            if(getUser != null){
+            if(getUser != null)
+            {
                 return BadRequest("Username Already Taken");
-
             }
 
             User newUser = new()
             {
                 UserId = 0,
                 UserName = loginUser.UserName,
-                Password = loginUser.Password
+                Password = BCrypt.Net.BCrypt.HashPassword(loginUser.Password)
             };
             await _repository.AddUserAsync(newUser);
             return Ok();

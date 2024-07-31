@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { useResponsive } from '../hooks/useResponsive';
 import { useTheme } from '../hooks/useTheme';
 
-
-
 function SubHeader() {
     const theme = useMantineTheme();
     const { authenticated, currentUser } = useAuth();
@@ -13,7 +11,15 @@ function SubHeader() {
     const { toggleTheme } = useTheme();
   
     return (
-      <header className='subheader' style={{ backgroundColor: theme.colors.darkGrey[0] }}>
+      <header
+        className='subheader'
+        style={{
+          backgroundColor: theme.colors.darkGrey[0],
+          position: 'sticky',
+          top: 0,
+          zIndex: 1000
+        }}
+      >
         <Flex
           mih={50}
           gap={isSmallScreen ? '0%' : '10%'}
