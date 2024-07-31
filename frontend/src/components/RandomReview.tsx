@@ -1,9 +1,12 @@
+// dependencies
 import { Rating, Image, Flex, Text, Center, useMantineTheme } from '@mantine/core';
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+// style
 import styles from './RandomReview.module.css';
 
+// hooks
 import { useBooks } from '../hooks/useBooks';
 import { useReviews } from '../hooks/useReviews';
 import { useAuthors } from '../hooks/useAuthors';
@@ -58,6 +61,7 @@ const RandomReview = () => {
     }
   }, [hasFetchedReview, randomReviewLoading]);
 
+  // if not on mobile
   if(!isSmallScreen){
     return (
       <div className={styles.reviewContainer} style={{backgroundColor: theme.colors.darkGrey[0]}}>
@@ -105,7 +109,7 @@ const RandomReview = () => {
       </div>
     );
   };
-
+  // mobile layout
   return(
     <div className={styles.reviewContainerMobile} style={{backgroundColor: theme.colors.darkGrey[0]}}>
           <Link to={`books/${bookById?.bookId}`}>

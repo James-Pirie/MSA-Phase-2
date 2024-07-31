@@ -1,12 +1,16 @@
+// dependencies
 import { useState } from 'react';
 import { PasswordInput, Input, Button, Container, Notification, useMantineTheme } from '@mantine/core';
+
+// hooks
 import { useResponsive } from '../hooks/useResponsive';
 import useAuth from '../hooks/useAuth'; 
 
+// style
 import styles from './Login.module.css'
 
 function Login() {
-    const { isSmallScreen } = useResponsive();
+    const { isSmallScreen } = useResponsive(); // check if on mobile
     const { login, signUp, currentUser, registerError } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,11 +19,13 @@ function Login() {
     const [showFailedNotification, setShowFailedNotification] = useState(false);
     const theme = useMantineTheme();
 
+    // login functionality
     const handleLogin = async () => {
         await login(username, password);
         setShowFailedNotification(true);
     };
 
+    // sign up functionality
     const handleSignUp = async () => {
         await signUp(username, password, confirmPassword)
         if(registerError){
@@ -27,6 +33,8 @@ function Login() {
         }
     };
 
+    // display sign up form is sign up is true
+    // otherwise login form
     const handleSigningUp = async () => {
         setSigningUp(true);
     };
@@ -36,9 +44,7 @@ function Login() {
     };
 
     return (
-
         <Container
-        
             h='91vh'
             style={{
                 minWidth: '100%',
@@ -66,7 +72,6 @@ function Login() {
                     Invalid Username or Password
                 </Notification>
             )}
-
 
             <div 
                 className={isSmallScreen ? (styles.loginFormMobile):(styles.loginForm)}

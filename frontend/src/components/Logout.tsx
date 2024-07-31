@@ -1,10 +1,9 @@
-// Logout.tsx
+// dependencies
 import { Button, useMantineTheme } from '@mantine/core';
+
+// hooks
 import useAuth from '../hooks/useAuth';
 import { useResponsive } from '../hooks/useResponsive';
-
-
-
 
 function Logout() {
     const { logout, authenticated, currentUser } = useAuth();

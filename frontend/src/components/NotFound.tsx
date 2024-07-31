@@ -1,11 +1,12 @@
+// dependencies
 import { Link } from "react-router-dom"
-import { Button, useMantineTheme, Container } from '@mantine/core';
+import { Button, useMantineTheme } from '@mantine/core';
 
 function NotFound() {
     const theme = useMantineTheme();
 
     return (
-    <Container p='5%'>
+    <div style={{backgroundColor: theme.colors.darkGrey[0], width:'100vw', height:'100vh', padding: '5%'}}>
         <h1 style={{color: theme.colors.brandGreen[0]}}>Error 404: Page Not Found</h1>
         <Link to="/">
             <Button 
@@ -15,7 +16,7 @@ function NotFound() {
                 Go Home
             </Button>
         </Link>
-    </Container>
+    </div>
     );
   }
   

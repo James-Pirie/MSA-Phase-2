@@ -1,11 +1,13 @@
+// dependencies and hooks
 import { Image, Center, Space, useMantineTheme  } from '@mantine/core';
 import { useResponsive } from '../hooks/useResponsive';
 
 
 function Header() {
-    const theme = useMantineTheme();
+    const theme = useMantineTheme(); // use themese
     const { isSmallScreen } = useResponsive();
 
+    // don't show if on mobile
     if(isSmallScreen){
         return null
     }

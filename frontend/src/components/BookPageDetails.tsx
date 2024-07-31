@@ -1,14 +1,19 @@
+// style
 import styles from './BookPageDetails.module.css';
 
+// components
 import ReviewScroll from './ReviewsScroll';
 
+// dependencies
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useBooks } from '../hooks/useBooks';
 import { Image, Text, Container, Flex, CloseButton, Button, Rating, Stack, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
+
+// hooks
 import { useAuthors } from '../hooks/useAuthors';
 import { useReviews } from '../hooks/useReviews';
+import { useBooks } from '../hooks/useBooks';
 import { useResponsive } from '../hooks/useResponsive';
 import useAuth from '../hooks/useAuth';
 
@@ -16,8 +21,12 @@ import useAuth from '../hooks/useAuth';
 function BookPageDetails() {
     // book id parsed in through url
     const { bookid } = useParams();
-    const { authenticated } = useAuth()
+    const { authenticated } = useAuth();
+
+    // convert string param to number
     const numericId = Number(bookid);
+
+    // constants
     const { fetchAuthorById, author } = useAuthors();
     const { fetchBookById, bookById, fetchBookAverageRating, bookRatingById } = useBooks();
     const { fetchReviewsForBook, reviewsForBook } = useReviews();
@@ -28,7 +37,7 @@ function BookPageDetails() {
     const [hasFetchedAuthor, setHasFetchedAuthor] = useState(false);
     const [hasFetchedReviewsForBook, setHasFetchedReviewsForBook] = useState(false);
 
-    const theme = useMantineTheme();
+    const theme = useMantineTheme(); // for theme change
 
     // get the book from the bookid param
     useEffect(() => {
@@ -55,7 +64,7 @@ function BookPageDetails() {
     }, [hasFetchedBook]);
 
 
-
+    // fetch the average rating for a book
     useEffect(() => {
         if (!hasFetchedAverageRating && bookById != null) {
             fetchBookAverageRating(bookById?.bookId)

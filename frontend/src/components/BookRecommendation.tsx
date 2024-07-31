@@ -1,24 +1,25 @@
 // BookRecommendation
 import styles from './BookRecommendation.module.css';
 
+// models
 import { Book } from '../models/Book';
 
+// dependencies
 import { Container, Image, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
+
+// hooks
 import { useResponsive } from '../hooks/useResponsive';
 
 
-
+// define props
 interface BookRecommendationProp {
     book: Book;
-
 };
 
 function BookRecommendation({book}: BookRecommendationProp) {
-    const { isSmallScreen } = useResponsive();
+    const { isSmallScreen } = useResponsive(); // for mobile
     const theme = useMantineTheme();
-
-
 
     return (
         <Container 

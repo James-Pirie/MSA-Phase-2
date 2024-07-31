@@ -1,14 +1,19 @@
+// components
 import RecommendationCollection from './RecommendationCollection';
 
+// dependencies
 import { Container, Text, useMantineTheme } from '@mantine/core';
+
+// hooks
 import { useBooks } from '../hooks/useBooks';
 import { useResponsive } from '../hooks/useResponsive';
 
 
 function AllBooksRecommendations() {
+    // constants
     const { mostReviewedBooks, highestRatedBooks } = useBooks();
     const { isSmallScreen } = useResponsive();
-    const theme = useMantineTheme();
+    const theme = useMantineTheme(); // for theme change
 
     return (
         <>
