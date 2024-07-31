@@ -1,4 +1,4 @@
-import './ReviewLink.moduel.css'; 
+import styles from './ReviewLink.module.css'; 
 
 import { useReviews } from '../hooks/useReviews';
 import { useUsers } from '../hooks/useUsers';
@@ -52,11 +52,11 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
 
     return (
         <div 
-            className={isSmallScreen ? ('review-link-container-mobile'):('review-link-container')}   
+            className={isSmallScreen ? (styles.reviewLinkContainerMobile):(styles.reviewLinkContainer)}   
             style={{backgroundColor: theme.colors.darkGrey[0]}}               
 >
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
-                <Rating className="rating" color={theme.colors.ratingGreen[0]} value={reviewById?.rating} readOnly size="xl" />
+                <Rating color={theme.colors.ratingGreen[0]} value={reviewById?.rating} readOnly size="xl" />
 
                 {currentUser?.userId === reviewById?.userId ? (
                     <Button
@@ -74,7 +74,6 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                         style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                         <Text 
-                            className='written-by'
                             c={theme.colors.brandGreen[0]}>
                             Written By {user?.userName}
                         </Text>

@@ -1,4 +1,4 @@
-import './RecommendationCollection.moduel.css';
+import styles from './RecommendationCollection.module.css';
 import BookRecommendation from './BookRecommendation';
 
 import { Flex, ScrollArea, useMantineTheme } from '@mantine/core';
@@ -17,7 +17,7 @@ const RecommendationCollection: React.FC<RecommendationCollectionProps> = ({ boo
     if (!isSmallScreen){
         return (
             <div style={{backgroundColor: theme.colors.mediumGrey[0]}}>
-                <Flex className='bookRecommendationContainer'>
+                <Flex className={styles.bookRecommendationContainer}>
                     {books.map(book => (
                         <BookRecommendation 
                             key={book.bookId}
@@ -30,8 +30,8 @@ const RecommendationCollection: React.FC<RecommendationCollectionProps> = ({ boo
     };
 
     return (
-        <ScrollArea className='light-grey' w='375px' h='100%'>
-            <Flex className='bookRecommendationContainer'>
+        <ScrollArea w='375px' h='100%'>
+            <Flex className={styles.bookRecommendationContainer}>
                 {books.map(book => (
                     <BookRecommendation 
                         key={book.bookId}

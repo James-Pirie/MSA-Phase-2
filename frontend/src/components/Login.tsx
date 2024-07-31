@@ -3,7 +3,7 @@ import { PasswordInput, Input, Button, Container, Notification, useMantineTheme 
 import { useResponsive } from '../hooks/useResponsive';
 import useAuth from '../hooks/useAuth'; 
 
-import './Login.moduel.css'
+import styles from './Login.module.css'
 
 function Login() {
     const { isSmallScreen } = useResponsive();
@@ -69,7 +69,7 @@ function Login() {
 
 
             <div 
-                className={isSmallScreen ? ('login-form-mobile'):('login-form')}
+                className={isSmallScreen ? (styles.loginFormMobile):(styles.loginForm)}
                 style={{backgroundColor: theme.colors.darkGrey[0]}}
                 >
                 <Input 

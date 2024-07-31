@@ -1,4 +1,4 @@
-import './AllBooksPageSearch.moduel.css';
+import styles from './AllBooksPageSearch.module.css';
 
 import { useBooks } from '../hooks/useBooks';
 import { useEffect, useState } from 'react';
@@ -90,7 +90,7 @@ function AllBooksPageSearch() {
                 </Text>
 
                 <Autocomplete
-                    className="search-bar"
+                    className={styles.searchBar}
                     placeholder="Books Title"
                     data={searchResults.map(item => ({
                         value: item.bookName,

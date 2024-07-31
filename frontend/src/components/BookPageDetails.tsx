@@ -1,4 +1,4 @@
-import './BookPageDetails.moduel.css';
+import styles from './BookPageDetails.module.css';
 
 import ReviewScroll from './ReviewsScroll';
 
@@ -66,8 +66,8 @@ function BookPageDetails() {
 
     return (
         <>
-            <div className='small-green-line' style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
-            <div className='title' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+            <div className={styles.smallGreenLine} style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
+            <div className={styles.title} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex justify='space-between' align='center'>
                     <Stack 
                         gap="0"
@@ -93,7 +93,7 @@ function BookPageDetails() {
                         )}
                     </Stack>
 
-                    <Link className='close-button' to='/books' state={{ fromBackButton: true }}>
+                    <Link className={styles.closeButton} to='/books' state={{ fromBackButton: true }}>
                         <CloseButton size='xl' />
                     </Link>
                 </Flex>
@@ -116,12 +116,12 @@ function BookPageDetails() {
                 </Container>
             ):(
                 <Flex>
-                    <div className='book-details-sidebar' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+                    <div className={styles.bookDetailsSidebar} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                         <Image src={bookById?.coverImageL} width='100%' />
 
                         <Rating mt='5%' color={theme.colors.ratingGreen[0]} value={bookRatingById} readOnly size="2vw" />
 
-                        <Text className='author-name' fw={600} size='1.5vw' c={theme.colors.brandGreen[0]}>
+                        <Text className={styles.authorName} fw={600} size='1.5vw' c={theme.colors.brandGreen[0]}>
                             By {author?.authorName && author.authorName
                                 .toLowerCase()
                                 .split(' ')
@@ -130,7 +130,7 @@ function BookPageDetails() {
                         </Text>
 
 
-                        <Text className='author-name' c={theme.colors.brandGreen[0]} fw={600} size='1.5vw'>
+                        <Text className={styles.authorName} c={theme.colors.brandGreen[0]} fw={600} size='1.5vw'>
                             Published {bookById?.year}
                         </Text>
                     </div>

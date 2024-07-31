@@ -2,7 +2,7 @@ import { Rating, Image, Flex, Text, Center, useMantineTheme } from '@mantine/cor
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import './RandomReview.moduel.css';
+import styles from './RandomReview.module.css';
 
 import { useBooks } from '../hooks/useBooks';
 import { useReviews } from '../hooks/useReviews';
@@ -60,27 +60,27 @@ const RandomReview = () => {
 
   if(!isSmallScreen){
     return (
-      <div className="review-container" style={{backgroundColor: theme.colors.darkGrey[0]}}>
+      <div className={styles.reviewContainer} style={{backgroundColor: theme.colors.darkGrey[0]}}>
         <Flex align="flex-start">
           <Link to={`books/${bookById?.bookId}`}>
             <Image
               radius="md"
               fit="contain"
               src={bookById?.coverImageL}
-              className="book-cover"
+              className={styles.bookCover}
             />
           </Link>
 
-          <div className="review-details">
+          <div className={styles.reviewDetails}>
             <Link 
               to={`books/${bookById?.bookId}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              <Text fw={700} size="2.5vw" c={theme.colors.brandGreen[0]} className="book-title truncate">
+              <Text fw={700} size="2.5vw" c={theme.colors.brandGreen[0]} className={`${styles.bookTitle} ${styles.truncate}`}>
                 {bookById?.bookName}
               </Text>
             </Link>
-            <Text fw={500} mt='0' size="1.3vw" c={theme.colors.lightGrey[0]} className="author-name">
+            <Text fw={500} mt='0' size="1.3vw" c={theme.colors.lightGrey[0]} className={styles.authorName}>
               By {author?.authorName &&
                 author.authorName
                   .toLowerCase()
@@ -88,15 +88,15 @@ const RandomReview = () => {
                   .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                   .join(' ')}
             </Text>
-            <Rating className="rating" color={theme.colors.ratingGreen[0]} value={review?.rating} readOnly size="xl" />
-            <Text fw={400} size="xl" c={theme.colors.lightGrey[0]} className="book-description" lineClamp={10}>
+            <Rating className={styles.rating} color={theme.colors.ratingGreen[0]} value={review?.rating} readOnly size="xl" />
+            <Text fw={400} size="xl" c={theme.colors.lightGrey[0]} className={styles.bookDescription} lineClamp={10}>
               {review?.description}
             </Text>
             <Link 
                 to={`/profile/${user?.userId}`}  
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              <Text c={theme.colors.brandGreen[0]} className="review-author">
+              <Text c={theme.colors.brandGreen[0]} className={styles.reviewAuthor}>
                 Review by: {user?.userName}
               </Text>
             </Link>
@@ -107,7 +107,7 @@ const RandomReview = () => {
   };
 
   return(
-    <div className='review-container-mobile' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+    <div className={styles.reviewContainerMobile} style={{backgroundColor: theme.colors.darkGrey[0]}}>
           <Link to={`books/${bookById?.bookId}`}>
             <Image
               radius="30px"
@@ -116,7 +116,7 @@ const RandomReview = () => {
             />
           </Link>
           <Center>
-            <Rating className="rating" color={theme.colors.ratingGreen[0]} value={review?.rating} readOnly size="16vw" />
+            <Rating className={styles.rating} color={theme.colors.ratingGreen[0]} value={review?.rating} readOnly size="16vw" />
           </Center>
 
           <Center>
@@ -127,7 +127,7 @@ const RandomReview = () => {
 
           <Text 
             c={theme.colors.brandGreen[0]} 
-            className="review-author"
+            className={styles.reviewAuthor}
             mt='2%'>
                 Review by: {user?.userName}
           </Text>

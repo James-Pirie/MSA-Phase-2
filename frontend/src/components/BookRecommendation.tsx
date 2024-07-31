@@ -1,5 +1,5 @@
 // BookRecommendation
-import './BookRecommendation.moduel.css';
+import styles from './BookRecommendation.module.css';
 
 import { Book } from '../models/Book';
 
@@ -22,7 +22,7 @@ function BookRecommendation({book}: BookRecommendationProp) {
 
     return (
         <Container 
-            className='bookRecommendationDisplay' 
+            className={styles.bookRecommendationDisplay}
             w={isSmallScreen ? ('40vw'): ('100%')}
             style={{backgroundColor: theme.colors.darkGrey[0]}}
         >

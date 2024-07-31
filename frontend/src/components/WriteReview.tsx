@@ -1,4 +1,4 @@
-import './WriteReview.moduel.css';
+import styles from './WriteReview.module.css';
 
 import { Flex, Text, Image, Textarea, Rating, CloseButton, Button, Notification, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
@@ -90,12 +90,12 @@ function WriteReview() {
                     backgroundColor: theme.colors.brandGreen[0],
                     fontWeight: 'bold',
                 }}
-                className="custom-notification" // Add custom class
+                className={styles.customNotification} 
             >
                 Already reviewed {bookById?.bookName}, delete your old review in your profile first
             </Notification>
             )}
-            <div className='write-review-container' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+            <div className={styles.writeReviewContainer} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex>
                     {!isSmallScreen && (
                         <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
@@ -103,7 +103,7 @@ function WriteReview() {
                         </Link>
                     )}
 
-                    <div className='write-review-form'>
+                    <div className={styles.writeReviewForm}>
                         <Flex justify='space-between' align='center'>
                             <Text c={theme.colors.brandGreen[0]} fw={700} size={isSmallScreen ? ('5vw'):('2.5vw')}>
                                 {bookById?.bookName}
@@ -117,7 +117,7 @@ function WriteReview() {
 
                         {!isSmallScreen && (
                             <Rating 
-                                className='rating-input' 
+                                className={styles.ratingInput}
                                 color={theme.colors.ratingGreen[0]}
                                 size='xl'    
                                 mb='1%'
@@ -146,7 +146,7 @@ function WriteReview() {
                         <Flex justify={isSmallScreen ? ('space-between'):('flex-end')}>
                             {isSmallScreen && (
                                 <Rating 
-                                    className='rating-input' 
+                                    className={styles.ratingInput}
                                     color={theme.colors.ratingGreen[0]}
                                     size='xl'    
                                     mb='1%'

@@ -1,4 +1,4 @@
-.review-link-container{
+.reviewLinkContainer{
     margin-top: 1%;
     border-radius: 30px;
     padding: 2%;
@@ -6,7 +6,7 @@
 
 }
 
-.review-link-container-mobile
+.reviewLinkContainerMobile
 {
     margin-top: 1%;
     border-radius: 30px;

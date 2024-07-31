@@ -1,4 +1,4 @@
-import './UserDetails.moduel.css'
+import styles from './UserDetails.module.css'
 
 import { Text, Container, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
@@ -42,9 +42,9 @@ function UserDetails() {
     
     return (
         <>
-            <div className='small-green-line' style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
+            <div className={styles.smallGreenLine} style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
 
-            <div className='user-details' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+            <div className={styles.userDetails} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Text 
                     fw={700} 
                     size={isSmallScreen? ('6vw'):('2.5vw')}
