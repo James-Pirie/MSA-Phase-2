@@ -11,7 +11,7 @@ const darkTheme: MantineThemeOverride = {
   },  
   other: {
     primaryGradient: 'linear-gradient(to right, #EBFBEE, #8CE99A)', 
-
+    logoSrc: 'src/assets/LogoColoured.png', 
   },
 };
 

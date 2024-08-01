@@ -18,12 +18,14 @@ export const getReviewById = async (reviewId: number): Promise<Review> => {
   };
 
 export const getReviewsForBook = async (bookId: number): Promise<Review[]> => {
+    // get all reviews for a single book
     const response = await fetch(`${apiUrl}/review/bybook/${bookId}`); 
     const data = await response.json();
     return data;
   };
 
 export const getReviewsForUser = async (userId: number): Promise<Review[]> => {
+    // get all reviews written by a user
     const response = await fetch(`${apiUrl}/review/byuser/${userId}`); 
     const data = await response.json();
     return data;
@@ -31,6 +33,7 @@ export const getReviewsForUser = async (userId: number): Promise<Review[]> => {
 
 
 export const pushReview = async (review: Review): Promise<void> => {
+    // publish a review
     try {
         const response = await fetch(`${apiUrl}/review/post`, {
             method: 'POST',
@@ -39,7 +42,6 @@ export const pushReview = async (review: Review): Promise<void> => {
             },
             body: JSON.stringify(review),
         });
-
         if (!response.ok) {
             throw new Error(`Not allowed to post review: ${response.statusText}`);
         }
@@ -49,6 +51,7 @@ export const pushReview = async (review: Review): Promise<void> => {
 };
 
 export const deleteReview = async (review: Review): Promise<void> => {
+    // delete a review
     try {
         const response = await fetch(`${apiUrl}/review/delete`, {
             method: 'DELETE',

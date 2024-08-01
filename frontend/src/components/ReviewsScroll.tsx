@@ -1,10 +1,15 @@
+// components
 import ReviewLink from './ReviewLink';
 
+// dependencies
 import { ScrollArea, Text, Center, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
+
+// models and hooks
 import { Review } from '../models/Review';
 import { useResponsive } from '../hooks/useResponsive';
 
+// take in a list of reviews
 interface ReviewScrollProps {
     reviews: Review[];
 }
@@ -13,10 +18,10 @@ function ReviewScroll({ reviews }: ReviewScrollProps) {
     const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 });
     const [visibleReviews, setVisibleReviews] = useState(8);
 
-    const theme = useMantineTheme();
-    const { isSmallScreen } = useResponsive();
+    const theme = useMantineTheme(); // theme checker
+    const { isSmallScreen } = useResponsive(); // mobile viewer checker
 
-    // update visible reviews when scroll position changes
+    // update visible reviews when scroll position changes by 200px
     useEffect(() => {
         if (scrollPosition.y >= 200) {
             setVisibleReviews((previous) => previous + 2);

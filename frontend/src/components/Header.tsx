@@ -22,7 +22,7 @@ function Header() {
                     h={isSmallScreen ? 50 : 100} // Example: smaller height for small screens
                     w="auto"
                     fit="contain"
-                    src="src/assets/images/LogoColouredDarkTheme.png"
+                    src={theme.other.logoSrc}
                 />
             </Center>
 

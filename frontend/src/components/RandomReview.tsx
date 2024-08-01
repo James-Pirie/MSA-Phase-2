@@ -26,7 +26,7 @@ const RandomReview = () => {
   const [hasFetchedUser, setHasFetchedUser] = useState(false);
   const hasFetchedReviewRef = useRef(false);
 
-  const theme = useMantineTheme();
+  const theme = useMantineTheme();  // theme checker
 
   // get a random review from the database
   useEffect(() => {
