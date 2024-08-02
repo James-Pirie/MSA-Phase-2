@@ -20,7 +20,7 @@ namespace MSA_Phase_2.Controllers
 
         }
 
-        // GET: /user/all
+        // GET: all users
         [HttpGet("/user/all")]
         public async Task<ActionResult<IEnumerable<User>>> Index()
         {
@@ -28,7 +28,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(users);
         }
 
-        // GET: /user/userId
+        // GET: get use by user id
         [HttpGet("/user/id/{userId}")]
         public async Task<ActionResult<User>> GetUserByIdAsync(int userId)
         {
@@ -36,7 +36,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(user);
         }
 
-        // POST: /user/add
+        // POST: add a user
         [HttpPost("/user/add")]
         public async Task<ActionResult> AddUserAsync([FromBody] User user)
         {
@@ -49,20 +49,7 @@ namespace MSA_Phase_2.Controllers
             return Ok();
         }
 
-        // DELETE: /user/{userId}
-        [HttpDelete("/user/id/{userId}")]
-        public async Task<ActionResult> DeleteUserAsync(int userId)
-        {
-            if (!await _repository.UserExistsAsync(userId))
-            {
-                return NotFound("User not found");
-            }
-
-            await _repository.DeleteUserAsync(userId);
-            return Ok();
-        }
-
-        // GET: /user/username
+        // GET: get a user based on username
         [HttpGet("/user/username/{username}")]
         public async Task<ActionResult<User>> GetUserByUsernameAsync(string username)
         {
@@ -70,12 +57,14 @@ namespace MSA_Phase_2.Controllers
             return Ok(user);
         }
 
+        // POST: authenticate a user based on credentials and assign user a tojen
         [HttpPost("/user/authenticate")]
         public async Task<ActionResult<string>> AuthenticateUserAsync([FromBody] UserLogin loginUser)
         {
             var user = await _repository.GetUserByUsernameAsync(loginUser.UserName);
             if (user != null)
             {
+                // verify hashed password in db with password submited by user
                 if (BCrypt.Net.BCrypt.Verify(loginUser.Password, user.Password))
                 {
                     var token = _tokenService.GenerateToken(user.UserName);
@@ -86,7 +75,7 @@ namespace MSA_Phase_2.Controllers
             return Unauthorized("Invalid Login Details");
         }
 
-        // POST: /user/register
+        // POST: register a user
         [HttpPost("/user/register")]
         public async Task<ActionResult<string>> RegisterUser([FromBody] UserLogin loginUser)
         {
@@ -109,10 +98,11 @@ namespace MSA_Phase_2.Controllers
             
         }
 
-        // POST: /user/authorize
+        // POST: verify token
         [HttpPost("/user/authorize")]
         public ActionResult VerifyToken()
         {
+            // get token from body
             var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
             if (string.IsNullOrEmpty(token))
@@ -138,7 +128,7 @@ namespace MSA_Phase_2.Controllers
             }
         }
 
-        // POST: /user/authorize/username
+        // POST: extract username from token
         [HttpPost("/user/authorize/username")]
         public ActionResult<string> GetAuthorizedUsername()
         {
@@ -149,7 +139,6 @@ namespace MSA_Phase_2.Controllers
                 return BadRequest("No Token Found");
             }
 
-            // username always equals null why?!?!?!
             var username = _tokenService.GetUsernameFromToken(token);
 
             if (username == null)

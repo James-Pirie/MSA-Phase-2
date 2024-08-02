@@ -17,7 +17,7 @@ namespace MSA_Phase_2.Controllers
 
         }
 
-        // GET: /book
+        // GET: get all books
         [HttpGet("/book/all")]
         public async Task<ActionResult<IEnumerable<Book>>> Index()
         {
@@ -25,7 +25,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(books);
         }
 
-        // GET: /book/bookId
+        // GET: get a book by a bookid
         [HttpGet("/book/{bookId}")]
         public async Task<ActionResult<Book>> GetBookByReview(int bookId)
         {
@@ -33,7 +33,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(book);
         }
 
-        // GET: /book/search/searchterm
+        // GET: books where search term like book name
         [HttpGet("/book/search/{searchTerm}")]
         public async Task<ActionResult<Book>> SearchForBook(string searchTerm)
         {
@@ -41,7 +41,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(books);
         }
 
-        // GET: /book/rating/{bookId}
+        // GET: get average rating of a book by book id
         [HttpGet("/book/rating/{bookId}")]
         public async Task<ActionResult<BookRating>> GetBookRating(int bookId)
         {
@@ -64,7 +64,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(bookRating);
         }
 
-        // GET: /book/reccomendation/mostreviewed
+        // GET: get top books by number of reviews
         [HttpGet("/book/reccomendation/mostreviewed")]
         public async Task<ActionResult<Book[]>> GetMostReviewedBooks()
         {
@@ -73,7 +73,7 @@ namespace MSA_Phase_2.Controllers
 
         }
 
-        // GET: /book/reccomendation/highestrated
+        // GET: get top books by highest rating
         [HttpGet("/book/reccomendation/highestrated")]
         public async Task<ActionResult<Book[]>> GetHighestRatedBooks()
         {

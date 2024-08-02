@@ -14,7 +14,7 @@ namespace MSA_Phase_2.Controllers
             _repository = repository;
         }
 
-        // GET: /author/all
+        // GET: all authors
         [HttpGet("/author/all")]
         public async Task<ActionResult<IEnumerable<Author>>> Index()
         {
@@ -22,7 +22,7 @@ namespace MSA_Phase_2.Controllers
             return Ok(author);
         }
 
-        // GET: /author/authorId
+        // GET: get an author by author id
         [HttpGet("/author/{authorId}")]
         public async Task<ActionResult<Author>> GetBookByReview(int authorId)
         {
