@@ -31,7 +31,7 @@ function SubHeader() {
           direction="row"
           wrap="wrap"
         >
-          <Link to="/">
+          <Link to="/"  aria-label='Link to home page'>
             <Button
               variant="subtle"
               color={theme.colors.brandGreen[0]}
@@ -43,7 +43,7 @@ function SubHeader() {
             </Button>
           </Link>
   
-          <Link to="/books">
+          <Link to="/books" aria-label='Link to books page'>
             <Button
               variant="subtle"
               color={theme.colors.brandGreen[0]}
@@ -56,7 +56,7 @@ function SubHeader() {
           </Link>
   
           {authenticated && currentUser != null ? (
-            <Link to={`/profile/${currentUser?.userId}`}>
+            <Link to={`/profile/${currentUser?.userId}`} aria-label='Link to your profile'>
               <Button
                 variant="subtle"
                 color={theme.colors.brandGreen[0]}
@@ -68,7 +68,7 @@ function SubHeader() {
               </Button>
             </Link>
           ) : (
-            <Link to="/login">
+            <Link to="/login" aria-label='Link to login page'>
               <Button
                 variant="subtle"
                 color={theme.colors.brandGreen[0]}
@@ -83,6 +83,7 @@ function SubHeader() {
   
           {!isSmallScreen && (
             <Button
+              aria-label='Change theme button'
               variant="subtle"
               color={theme.colors.brandGreen[0]}
               size="xl"

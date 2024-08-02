@@ -98,7 +98,10 @@ function WriteReview() {
             <div className={styles.writeReviewContainer} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex>
                     {!isSmallScreen && (
-                        <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
+                        <Link 
+                            aria-label={`Link to ${bookById?.bookName} page`}
+                            to={`/books/${bookById?.bookId}`} 
+                            style={{ textDecoration: 'none' }}>
                             <Image src={bookById?.coverImageL} />
                         </Link>
                     )}
@@ -109,7 +112,11 @@ function WriteReview() {
                                 {bookById?.bookName}
                             </Text>
                             
-                            <Link to={`/books/${bookById?.bookId}`} state={{ fromBackButton: true }}>
+                            <Link 
+                                to={`/books/${bookById?.bookId}`}
+                                state={{ fromBackButton: true }}
+                                aria-label={`Link to ${bookById?.bookName} page`}
+                            >
                                 <CloseButton size='xl' />
                             </Link>
 
@@ -117,6 +124,7 @@ function WriteReview() {
 
                         {!isSmallScreen && (
                             <Rating 
+                                aria-label='rate book input'
                                 className={styles.ratingInput}
                                 color={theme.colors.ratingGreen[0]}
                                 size='xl'    
@@ -146,6 +154,7 @@ function WriteReview() {
                         <Flex justify={isSmallScreen ? ('space-between'):('flex-end')}>
                             {isSmallScreen && (
                                 <Rating 
+                                    aria-label='rate book input'
                                     className={styles.ratingInput}
                                     color={theme.colors.ratingGreen[0]}
                                     size='xl'    
@@ -157,6 +166,7 @@ function WriteReview() {
                             
                             <Link to={`/books/${bookById?.bookId}`}>
                                 <Button 
+                                    aria-label='post review button'
                                     onClick={handlePostReview} 
                                     mt='1%' 
                                     size='md' 

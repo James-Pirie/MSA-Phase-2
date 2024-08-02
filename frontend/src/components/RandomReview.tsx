@@ -66,8 +66,9 @@ const RandomReview = () => {
     return (
       <div className={styles.reviewContainer} style={{backgroundColor: theme.colors.darkGrey[0]}}>
         <Flex align="flex-start">
-          <Link to={`books/${bookById?.bookId}`}>
+          <Link to={`books/${bookById?.bookId}`} aria-label={`Link to ${bookById?.bookName} page`}>
             <Image
+              alt={`${bookById?.bookName} cover image`}
               radius="md"
               fit="contain"
               src={bookById?.coverImageL}
@@ -77,6 +78,7 @@ const RandomReview = () => {
 
           <div className={styles.reviewDetails}>
             <Link 
+              aria-label={`Link to ${bookById?.bookName} page`}
               to={`books/${bookById?.bookId}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
@@ -97,6 +99,7 @@ const RandomReview = () => {
               {review?.description}
             </Text>
             <Link 
+                aria-label={`Link to user ${user?.userName}'s profile`}
                 to={`/profile/${user?.userId}`}  
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
@@ -112,8 +115,9 @@ const RandomReview = () => {
   // mobile layout
   return(
     <div className={styles.reviewContainerMobile} style={{backgroundColor: theme.colors.darkGrey[0]}}>
-          <Link to={`books/${bookById?.bookId}`}>
+          <Link to={`books/${bookById?.bookId}`} aria-label={`Link to ${bookById?.bookName} page`}>
             <Image
+              alt={`${bookById?.bookName} cover image`}
               radius="30px"
               height='480vw'
               src={bookById?.coverImageL}

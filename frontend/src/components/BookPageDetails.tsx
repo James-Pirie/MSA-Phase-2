@@ -103,7 +103,7 @@ function BookPageDetails() {
                     </Stack>
 
                     <Link className={styles.closeButton} to='/books' state={{ fromBackButton: true }}>
-                        <CloseButton size='xl' />
+                        <CloseButton size='xl' aria-label="Go to books section"/>
                     </Link>
                 </Flex>
 
@@ -161,6 +161,7 @@ function BookPageDetails() {
 
             <Link to={authenticated ? (`/newreview/${bookById?.bookId}`): ('/login')}>
                 <Button
+                    aria-label={`Write Review for ${bookById?.bookName} if logged in`}
                     c={theme.colors.darkGrey[0]}
                     color={theme.colors.brandGreen[0]}
                     variant="filled"
