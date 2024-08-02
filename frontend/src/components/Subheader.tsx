@@ -1,19 +1,28 @@
-import { Button, Flex, useMantineTheme } from '@mantine/core';
-import useAuth from '../hooks/useAuth';
+// dependencies
 import { Link } from 'react-router-dom';
+import { Button, Flex, useMantineTheme } from '@mantine/core';
+
+// hooks
+import useAuth from '../hooks/useAuth';
 import { useResponsive } from '../hooks/useResponsive';
 import { useTheme } from '../hooks/useTheme';
 
-
-
 function SubHeader() {
-    const theme = useMantineTheme();
+    const theme = useMantineTheme(); // theme checker
     const { authenticated, currentUser } = useAuth();
-    const { isSmallScreen } = useResponsive();
+    const { isSmallScreen } = useResponsive(); // mobile view checker
     const { toggleTheme } = useTheme();
   
     return (
-      <header className='subheader' style={{ backgroundColor: theme.colors.darkGrey[0] }}>
+      <header
+        className='subheader'
+        style={{
+          backgroundColor: theme.colors.darkGrey[0],
+          position: 'sticky',
+          top: 0,
+          zIndex: 1000
+        }}
+      >
         <Flex
           mih={50}
           gap={isSmallScreen ? '0%' : '10%'}

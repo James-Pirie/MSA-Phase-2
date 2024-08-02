@@ -1,9 +1,9 @@
+// dependencies and components
 import { Container, useMantineTheme } from '@mantine/core';
 import RandomReview from './RandomReview'
 
 const GradientBackground = () => {
-  const theme = useMantineTheme();
-
+  const theme = useMantineTheme(); // for theme change
 
   return (
     <Container

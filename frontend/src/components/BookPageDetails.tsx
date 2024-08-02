@@ -1,14 +1,19 @@
-import './BookPageDetails.moduel.css';
+// style
+import styles from './BookPageDetails.module.css';
 
+// components
 import ReviewScroll from './ReviewsScroll';
 
+// dependencies
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useBooks } from '../hooks/useBooks';
 import { Image, Text, Container, Flex, CloseButton, Button, Rating, Stack, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
+
+// hooks
 import { useAuthors } from '../hooks/useAuthors';
 import { useReviews } from '../hooks/useReviews';
+import { useBooks } from '../hooks/useBooks';
 import { useResponsive } from '../hooks/useResponsive';
 import useAuth from '../hooks/useAuth';
 
@@ -16,8 +21,12 @@ import useAuth from '../hooks/useAuth';
 function BookPageDetails() {
     // book id parsed in through url
     const { bookid } = useParams();
-    const { authenticated } = useAuth()
+    const { authenticated } = useAuth();
+
+    // convert string param to number
     const numericId = Number(bookid);
+
+    // constants
     const { fetchAuthorById, author } = useAuthors();
     const { fetchBookById, bookById, fetchBookAverageRating, bookRatingById } = useBooks();
     const { fetchReviewsForBook, reviewsForBook } = useReviews();
@@ -28,7 +37,7 @@ function BookPageDetails() {
     const [hasFetchedAuthor, setHasFetchedAuthor] = useState(false);
     const [hasFetchedReviewsForBook, setHasFetchedReviewsForBook] = useState(false);
 
-    const theme = useMantineTheme();
+    const theme = useMantineTheme(); // for theme change
 
     // get the book from the bookid param
     useEffect(() => {
@@ -55,7 +64,7 @@ function BookPageDetails() {
     }, [hasFetchedBook]);
 
 
-
+    // fetch the average rating for a book
     useEffect(() => {
         if (!hasFetchedAverageRating && bookById != null) {
             fetchBookAverageRating(bookById?.bookId)
@@ -66,8 +75,8 @@ function BookPageDetails() {
 
     return (
         <>
-            <div className='small-green-line' style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
-            <div className='title' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+            <div className={styles.smallGreenLine} style={{backgroundColor: theme.colors.brandGreen[0]}}></div>
+            <div className={styles.title} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex justify='space-between' align='center'>
                     <Stack 
                         gap="0"
@@ -93,7 +102,7 @@ function BookPageDetails() {
                         )}
                     </Stack>
 
-                    <Link className='close-button' to='/books' state={{ fromBackButton: true }}>
+                    <Link className={styles.closeButton} to='/books' state={{ fromBackButton: true }}>
                         <CloseButton size='xl' />
                     </Link>
                 </Flex>
@@ -116,12 +125,12 @@ function BookPageDetails() {
                 </Container>
             ):(
                 <Flex>
-                    <div className='book-details-sidebar' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+                    <div className={styles.bookDetailsSidebar} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                         <Image src={bookById?.coverImageL} width='100%' />
 
                         <Rating mt='5%' color={theme.colors.ratingGreen[0]} value={bookRatingById} readOnly size="2vw" />
 
-                        <Text className='author-name' fw={600} size='1.5vw' c={theme.colors.brandGreen[0]}>
+                        <Text className={styles.authorName} fw={600} size='1.5vw' c={theme.colors.brandGreen[0]}>
                             By {author?.authorName && author.authorName
                                 .toLowerCase()
                                 .split(' ')
@@ -130,7 +139,7 @@ function BookPageDetails() {
                         </Text>
 
 
-                        <Text className='author-name' c={theme.colors.brandGreen[0]} fw={600} size='1.5vw'>
+                        <Text className={styles.authorName} c={theme.colors.brandGreen[0]} fw={600} size='1.5vw'>
                             Published {bookById?.year}
                         </Text>
                     </div>

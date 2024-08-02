@@ -6,28 +6,31 @@ const { apiUrl } = config;
 
 export const getUsers = async (): Promise<User[]> => {
     // get all users from user table
-    const response = await fetch(`${apiUrl}/user/all`); // use the /user controller of the api to access users
+    const response = await fetch(`${apiUrl}/user/all`); 
     const data = await response.json();
     return data;
 };
 
 export const getUserById = async (userId: number): Promise<User> => {
   // get a user from user table by its id
-  const response = await fetch(`${apiUrl}/user/id/${userId}`); // use the /users controller of the api to access the user
+  const response = await fetch(`${apiUrl}/user/id/${userId}`);
   const data = await response.json();
   return data;
 };
 
 export const getUserByUsername = async (username: String): Promise<User> => {
   // get a book from user table by username
-  const response = await fetch(`${apiUrl}/user/username/${username}`); // use the /users controller of the api to access the user
+  const response = await fetch(`${apiUrl}/user/username/${username}`);
   const data = await response.json();
   return data;
 };
 
 export const registerUser = async (username :string, password: string): Promise<void> => {
+  // register a user
+  // create user object
   const newUser: UserLogin = { userName: username, password: password };
   
+  // attempt to post to database
   const response = await fetch(`${apiUrl}/user/register`, {
     method: 'POST',
     headers: {
@@ -80,6 +83,7 @@ export const verifyUser = async (token: string): Promise<boolean> => {
 };
 
 export const getCurrentUsername = async (token: string): Promise<string | null> => {
+  // find a user based on a username
   try {
     const response = await fetch(`${apiUrl}/user/authorize/username`, {
       method: 'POST',

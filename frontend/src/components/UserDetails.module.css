@@ -1,4 +1,4 @@
-.user-details {
+.userDetails {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -9,6 +9,6 @@
     padding-right: 3%;
 }
 
-.small-green-line{
+.smallGreenLine{
     height: 1px;
 }

@@ -1,4 +1,4 @@
-.book-details-sidebar{
+.bookDetailsSidebar{
     width: 20%;
     min-height: '100%';
     padding-left: 1%;
@@ -7,7 +7,7 @@
 
 }
 
-.small-green-line{
+.smallGreenLine{
     height: 1px;
 }
 
@@ -17,10 +17,10 @@
     padding-bottom: 1%;
 }
 
-.close-button{
+.closeButton{
     margin-right: 1%;
 }
 
-.author-name{
+.authorName{
     margin-top: 5%;
 }

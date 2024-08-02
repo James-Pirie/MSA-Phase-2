@@ -10,6 +10,7 @@ import { ThemeProvider } from './contexts/themeContext.tsx';
 import { useTheme } from './hooks/useTheme.ts'
 
 const AppContent = () => {
+  // set theme with hook
   const { theme } = useTheme();
 
   return (

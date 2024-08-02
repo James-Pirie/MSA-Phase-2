@@ -41,6 +41,7 @@ export const getHighestRatedBooks = async (): Promise<Book[]> => {
 }
 
 export const getBookAverageRating = async (bookId: number): Promise<BookRating> => {
+  // get the average rating of all reviews for a book
   const response = await fetch(`${apiUrl}/book/rating/${bookId}`);
   const data = await response.json();
   return data;

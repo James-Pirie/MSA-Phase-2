@@ -1,12 +1,16 @@
+// dependencies
 import { useState } from 'react';
 import { PasswordInput, Input, Button, Container, Notification, useMantineTheme } from '@mantine/core';
+
+// hooks
 import { useResponsive } from '../hooks/useResponsive';
 import useAuth from '../hooks/useAuth'; 
 
-import './Login.moduel.css'
+// style
+import styles from './Login.module.css'
 
 function Login() {
-    const { isSmallScreen } = useResponsive();
+    const { isSmallScreen } = useResponsive(); // check if on mobile
     const { login, signUp, currentUser, registerError } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,18 +19,23 @@ function Login() {
     const [showFailedNotification, setShowFailedNotification] = useState(false);
     const theme = useMantineTheme();
 
+    // login functionality
     const handleLogin = async () => {
         await login(username, password);
         setShowFailedNotification(true);
     };
 
+    // sign up functionality
     const handleSignUp = async () => {
         await signUp(username, password, confirmPassword)
         if(registerError){
             setShowFailedNotification(true)
         }
+        setSigningUp(false);
     };
 
+    // display sign up form is sign up is true
+    // otherwise login form
     const handleSigningUp = async () => {
         setSigningUp(true);
     };
@@ -36,9 +45,7 @@ function Login() {
     };
 
     return (
-
         <Container
-        
             h='91vh'
             style={{
                 minWidth: '100%',
@@ -67,9 +74,8 @@ function Login() {
                 </Notification>
             )}
 
-
             <div 
-                className={isSmallScreen ? ('login-form-mobile'):('login-form')}
+                className={isSmallScreen ? (styles.loginFormMobile):(styles.loginForm)}
                 style={{backgroundColor: theme.colors.darkGrey[0]}}
                 >
                 <Input 
@@ -100,13 +106,12 @@ function Login() {
                         />
                     
                         <Button 
-                            c={theme.colors.brandGreen[0]}
-                            styles={{ label: { color: theme.colors.mediumGrey[0]} }}
+                            c={theme.colors.darkGrey[0]}
                             mt='5%'
                             size='xl'
                             fullWidth
                             variant="filled" 
-                            color="green" 
+                            color={theme.colors.brandGreen[0]}
                             onClick={handleSignUp}
                             disabled={currentUser != null}
                         >
@@ -117,17 +122,16 @@ function Login() {
                             size='xl'
                             variant="light"
                             fullWidth
-                            color="green"
+                            color={theme.colors.brandGreen[0]}
                             disabled={currentUser != null}
                             onClick={handleNotSigningUp}
                         >
-                            Log In
+                            Login
                         </Button>
                     </>
                 ) : (
                     <>
                         <Button 
-                            c={theme.colors.mediumGrey[0]}
                             mt='5%'
                             size='xl'
                             fullWidth

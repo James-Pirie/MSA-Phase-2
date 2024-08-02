@@ -1,4 +1,6 @@
 import { MantineThemeOverride } from '@mantine/core';
+import logo from '../assets/LogoColouredDarkTheme.png';
+
 
 const darkTheme: MantineThemeOverride = {
   colors: {
@@ -11,6 +13,8 @@ const darkTheme: MantineThemeOverride = {
   },  
   other: {
     primaryGradient: 'linear-gradient(to right, #25262B, #2F7049)', 
+    logo: logo,
+
   },
 };
 

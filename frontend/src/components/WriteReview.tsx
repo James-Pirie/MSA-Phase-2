@@ -1,4 +1,4 @@
-import './WriteReview.moduel.css';
+import styles from './WriteReview.module.css';
 
 import { Flex, Text, Image, Textarea, Rating, CloseButton, Button, Notification, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
@@ -8,10 +8,12 @@ import { useReviews } from '../hooks/useReviews';
 import useAuth from '../hooks/useAuth';
 import { Review } from '../models/Review';
 import { useParams } from 'react-router-dom';
-
+import { useResponsive } from '../hooks/useResponsive';
 
 function WriteReview() {
     const theme = useMantineTheme();
+    const { isSmallScreen } = useResponsive();
+
 
     // book id parsed in through url
     // test with example 209770
@@ -22,7 +24,6 @@ function WriteReview() {
     const [hasFetchedBook, setHasFetchedBook] = useState(false);
     const [description, setDescription] = useState('');
     const [rating, setRating] = useState<number | null>(null);
-    const [showSuccessNotification, setShowSuccessNotification] = useState(false);
     const [alreadyReviewed, setAlreadyReviewed] = useState(false);
     const [hasFetchedReviewsForUser, setHasFetchedReviewsForUser] = useState(false);
 
@@ -60,18 +61,10 @@ function WriteReview() {
         }
     }, [hasFetchedReviewsForUser, reviewsForUser]);
 
-    // notify user when review posted succesfully 
-    useEffect(() => {
-        if (reviewPosted) {
-            setShowSuccessNotification(true);
-            setTimeout(() => setShowSuccessNotification(false), 3000);
-        } 
-    }, [reviewPosted]);
-
     // post review when button clicked
     const handlePostReview = async () => {
         console.log(currentUser);
-        if (rating != null && description !== '' && bookById != null && currentUser != null) {
+        if (rating != null && description !== '' && bookById != null && currentUser != null && !reviewPosted) {
             // define review
             const newReview: Review = {
                 bookId: bookById.bookId,
@@ -88,22 +81,6 @@ function WriteReview() {
     // render page
     return (
         <>
-            {showSuccessNotification && (
-                <Notification
-                    ml='1%'
-                    color = {theme.colors.mediumGrey[0]}
-                    mr='1%'
-                    style={{
-                        backgroundColor: theme.colors.brandGreen[0],
-                        fontWeight: 'bold',
-                    }}           
-
-                    onClose={() => setShowSuccessNotification(false)}
-                >
-                    Succesfully Posted Review
-                </Notification>
-            )}
-
             {alreadyReviewed && (
             <Notification
                 ml='1%'
@@ -113,34 +90,41 @@ function WriteReview() {
                     backgroundColor: theme.colors.brandGreen[0],
                     fontWeight: 'bold',
                 }}
-                className="custom-notification" // Add custom class
+                className={styles.customNotification} 
             >
                 Already reviewed {bookById?.bookName}, delete your old review in your profile first
             </Notification>
             )}
-            <div className='write-review-container' style={{backgroundColor: theme.colors.darkGrey[0]}}>
+            <div className={styles.writeReviewContainer} style={{backgroundColor: theme.colors.darkGrey[0]}}>
                 <Flex>
-                    <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
-                        <Image src={bookById?.coverImageL} />
-                    </Link>
-                    <div className='write-review-form'>
+                    {!isSmallScreen && (
+                        <Link to={`/books/${bookById?.bookId}`} style={{ textDecoration: 'none' }}>
+                            <Image src={bookById?.coverImageL} />
+                        </Link>
+                    )}
+
+                    <div className={styles.writeReviewForm}>
                         <Flex justify='space-between' align='center'>
-                            <Text c={theme.colors.brandGreen[0]} fw={700} size='2.5vw'>
+                            <Text c={theme.colors.brandGreen[0]} fw={700} size={isSmallScreen ? ('5vw'):('2.5vw')}>
                                 {bookById?.bookName}
                             </Text>
                             
                             <Link to={`/books/${bookById?.bookId}`} state={{ fromBackButton: true }}>
                                 <CloseButton size='xl' />
                             </Link>
+
                         </Flex>
-                        <Rating 
-                            className='rating-input' 
-                            color={theme.colors.ratingGreen[0]}
-                            size='xl'    
-                            mb='1%'
-                            onChange={(value) => setRating(value)} 
-                            readOnly={!authenticated || alreadyReviewed} 
-                        />
+
+                        {!isSmallScreen && (
+                            <Rating 
+                                className={styles.ratingInput}
+                                color={theme.colors.ratingGreen[0]}
+                                size='xl'    
+                                mb='1%'
+                                onChange={(value) => setRating(value)} 
+                                readOnly={!authenticated || alreadyReviewed} 
+                            />
+                        )}
                         <Textarea
                             onChange={(e) => setDescription(e.target.value)} 
                             aria-label='Review Content Input'
@@ -159,17 +143,30 @@ function WriteReview() {
                                 }
                             })}
                         />
-                        <Flex justify='flex-end'>
-                            <Button 
-                                onClick={handlePostReview} 
-                                mt='1%' 
-                                size='md' 
-                                variant="outline"
-                                color={theme.colors.brandGreen[0]}
-                                disabled={!authenticated || alreadyReviewed}
-                            >
-                                Post Review
-                            </Button>
+                        <Flex justify={isSmallScreen ? ('space-between'):('flex-end')}>
+                            {isSmallScreen && (
+                                <Rating 
+                                    className={styles.ratingInput}
+                                    color={theme.colors.ratingGreen[0]}
+                                    size='xl'    
+                                    mb='1%'
+                                    onChange={(value) => setRating(value)} 
+                                    readOnly={!authenticated || alreadyReviewed} 
+                                />
+                            )}  
+                            
+                            <Link to={`/books/${bookById?.bookId}`}>
+                                <Button 
+                                    onClick={handlePostReview} 
+                                    mt='1%' 
+                                    size='md' 
+                                    variant="outline"
+                                    color={theme.colors.brandGreen[0]}
+                                    disabled={!authenticated || alreadyReviewed}
+                                >
+                                    Post Review
+                                </Button>
+                            </Link>
                         </Flex>
                     </div>
                 </Flex>

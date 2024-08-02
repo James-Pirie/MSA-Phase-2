@@ -1,11 +1,15 @@
-import './AllBooksPageSearch.moduel.css';
+// style
+import styles from './AllBooksPageSearch.module.css';
 
+// hooks
 import { useBooks } from '../hooks/useBooks';
-import { useEffect, useState } from 'react';
+import { useResponsive } from '../hooks/useResponsive';
 
+// dependancies
+import { useEffect, useState } from 'react';
 import { Autocomplete, Container, Text, useMantineTheme } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { useResponsive } from '../hooks/useResponsive';
+
 
 // Define the type for autocomplete items
 interface AutocompleteItem {
@@ -14,13 +18,15 @@ interface AutocompleteItem {
 }
 
 function AllBooksPageSearch() {
+    // constants
     const { fetchBookBySearch, booksBySearch, searchLoading } = useBooks();
-    const { isSmallScreen } = useResponsive();
+    const { isSmallScreen } = useResponsive();  // for mobile
+
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [searchResults, setSearchResults] = useState<AutocompleteItem[]>([]);
     const [prevSearchTerm, setPrevSearchTerm] = useState<string>('');
     const navigate = useNavigate();
-    const theme = useMantineTheme();
+    const theme = useMantineTheme();  // to change theme
     
 
     // Fetch books based on search term
@@ -35,9 +41,8 @@ function AllBooksPageSearch() {
     useEffect(() => {
         if (!searchLoading && booksBySearch != null) {
             if (booksBySearch.length > 0) {
-                // Use a map to keep unique books by name
+                // Use a map to remove duplicate results
                 const uniqueBooksMap = new Map<string, AutocompleteItem>();
-                
                 booksBySearch.forEach(book => {
                     if (!uniqueBooksMap.has(book.bookName)) {
                         uniqueBooksMap.set(book.bookName, {
@@ -90,7 +95,7 @@ function AllBooksPageSearch() {
                 </Text>
 
                 <Autocomplete
-                    className="search-bar"
+                    className={styles.searchBar}
                     placeholder="Books Title"
                     data={searchResults.map(item => ({
                         value: item.bookName,
@@ -116,6 +121,5 @@ function AllBooksPageSearch() {
         </>
     );
 }
-
 
 export default AllBooksPageSearch;

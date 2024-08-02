@@ -1,4 +1,5 @@
-import './ReviewLink.moduel.css'; 
+// style
+import styles from './ReviewLink.module.css'; 
 
 import { useReviews } from '../hooks/useReviews';
 import { useUsers } from '../hooks/useUsers';
@@ -10,23 +11,25 @@ import { Link } from 'react-router-dom';
 import { deleteReview } from '../services/ReviewServices';
 import { useResponsive } from '../hooks/useResponsive';
 
-
+// take in reviewId as prop
 interface ReviewLinkProp {
     reviewId: number;
 }
 
+// 
 function ReviewLink({ reviewId }: ReviewLinkProp) {
     const { fetchReviewById, reviewById } = useReviews();
     const { fetchUserById, user } = useUsers();
-    const { currentUser } = useAuth();
-    const { isSmallScreen } = useResponsive();
+    const { currentUser } = useAuth(); // get current logged in user
+    const { isSmallScreen } = useResponsive(); // mobile checker
 
     const [hasFetchedReview, setHasFetchedReview] = useState<boolean>(false);
     const [hasFetchedUser, setHasFetchedUser] = useState(false);
     const [isDeleted, setIsDeleted] = useState<boolean>(false); 
 
-    const theme = useMantineTheme();
+    const theme = useMantineTheme(); // theme checker
 
+    // get review by reviewId param
     useEffect(() => {
         if (reviewId && !hasFetchedReview) {
             fetchReviewById(reviewId);
@@ -34,6 +37,7 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
         }
     }, [reviewId, hasFetchedReview, fetchReviewById]);
 
+    // get user who wrote review
     useEffect(() => {
         if (reviewById?.userId && !hasFetchedUser) {
             fetchUserById(reviewById.userId);
@@ -41,6 +45,7 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
         }
     }, [reviewById?.userId, hasFetchedUser, fetchUserById]);
 
+    // delete review if user who wrote it wishes
     const handleDelete = async () => {
         if (reviewById != null && reviewById.userId === currentUser?.userId) {
             await deleteReview(reviewById);
@@ -48,15 +53,16 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
         }
     };
 
+    // hide when user deletes
     if (isDeleted) return null;
 
     return (
         <div 
-            className={isSmallScreen ? ('review-link-container-mobile'):('review-link-container')}   
+            className={isSmallScreen ? (styles.reviewLinkContainerMobile):(styles.reviewLinkContainer)}   
             style={{backgroundColor: theme.colors.darkGrey[0]}}               
 >
             <Flex justify="space-between" align="center" style={{ width: '100%' }}>
-                <Rating className="rating" color={theme.colors.ratingGreen[0]} value={reviewById?.rating} readOnly size="xl" />
+                <Rating color={theme.colors.ratingGreen[0]} value={reviewById?.rating} readOnly size="xl" />
 
                 {currentUser?.userId === reviewById?.userId ? (
                     <Button
@@ -74,14 +80,18 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                         style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                         <Text 
-                            className='written-by'
                             c={theme.colors.brandGreen[0]}>
                             Written By {user?.userName}
                         </Text>
                     </Link>
                 )}
             </Flex>
-            <Text c={theme.colors.lightGrey[0]}>{reviewById?.description}</Text>
+            <Link 
+                to={`/books/${reviewById?.bookId}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+                <Text c={theme.colors.lightGrey[0]}>{reviewById?.description}</Text>
+            </Link>
         </div>
     );
 }
