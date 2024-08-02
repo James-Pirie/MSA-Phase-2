@@ -30,6 +30,7 @@ function BookRecommendation({book}: BookRecommendationProp) {
             {book && (
                 <Link to={`/books/${book?.bookId}`} aria-label={`Link to recommended book: ${book?.bookName}`}>
                     <Image 
+                        alt={`${book?.bookName} cover image`}
                         src={book.coverImageL} 
                         radius="md" 
                         height='100%'/>

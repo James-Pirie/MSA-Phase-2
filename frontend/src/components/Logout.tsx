@@ -19,6 +19,7 @@ function Logout() {
         <> 
             {authenticated && (
             <Button
+                aria-label='Log out button'
                 variant='outline'
                 color={theme.colors.brandGreen[0]}
                 onClick={handleLogout} 

@@ -23,6 +23,7 @@ function Header() {
                     w="auto"
                     fit="contain"
                     src={theme.other.logo}
+                    alt='chapter critics logo'
                 />
             </Center>
 

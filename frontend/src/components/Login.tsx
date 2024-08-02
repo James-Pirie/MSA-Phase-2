@@ -82,6 +82,7 @@ function Login() {
                 style={{backgroundColor: theme.colors.darkGrey[0]}}
                 >
                 <Input 
+                    aria-label='Username Input'
                     placeholder="Username" 
                     value={username} 
                     onChange={(e) => setUsername(e.target.value)} 
@@ -89,6 +90,7 @@ function Login() {
                     disabled={currentUser != null}
                 />
                 <PasswordInput 
+                    aria-label='Password Input'
                     mt='5%'
                     placeholder="Password" 
                     value={password} 
@@ -100,6 +102,7 @@ function Login() {
                 {signingUp ? (
                     <>
                         <PasswordInput 
+                            aria-label='Confirm Password Input'
                             mt='5%'
                             placeholder="Confirm Password" 
                             value={confirmPassword} 
@@ -109,6 +112,7 @@ function Login() {
                         />
                     
                         <Button 
+                            aria-label='Submit sign up button'
                             c={theme.colors.darkGrey[0]}
                             mt='5%'
                             size='xl'
@@ -124,6 +128,8 @@ function Login() {
                             mt='5%'
                             size='xl'
                             variant="light"
+                            aria-label='Go to login form button'
+
                             fullWidth
                             color={theme.colors.brandGreen[0]}
                             disabled={currentUser != null}
@@ -143,6 +149,7 @@ function Login() {
                             onClick={handleLogin}
                             disabled={currentUser != null}
                             styles={{ label: { color: theme.colors.darkGrey[0] } }}
+                            aria-label='Submit login button'
                         >
                             Login
                         </Button>
@@ -154,6 +161,7 @@ function Login() {
                             color={theme.colors.brandGreen[0]} 
                             disabled={currentUser != null}
                             onClick={handleSigningUp}
+                            aria-label='Go to sign up form button'
                         >
                             Sign Up
                         </Button>

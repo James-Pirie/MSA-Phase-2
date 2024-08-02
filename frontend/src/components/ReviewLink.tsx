@@ -66,6 +66,7 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
 
                 {currentUser?.userId === reviewById?.userId ? (
                     <Button
+                        aria-label={`Delete your review button`}
                         variant='outline'
                         color={theme.colors.brandGreen[0]}
                         onClick={handleDelete}
@@ -76,6 +77,7 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                     </Button>
                 ) : (
                     <Link 
+                        aria-label={`Link to ${user?.userName} profile`}
                         to={`/profile/${user?.userId}`}  
                         style={{ textDecoration: 'none', color: 'inherit' }}
                     >
@@ -87,6 +89,7 @@ function ReviewLink({ reviewId }: ReviewLinkProp) {
                 )}
             </Flex>
             <Link 
+                aria-label='link to book review is about'
                 to={`/books/${reviewById?.bookId}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >

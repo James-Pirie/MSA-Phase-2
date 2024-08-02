@@ -8,7 +8,8 @@ function NotFound() {
     return (
     <div style={{backgroundColor: theme.colors.darkGrey[0], width:'100vw', height:'100vh', padding: '5%'}}>
         <h1 style={{color: theme.colors.brandGreen[0]}}>Error 404: Page Not Found</h1>
-        <Link to="/">
+        <Link to="/" aria-label='Go to home page button'
+        >
             <Button 
                 color={theme.colors.brandGreen[0]}
                 c={theme.colors.darkGrey[0]}
