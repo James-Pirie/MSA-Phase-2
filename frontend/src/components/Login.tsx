@@ -28,10 +28,13 @@ function Login() {
     // sign up functionality
     const handleSignUp = async () => {
         await signUp(username, password, confirmPassword)
-        if(registerError){
+        if(registerError != null){
             setShowFailedNotification(true)
+            setSigningUp(true);
         }
-        setSigningUp(false);
+        else{
+            setSigningUp(false);
+        }
     };
 
     // display sign up form is sign up is true
