@@ -5,43 +5,52 @@ using MSA_Phase_2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure to listen on port 5220
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5220); // Listen on port 5220
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 // Connect to SQL Server
 builder.Services.AddDbContext<BookReviewContext>(options =>
 {
-    options.UseSqlServer("Server=100.119.116.100;Database=BookReviewDB;User Id=admin;Password=JLW54NS9XQ;TrustServerCertificate=True;");
+    options.UseSqlServer("Server=tcp:sqlchaptercritics.database.windows.net,1433;Initial Catalog=BookReviewDB;Persist Security Info=False;User ID=ChapterCriticsAdmin;Password=CD4ElnNO;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 });
 
 // Register Repositories as transient service for Repository interface
-// Create new Repository instances when associated Interface is requested
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
 builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 
-// Add token services
+// add token services
 builder.Services.AddScoped<TokenServices>();
 
-
-
+// Configure CORS to allow any localhost origin
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000", "https://chaptercritics.azurewebsites.net")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
-// Configure CORS to allow any localhost origin
-app.UseCors(options =>
-{
-    options.AllowAnyOrigin(); // Allow any origin (including localhost)
-    options.AllowAnyMethod(); // Allow any HTTP methods
-    options.AllowAnyHeader(); // Allow any headers
-});
+// use cors
+app.UseCors("AllowReactApp");
 
-// Configure the HTTP request pipeline.
+
+// configure  HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
