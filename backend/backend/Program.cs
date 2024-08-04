@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews();
 // Connect to SQL Server
 builder.Services.AddDbContext<BookReviewContext>(options =>
 {
-    options.UseSqlServer("Server=tcp:sqlchaptercritics.database.windows.net,1433;Initial Catalog=BookReviewDB;Persist Security Info=False;User ID=ChapterCriticsAdmin;Password=CD4ElnNO;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+    options.UseSqlServer("Server=tcp:sqlchaptercritics.database.windows.net,1433;Initial Catalog=BookReviewDB;Persist Security Info=False;User ID=ChapterCriticsAdmin;Password=CD4ElnNO;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
 });
 
 // Register Repositories as transient service for Repository interface
