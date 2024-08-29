@@ -7,7 +7,7 @@
 
 <hr>
 
-### Azure Link
+### Azure Link (depreciated)
 - App is deployed live to azure [here](https://chaptercritics.azurewebsites.net/) 
 
 <hr>
@@ -21,6 +21,8 @@
 <hr>
 
 #### Run Backend
+
+Note: Azure sql server now depreciated, refer to python scripts in data_population to populate database created from backend.
 
 ##### 1. In a New Terminal Enter Backend
 ```
