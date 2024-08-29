@@ -22,7 +22,7 @@
 
 #### Run Backend
 
-Note: Azure sql server now depreciated, refer to python scripts in data_population to populate database created from backend.
+Note: Azure sql server now depreciated, refer to python scripts in data_population to populate database created from backend. Will need to setup your own database and change the connection string in backend.
 
 ##### 1. In a New Terminal Enter Backend
 ```
