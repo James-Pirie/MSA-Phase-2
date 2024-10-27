@@ -7,7 +7,7 @@
 
 <hr>
 
-### Azure Link (depreciated)
+### Azure Link (deprecated)
 - App is deployed live to azure [here](https://chaptercritics.azurewebsites.net/) 
 
 <hr>
